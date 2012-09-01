@@ -80,3 +80,5 @@ export LESS="-iMFXR"
 # allow ctrl-S for history navigation (with ctrl-R)
 stty -ixon
 
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

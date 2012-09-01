@@ -29,20 +29,16 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-flow debian dircycle screen svn python django knife)
+plugins=(git git-flow debian dircycle screen svn python django)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/home/max/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/bin:$HOME/bin
+export PATH=/home/max/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/bin:/home/max/bin
 
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
 export TERM="xterm-256color"
-export EDITOR=vim
-export SVN_EDITOR=vim
-export GIT_EDITOR=vim
-export MYSQL_PS1="\\d@\\h> "
 
 alias svnd='svn diff --diff-cmd diff -x -wu'
 alias :e='vim'
@@ -51,6 +47,24 @@ alias fsvn='find . -path "*/.svn*" -prune -o -print'
 
 stty -ixon
 
+#eval $(dircolors ~/.dircolors.ansi-dark)
+
+function set_dark()
+{
+  ${HOME}/bin/gnome-terminal-colors-solarized/set_dark.sh
+  eval $(dircolors ${HOME}/bin/dircolors-solarized/dircolors.ansi-dark)
+}
+
+function set_light()
+{
+  ${HOME}/bin/gnome-terminal-colors-solarized/set_light.sh
+  eval $(dircolors ${HOME}/bin/dircolors-solarized/dircolors.ansi-light)
+}
+
 case "/$(ps -p $PPID -o comm=)" in
   */sshd) exec screen -R -d zsh;;
 esac
+
+export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
