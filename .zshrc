@@ -39,6 +39,7 @@ export PATH=/home/max/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bi
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
 export TERM="xterm-256color"
+export GREP_COLOR='2;36'
 
 alias svnd='svn diff --diff-cmd diff -x -wu'
 alias :e='vim'
