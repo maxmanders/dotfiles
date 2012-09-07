@@ -49,10 +49,9 @@ alias svnd='svn diff --diff-cmd diff -x -wu'
 alias :e='vim'
 alias gopen='gnome-open'
 alias fsvn='find . -path "*/.svn*" -prune -o -print'
+alias sshmm='ssh max@maxmanders.co.uk -t "tmux attach || tmux new"'
 
 stty -ixon
-
-#eval $(dircolors ~/.dircolors.ansi-dark)
 
 function set_dark()
 {
@@ -65,10 +64,6 @@ function set_light()
   ${HOME}/bin/gnome-terminal-colors-solarized/set_light.sh
   eval $(dircolors ${HOME}/bin/dircolors-solarized/dircolors.ansi-light)
 }
-
-case "/$(ps -p $PPID -o comm=)" in
-  */sshd) exec screen -R -d zsh;;
-esac
 
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
