@@ -32,7 +32,6 @@ ZSH_THEME="robbyrussell"
 plugins=(git git-flow debian dircycle screen svn python django)
 
 source $ZSH/oh-my-zsh.sh
-unsetopt correct_all
 
 # Customize to your needs...
 export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.rvm/bin
