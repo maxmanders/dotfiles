@@ -32,9 +32,13 @@ ZSH_THEME="robbyrussell"
 plugins=(git git-flow debian dircycle screen svn python django)
 
 source $ZSH/oh-my-zsh.sh
+unsetopt correct_all
 
 # Customize to your needs...
-export PATH=/home/max/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/bin:/home/max/bin
+export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.rvm/bin
+export EDITOR=vim
+export SVN_EDITOR=vim
+export GIT_EDITOR=vim
 
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
@@ -67,4 +71,3 @@ esac
 
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
