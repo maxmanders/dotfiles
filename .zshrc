@@ -49,7 +49,6 @@ alias svnd='svn diff --diff-cmd diff -x -wu'
 alias :e='vim'
 alias gopen='gnome-open'
 alias fsvn='find . -path "*/.svn*" -prune -o -print'
-alias sshmm='ssh max@maxmanders.co.uk -t "tmux attach || tmux new"'
 
 stty -ixon
 
