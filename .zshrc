@@ -49,6 +49,18 @@ alias :e='vim'
 alias gopen='gnome-open'
 alias fsvn='find . -path "*/.svn*" -prune -o -print'
 
+# virtualenv aliases
+alias v='workon'
+alias v.deactivate='deactivate'
+alias v.mk='mkvirtualenv --no-site-packages'
+alias v.mk_withsitepackages='mkvirtualenv'
+alias v.rm='rmvirtualenv'
+alias v.switch='workon'
+alias v.add2virtualenv='add2virtualenv'
+alias v.cdsitepackages='cdsitepackages'
+alias v.cd='cdvirtualenv'
+alias v.lssitepackages='lssitepackages'
+
 stty -ixon
 
 function set_dark()
