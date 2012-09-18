@@ -63,5 +63,14 @@ function set_light()
   eval $(dircolors ${HOME}/bin/dircolors-solarized/dircolors.ansi-light)
 }
 
-export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+kernel=`uname -s`
+case $kernel in
+    Darwin)
+        export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+    ;;
+    Linux)
+        eval $(dircolors ~/.dircolors.ansi-dark)
+    ;;
+    *) ;;
+esac
 
