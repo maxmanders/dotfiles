@@ -29,7 +29,7 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew gem github git git-flow debian dircycle screen svn python django knife osx perl pip rvm vagrant virtualenvwrapper)
+plugins=(brew gem github git git-flow debian dircycle screen svn python django osx perl pip rvm vagrant virtualenvwrapper knife)
 
 source $ZSH/oh-my-zsh.sh
 
