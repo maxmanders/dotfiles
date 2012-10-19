@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [[ "cd ~/.aws | git branch | grep $1" = *$1 ]]; then
+    cd ~/.aws && git checkout $1 | cd -
+    echo "ec2: $1!"
+else
+    echo "$1 is not a valid ec2 branch"
+fi

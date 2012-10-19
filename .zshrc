@@ -34,7 +34,7 @@ plugins=(brew gem github git git-flow debian dircycle screen svn python django o
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.rvm/bin:/usr/local/share/python
+export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.rvm/bin:/usr/local/share/python:/opt/local/bin
 export EDITOR=vim
 export SVN_EDITOR=vim
 export GIT_EDITOR=vim
@@ -85,4 +85,14 @@ case $kernel in
     ;;
     *) ;;
 esac
+
+# AWS Settings
+export AWS_HOME=~/.aws
+export EC2_HOME=$AWS_HOME/cli_tools/ec2-api-tools
+#export AWS_AUTO_SCALING_HOME=$AWS_HOME/cli_tools/as-api-tools
+export PATH=$PATH:$EC2_HOME/bin
+export EC2_PRIVATE_KEY=$AWS_HOME/pk-ec2.pem
+export EC2_CERT=$AWS_HOME/cert-ec2.pem
+export AWS_CREDENTIAL_FILE=$AWS_HOME/credentials
+export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
