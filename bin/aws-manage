@@ -1,4 +1,11 @@
-#!/bin/sh
+#!/bin/bash
+
+if [[ -z "$1" ]]; then
+    cd ~/.aws
+    git branch
+    cd -
+    exit
+fi
 
 if [[ "cd ~/.aws | git branch | grep $1" = *$1 ]]; then
     cd ~/.aws && git checkout $1 | cd -

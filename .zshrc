@@ -29,7 +29,7 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew gem github git git-flow debian dircycle screen svn python django osx perl pip rvm vagrant virtualenvwrapper knife)
+plugins=(brew gem github git git-flow debian dircycle screen svn python django osx perl pip rvm vagrant virtualenvwrapper knife rails)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -96,3 +96,4 @@ export EC2_CERT=$AWS_HOME/cert-ec2.pem
 export AWS_CREDENTIAL_FILE=$AWS_HOME/credentials
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
+unsetopt correct_all
