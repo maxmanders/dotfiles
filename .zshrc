@@ -29,12 +29,11 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew gem github git git-flow debian dircycle screen svn python django osx perl pip rvm vagrant virtualenvwrapper knife rails)
+plugins=(brew github git git-flow dircycle python django osx pip vagrant virtualenvwrapper knife ruby rails gem)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.rvm/bin:/usr/local/share/python:/opt/local/bin
 export EDITOR=vim
 export SVN_EDITOR=vim
 export GIT_EDITOR=vim
@@ -89,11 +88,21 @@ esac
 # AWS Settings
 export AWS_HOME=~/.aws
 export EC2_HOME=$AWS_HOME/cli_tools/ec2-api-tools
-#export AWS_AUTO_SCALING_HOME=$AWS_HOME/cli_tools/as-api-tools
-export PATH=$PATH:$EC2_HOME/bin
+export AWS_ELB_HOME=$AWS_HOME/cli_tools/elb-api-tools
+export AWS_CLOUDWATCH_HOME=$AWS_HOME/cli_tools/cloudwatch-api-tools
+export EC2_AMITOOL_HOME=$AWS_HOME/cli_tools/ec2-ami-tools
+export AWS_AUTO_SCALING_HOME=$AWS_HOME/cli_tools/autoscaling-api-tools
+export PATH=$PATH:$EC2_HOME/bin:$AWS_ELB_HOME/bin:$AWS_CLOUDWATCH_HOME/bin:$EC2_AMITOOL_HOME/bin:$AWS_AUTO_SCALING_HOME/bin
 export EC2_PRIVATE_KEY=$AWS_HOME/pk-ec2.pem
 export EC2_CERT=$AWS_HOME/cert-ec2.pem
 export AWS_CREDENTIAL_FILE=$AWS_HOME/credentials
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
 unsetopt correct_all
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+export PATH=$PATH:$HOME/bin:/opt/local/bin:/opt/local/sbin
+
+PATH=$PATH:/usr/local/rvm/bin # Add RVM to PATH for scripting
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
