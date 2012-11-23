@@ -1,0 +1,14 @@
+#!/bin/bash
+
+outdir=$1
+if [ -z "${outdir}" ]; then
+    outdir=/tmp/
+fi
+
+cd ${outdir}
+
+openssl genrsa -out pk-amazon.pem 2048
+openssl req -new -x509 -key pk-amazon.pem -out cert-amazon.pem -days 3650
+openssl pkcs8 -topk8 -in pk-amazon.pem -nocrypt > pk-temp.pem
+mv pk-temp.pem pk-amazon.pem
+cat cert-amazon.pem | pbcopy
