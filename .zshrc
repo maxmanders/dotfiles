@@ -5,7 +5,8 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
+ZSH_THEME="bira"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -96,13 +97,19 @@ export PATH=$PATH:$EC2_HOME/bin:$AWS_ELB_HOME/bin:$AWS_CLOUDWATCH_HOME/bin:$EC2_
 export EC2_PRIVATE_KEY=$AWS_HOME/pk-ec2.pem
 export EC2_CERT=$AWS_HOME/cert-ec2.pem
 export AWS_CREDENTIAL_FILE=$AWS_HOME/credentials
+export AWS_ACCESS_KEY=$(tail -n2 ${AWS_CREDENTIAL_FILE} | head -n1 | cut -d"=" -f2)
+export AWS_SECRET_KEY=$(tail -n1 ${AWS_CREDENTIAL_FILE} | head -n1 | cut -d"=" -f2)
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
 unsetopt correct_all
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 export PATH=$PATH:$HOME/bin:/opt/local/bin:/opt/local/sbin
 
 PATH=$PATH:/usr/local/rvm/bin # Add RVM to PATH for scripting
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+
+autoload edit-command-line
+zle -N edit-command-line
+bindkey '^Xe' edit-command-line
