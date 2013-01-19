@@ -62,6 +62,8 @@ alias v.cdsitepackages='cdsitepackages'
 alias v.cd='cdvirtualenv'
 alias v.lssitepackages='lssitepackages'
 
+alias serve='python -m SimpleHTTPServer'
+
 stty -ixon
 
 function set_dark()
