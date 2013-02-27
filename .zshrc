@@ -30,7 +30,7 @@ ZSH_THEME="bira"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew github git git-flow dircycle python django osx pip vagrant virtualenvwrapper knife ruby rails gem)
+plugins=(brew github git git-flow dircycle python django osx pip vagrant virtualenvwrapper knife ruby rails gem zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -288,3 +288,8 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 autoload edit-command-line
 zle -N edit-command-line
 bindkey '^Xe' edit-command-line
+
+cookwith() {
+    local chef_env=$1
+    export CHEF_ENV=${chef_env}
+}
