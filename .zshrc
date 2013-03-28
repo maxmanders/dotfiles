@@ -49,6 +49,7 @@ alias :e='vim'
 alias gopen='gnome-open'
 alias fsvn='find . -path "*/.svn*" -prune -o -print'
 alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
+alias h="history"
 
 # virtualenv aliases
 alias v='workon'
