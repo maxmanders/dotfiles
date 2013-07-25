@@ -1,0 +1,1 @@
+/Users/maxmanders/.virtualenvs/aws/bin/zsh_complete.sh

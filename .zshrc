@@ -34,6 +34,8 @@ plugins=(brew github git git-flow dircycle python django osx pip vagrant virtual
 
 source $ZSH/oh-my-zsh.sh
 
+set -o clobber
+
 # Customize to your needs...
 export EDITOR=vim
 export SVN_EDITOR=vim
@@ -44,15 +46,13 @@ export GIT_EDITOR=vim
 export TERM="xterm-256color"
 export GREP_COLOR='2;36'
 
-alias svnd='svn diff --diff-cmd diff -x -wu'
-alias :e='vim'
-alias gopen='gnome-open'
-alias fsvn='find . -path "*/.svn*" -prune -o -print'
 alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
 alias h="history"
+alias serve='python -m SimpleHTTPServer'
+alias l="ls -p"
 
 # virtualenv aliases
-alias v='workon'
+alias v='unset AWS_ACCESS_KEY_ID; unset AWS_SECRET_ACCESS_KEY; workon'
 alias v.deactivate='deactivate'
 alias v.mk='mkvirtualenv --no-site-packages'
 alias v.mk_withsitepackages='mkvirtualenv'
@@ -63,7 +63,6 @@ alias v.cdsitepackages='cdsitepackages'
 alias v.cd='cdvirtualenv'
 alias v.lssitepackages='lssitepackages'
 
-alias serve='python -m SimpleHTTPServer'
 
 stty -ixon
 
@@ -293,4 +292,12 @@ bindkey '^Xe' edit-command-line
 cookwith() {
     local chef_env=$1
     export CHEF_ENV=${chef_env}
+}
+
+hgrep() {
+    history | grep $1
+}
+
+getip() {
+    wget -qO- icanhazip.com
 }
