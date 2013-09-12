@@ -34,14 +34,15 @@ plugins=(brew github git git-flow dircycle python django osx pip vagrant virtual
 
 source $ZSH/oh-my-zsh.sh
 
+# Allow clobbering of files with I/O redirection.
 set -o clobber
 
-# Customize to your needs...
+# Set default editors.
 export EDITOR=vim
 export SVN_EDITOR=vim
 export GIT_EDITOR=vim
 
-[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+export LESSOPEN='| /opt/local/bin/lesspipe.sh %s'
 
 export TERM="xterm-256color"
 export GREP_COLOR='2;36'
@@ -121,4 +122,41 @@ hgrep() {
 
 getip() {
     wget -qO- icanhazip.com
+}
+
+aws-manage() {
+    export EC2_HOME=~/.aws-tools
+
+    if [ "$1" = "off" ]; then
+        unset EC2_ACCESS_KEY
+        unset EC2_SECRET_KEY
+        unset EC2_CERT
+        unset EC2_PRIVATE_KEY
+        unset EC2_PRIVATE_KEY
+        unset EC2_CERT
+        cd $EC2_HOME && git checkout master | cd -
+        unset EC2_HOME
+        echo "ec2: off!"
+    else
+        if [[ -z "$1" ]]; then
+            cd $EC2_HOME
+            git branch
+            cd -
+            return
+        fi
+
+        if [[ "cd $EC2_HOME | git branch | grep $1" = *$1 ]]; then
+            cd $EC2_HOME && git checkout $1 | cd -
+            echo "ec2: $1!"
+        else
+            echo "$1 is not a valid ec2 branch"
+        fi
+
+        export PATH=$PATH:$EC2_HOME/bin
+        export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
+        export EC2_ACCESS_KEY=$(head -n1 $EC2_HOME/*.credentials | cut -d"=" -f2)
+        export EC2_SECRET_KEY=$(tail -n1 $EC2_HOME/*.credentials | cut -d"=" -f2)
+        export EC2_PRIVATE_KEY=$(ls $EC2_HOME/*.pk.pem)
+        export EC2_CERT=$(ls $EC2_HOME/*.cert.pem)
+    fi
 }
