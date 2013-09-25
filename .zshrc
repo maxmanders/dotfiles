@@ -47,10 +47,21 @@ export LESSOPEN='| /opt/local/bin/lesspipe.sh %s'
 export TERM="xterm-256color"
 export GREP_COLOR='2;36'
 
-alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
 alias h="history"
 alias serve='python -m SimpleHTTPServer'
 alias l="ls -p"
+
+man() {
+    env \
+        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+        LESS_TERMCAP_md=$(printf "\e[1;31m") \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[1;32m") \
+            man "$@"
+}
 
 # virtualenv aliases
 alias v='unset AWS_ACCESS_KEY_ID; unset AWS_SECRET_ACCESS_KEY; workon'
