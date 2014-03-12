@@ -112,7 +112,7 @@ export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
 unsetopt correct_all
 
-export PATH=$PATH:$HOME/bin:/opt/local/bin:/opt/local/sbin
+export PATH=$PATH:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin
 
 PATH=$PATH:/usr/local/rvm/bin # Add RVM to PATH for scripting
 
@@ -123,6 +123,9 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey '^Xe' edit-command-line
 
+bindkey '^U' backward-kill-line
+bindkey '^Y' yank
+
 cookwith() {
     rvm use ruby-1.9.3@chef
     local chef_env=$1
@@ -130,8 +133,12 @@ cookwith() {
     cd ~/chef/${chef_env}
 }
 
+kitchens() {
+    ls -1A ~/.chef | grep -vi knife
+}
+
 hgrep() {
-    history | grep $1
+    history | grep -i $1
 }
 
 getip() {
@@ -175,3 +182,4 @@ aws-manage() {
     fi
 }
 
+export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
