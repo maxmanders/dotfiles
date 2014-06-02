@@ -30,7 +30,7 @@ ZSH_THEME="bira"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(aws brew github git git-flow dircycle python django osx pip vagrant virtualenv knife ruby rails gem zsh-syntax-highlighting heroku rvm ssh-agent urltools web-search)
+plugins=(aws brew github git git-flow dircycle python django osx pip vagrant virtualenv knife ruby rails gem zsh-syntax-highlighting heroku rbenv ssh-agent urltools web-search)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -51,6 +51,7 @@ alias h="history"
 alias serve='python -m SimpleHTTPServer'
 alias l="ls -p"
 alias mkdir="mkdir -p"
+alias gam="cd /usr/local/gam; python gam.py"
 
 man() {
     env \
@@ -112,12 +113,7 @@ export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
 unsetopt correct_all
 
-export PATH=$PATH:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin
-
-PATH=$PATH:/usr/local/rvm/bin # Add RVM to PATH for scripting
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
+export PATH=$PATH:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam
 
 autoload edit-command-line
 zle -N edit-command-line
@@ -127,7 +123,6 @@ bindkey '^U' backward-kill-line
 bindkey '^Y' yank
 
 cookwith() {
-    rvm use ruby-1.9.3@chef
     local chef_env=$1
     export CHEF_ENV=${chef_env}
     cd ~/chef/${chef_env}
@@ -206,3 +201,4 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
+eval "$(rbenv init -)"
