@@ -42,7 +42,7 @@ export EDITOR=vim
 export SVN_EDITOR=vim
 export GIT_EDITOR=vim
 
-export LESSOPEN='| /opt/local/bin/lesspipe.sh %s'
+export LESSOPEN='| /usr/local/bin/lesspipe.sh %s'
 
 export TERM="xterm-256color"
 export GREP_COLOR='2;36'
@@ -107,13 +107,12 @@ esac
 
 # AWS Settings
 export AWS_CONFIG_FILE=${HOME}/.awsconfig
-source $HOME/bin/aws_zsh_completer.sh
 
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
 unsetopt correct_all
 
-export PATH=$PATH:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam
+export PATH=$PATH:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam:/usr/local/bin/
 
 autoload edit-command-line
 zle -N edit-command-line
@@ -136,8 +135,8 @@ hgrep() {
     history | grep -i $1
 }
 
-getip() {
-    wget -qO- icanhazip.com
+checkip() {
+    wget -qO- checkip.amazonaws.com
 }
 
 aws-manage() {
