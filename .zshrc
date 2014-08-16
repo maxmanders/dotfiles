@@ -135,7 +135,7 @@ hgrep() {
     history | grep -i $1
 }
 
-checkip() {
+getip() {
     wget -qO- checkip.amazonaws.com
 }
 
