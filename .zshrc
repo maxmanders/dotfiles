@@ -30,7 +30,7 @@ ZSH_THEME="bira"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew github git git-flow dircycle python django osx pip vagrant virtualenv knife ruby rails gem zsh-syntax-highlighting heroku rbenv ssh-agent urltools web-search)
+plugins=(aws brew colorize colored-man tmux tmuxinator github git git-flow dircycle python django osx pip vagrant virtualenv knife ruby rails gem zsh-syntax-highlighting heroku rbenv ssh-agent urltools web-search)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -112,7 +112,7 @@ export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
 unsetopt correct_all
 
-export PATH=$PATH:/usr/local/bin:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam:/usr/local/bin/
+export PATH=$PATH:/usr/local/bin:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam:/usr/local/bin/:/usr/local/google_appengine/
 
 autoload edit-command-line
 zle -N edit-command-line
@@ -177,6 +177,7 @@ aws-manage() {
 }
 
 export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
+export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 eval "$(rbenv init -)"
 
