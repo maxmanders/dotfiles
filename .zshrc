@@ -30,7 +30,7 @@ ZSH_THEME="bira"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(aws brew colorize colored-man tmux tmuxinator github git git-flow dircycle python django osx pip vagrant virtualenv knife ruby rails gem zsh-syntax-highlighting heroku rbenv ssh-agent urltools web-search)
+plugins=(aws brew colorize colored-man tmux tmuxinator github git git-flow dircycle python django osx pip vagrant virtualenv knife ruby rails gem zsh-syntax-highlighting heroku rvm ssh-agent urltools web-search zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -42,11 +42,14 @@ export EDITOR=vim
 export SVN_EDITOR=vim
 export GIT_EDITOR=vim
 
-export LESSOPEN='| /usr/local/bin/lesspipe.sh %s'
+LESSPIPE=`which src-hilite-lesspipe.sh`
+export LESSOPEN="| ${LESSPIPE} %s"
+export LESS='-R'
 
 export TERM="xterm-256color"
 export GREP_COLOR='2;36'
 
+alias rake="noglob rake"
 alias h="history"
 alias serve='python -m SimpleHTTPServer'
 alias l="ls -p"
@@ -179,5 +182,6 @@ aws-manage() {
 export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 
-eval "$(rbenv init -)"
+#eval "$(chef shell-init zsh)"
 
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
