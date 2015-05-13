@@ -30,7 +30,7 @@ ZSH_THEME="bira"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(aws brew colorize colored-man tmux tmuxinator github git git-flow dircycle python django osx pip vagrant virtualenv knife ruby rails gem zsh-syntax-highlighting heroku rvm ssh-agent urltools web-search zsh-syntax-highlighting)
+plugins=(aws brew colorize colored-man github git git-flow dircycle python django osx pip vagrant virtualenv knife ruby rails gem zsh-syntax-highlighting heroku rvm ssh-agent urltools web-search zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -79,7 +79,6 @@ alias v.add2virtualenv='add2virtualenv'
 alias v.cdsitepackages='cdsitepackages'
 alias v.cd='cdvirtualenv'
 alias v.lssitepackages='lssitepackages'
-
 
 stty -ixon
 
@@ -138,8 +137,18 @@ hgrep() {
     history | grep -i $1
 }
 
+gamfor() {
+    cd /usr/local/gam
+    export OAUTHFILE="${1}.txt"
+}
+
 getip() {
     wget -qO- checkip.amazonaws.com
+}
+
+getlocalip()
+{
+    networksetup -getinfo Wi-Fi
 }
 
 aws-manage() {
@@ -185,3 +194,4 @@ export PYTHONSTARTUP=$HOME/.pythonrc.py
 #eval "$(chef shell-init zsh)"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+eval "$(chef shell-init zsh)"
