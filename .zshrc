@@ -71,18 +71,6 @@ man() {
             man "$@"
 }
 
-# virtualenv aliases
-alias v='unset AWS_ACCESS_KEY_ID; unset AWS_SECRET_ACCESS_KEY; workon'
-alias v.deactivate='deactivate'
-alias v.mk='mkvirtualenv --no-site-packages'
-alias v.mk_withsitepackages='mkvirtualenv'
-alias v.rm='rmvirtualenv'
-alias v.switch='workon'
-alias v.add2virtualenv='add2virtualenv'
-alias v.cdsitepackages='cdsitepackages'
-alias v.cd='cdvirtualenv'
-alias v.lssitepackages='lssitepackages'
-
 stty -ixon
 
 function set_dark()
@@ -123,6 +111,14 @@ bindkey '^Xe' edit-command-line
 bindkey '^U' backward-kill-line
 bindkey '^Y' yank
 
+# SSH AutoCompleter
+if [[ -r ~/.ssh/known_hosts ]]
+then
+    _known_hosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
+fi
+_known_hosts+=("${(f)$(dig axfr east.fdbox.net @dns-1.east.fdbox.net | egrep 'IN\s(A|CNAME)' | awk '{print substr($1, 0, length($1)-1)}')}")
+zstyle ':completion:*:hosts' hosts $_known_hosts
+
 hgrep() {
     history | grep -i $1
 }
@@ -162,3 +158,5 @@ PERL_MB_OPT="--install_base \"/Users/max/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/max/perl5"; export PERL_MM_OPT;
 
 export PATH="$HOME/.rvm/bin:$PATH:/usr/local/bin:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam:/usr/local/bin/:/usr/local/google_appengine/"
+
+source /Users/max/.iterm2_shell_integration.zsh
