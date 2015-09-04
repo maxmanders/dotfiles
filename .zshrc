@@ -30,7 +30,7 @@ ZSH_THEME="bira"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(aws brew colorize colored-man github git git-flow dircycle python django osx pip vagrant virtualenv knife ruby rails gem zsh-syntax-highlighting heroku ssh-agent urltools web-search zsh-syntax-highlighting vundle tmux rvm)
+plugins=(aws brew colorize colored-man github git git-flow dircycle python django osx pip vagrant virtualenv knife ruby rails gem zsh-syntax-highlighting heroku gpg-agent ssh-agent urltools web-search zsh-syntax-highlighting vundle tmux rvm emoji)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -58,6 +58,8 @@ alias serve='python -m SimpleHTTPServer'
 alias l="ls -p"
 alias mkdir="mkdir -p"
 alias gam="cd /usr/local/gam; python gam.py"
+alias aws-fd-power="aws --profile fd-power"
+alias aws-fd-full="aws --profile fd-full"
 
 man() {
     env \
@@ -142,21 +144,28 @@ ssh_instance() {
   ssh root@${address}
 }
 
+ssh() {
+    if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
+        tmux rename-window "$(echo $* | cut -d . -f 1)"
+        command ssh "$@"
+        tmux set-window-option automatic-rename "on" 1>/dev/null
+    else
+        command ssh "$@"
+    fi
+}
+
 export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 eval "$(hub alias -s)"
 [[ -s "$HOME/.rvm/scripts/rvm"  ]] && . "$HOME/.rvm/scripts/rvm"
 
-if [ -f ~/.gpg-agent-info ]; then
-    source ~/.gpg-agent-info
-    export GPG_AGENT_INFO
-    export GPG_TTY=$(tty)
-fi
 
 PERL_MB_OPT="--install_base \"/Users/max/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/max/perl5"; export PERL_MM_OPT;
 
-export PATH="$HOME/.rvm/bin:$PATH:/usr/local/bin:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam:/usr/local/bin/:/usr/local/google_appengine/"
+export PATH="$HOME/.rvm/bin:/usr/local/bin:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam:/usr/local/bin/:$PATH"
 
 source /Users/max/.iterm2_shell_integration.zsh
+source /Users/max/.aws-mfa
+
