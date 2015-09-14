@@ -130,6 +130,10 @@ gamfor() {
     export OAUTHFILE="${1}.txt"
 }
 
+instance_id_from_name() {
+    aws ec2 describe-instances --filters "Name=tag:Name,Values=${1}*"  --output text --query 'Reservations[*].Instances[*].[InstanceId,Tags[?Key==`Name`].Value[]]'
+}
+
 getip() {
     wget -qO- checkip.amazonaws.com
 }
@@ -144,15 +148,15 @@ ssh_instance() {
   ssh root@${address}
 }
 
-ssh() {
-    if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
-        tmux rename-window "$(echo $* | cut -d . -f 1)"
-        command ssh "$@"
-        tmux set-window-option automatic-rename "on" 1>/dev/null
-    else
-        command ssh "$@"
-    fi
-}
+#ssh() {
+    #if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
+        #tmux rename-window "$(echo $* | cut -d . -f 1)"
+        #command ssh "$@"
+        #tmux set-window-option automatic-rename "on" 1>/dev/null
+    #else
+        #command ssh "$@"
+    #fi
+#}
 
 export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
 export PYTHONSTARTUP=$HOME/.pythonrc.py
