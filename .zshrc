@@ -117,12 +117,7 @@ bindkey '^U' backward-kill-line
 bindkey '^Y' yank
 
 # SSH AutoCompleter
-if [[ -r ~/.ssh/known_hosts ]]
-then
-    _known_hosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
-fi
-_known_hosts+=("${(f)$(dig axfr east.fdbox.net @dns-1.east.fdbox.net | egrep 'IN\s(A|CNAME)' | awk '{print substr($1, 0, length($1)-1)}')}")
-zstyle ':completion:*:hosts' hosts $_known_hosts
+source $HOME/.internal_hosts
 
 hgrep() {
     history | grep -i $1
