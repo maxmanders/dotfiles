@@ -160,14 +160,11 @@ export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 eval "$(hub alias -s)"
-[[ -s "$HOME/.rvm/scripts/rvm"  ]] && . "$HOME/.rvm/scripts/rvm"
-
 
 PERL_MB_OPT="--install_base \"/Users/max/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/max/perl5"; export PERL_MM_OPT;
 
-export PATH="$HOME/.rvm/bin:/usr/local/bin:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam:/usr/local/bin/:$PATH"
+source $HOME/.iterm2_shell_integration.zsh
 
-source /Users/max/.iterm2_shell_integration.zsh
-source /Users/max/.aws-mfa
-
+export PATH="/usr/local/bin:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam:/usr/local/bin/:$PATH"
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
