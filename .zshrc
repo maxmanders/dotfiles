@@ -128,8 +128,8 @@ gamfor() {
     export OAUTHFILE="${1}.txt"
 }
 
-instance_id_from_name() {
-    aws ec2 describe-instances --filters "Name=tag:Name,Values=${1}*"  --output text --query 'Reservations[*].Instances[*].[InstanceId,Tags[?Key==`Name`].Value[]]'
+instances_by_name() {
+    aws ec2 describe-instances --filter "Name=tag:Name,Values=*${1}*"  | jq  '.Reservations[].Instances[] | .InstanceId,(.Tags[] | select(.Key == "Name") | .Value)' | sed 's/"//g' | paste - -
 }
 
 getip() {
