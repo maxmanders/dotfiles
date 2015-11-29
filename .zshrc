@@ -59,6 +59,11 @@ alias mkdir="mkdir -p"
 alias gam="cd /usr/local/gam; python gam.py"
 alias aws-fd-power="aws --profile fd-power"
 alias aws-fd-full="aws --profile fd-full"
+alias aws-turbo-full="aws --profile turbo-full"
+alias ppv="puppet parser validate"
+alias est="TZ=America/New_York date"
+alias pst="TZ=Canada/Pacific date"
+alias be="bundle exec"
 
 man() {
     env \
@@ -103,7 +108,6 @@ esac
 export AWS_CONFIG_FILE=${HOME}/.awsconfig
 
 unsetopt correct_all
-
 
 autoload edit-command-line
 zle -N edit-command-line
