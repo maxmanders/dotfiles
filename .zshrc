@@ -48,7 +48,7 @@ LESSPIPE=`which src-hilite-lesspipe.sh`
 export LESSOPEN="| ${LESSPIPE} %s"
 export LESS='-R'
 
-export TERM="xterm-256color"
+export TERM="screen-256color"
 export GREP_COLOR='2;36'
 
 alias rake="noglob rake"
