@@ -61,9 +61,11 @@ alias aws-fd-power="aws --profile fd-power"
 alias aws-fd-full="aws --profile fd-full"
 alias aws-turbo-full="aws --profile turbo-full"
 alias ppv="puppet parser validate"
-alias est="TZ=America/New_York date"
-alias pst="TZ=Canada/Pacific date"
+alias time-eastern="TZ=America/New_York date"
+alias time-pacific="TZ=Canada/Pacific date"
+alias time-uk="TZ=Europe/London date"
 alias be="bundle exec"
+alias brew_upgrade="brew update && brew upgrade $(brew outdated)"
 
 man() {
     env \
