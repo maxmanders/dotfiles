@@ -134,6 +134,10 @@ instances_by_name() {
     aws ec2 describe-instances --filter "Name=tag:Name,Values=*${1}*"  | jq  '.Reservations[].Instances[] | .InstanceId,(.Tags[] | select(.Key == "Name") | .Value)' | sed 's/"//g' | paste - -
 }
 
+asg_instances() {
+    aws autoscaling describe-auto-scaling-groups --auto-scaling-group-name ${1} --output json --query "AutoScalingGroups[].Instances[].InstanceId"
+}
+
 getip() {
     wget -qO- checkip.amazonaws.com
 }
