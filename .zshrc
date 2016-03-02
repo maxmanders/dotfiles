@@ -29,7 +29,7 @@ ZSH_THEME="pygmalion"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(aws brew colorize colored-man github git git-flow dircycle python django osx pip vagrant virtualenv knife ruby rails gem zsh-syntax-highlighting heroku gpg-agent ssh-agent urltools web-search zsh-syntax-highlighting vundle tmux rvm emoji)
+plugins=(aws brew colorize colored-man github git git-flow dircycle python django osx pip vagrant virtualenv knife ruby rails gem zsh-syntax-highlighting heroku gpg-agent ssh-agent urltools web-search zsh-syntax-highlighting vundle tmux rvm emoji npm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -44,9 +44,11 @@ export GIT_EDITOR=vim
 export PKG_CONFIG_PATH="/usr/local/Cellar/imagemagick/6.9.1-4/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 export JAVA_HOME=$(/usr/libexec/java_home)
-LESSPIPE=`which src-hilite-lesspipe.sh`
-export LESSOPEN="| ${LESSPIPE} %s"
-export LESS='-R'
+
+export LESSOPEN="| source-highlight -f esc -i %s -o STDOUT"
+export LESS=" -R "
+alias less='less -m -N -g -i -J --underline-special --SILENT'
+alias more='less'
 
 export TERM="screen-256color"
 export GREP_COLOR='2;36'
@@ -58,6 +60,7 @@ alias l="ls -p"
 alias mkdir="mkdir -p"
 alias gam="cd /usr/local/gam; python gam.py"
 alias aws-fd-power="aws --profile fd-power"
+alias aws-fd-power-no-mfa="aws --profile fd-power-no-mfa"
 alias aws-fd-full="aws --profile fd-full"
 alias aws-turbo-full="aws --profile turbo-full"
 alias ppv="puppet parser validate"
@@ -80,18 +83,6 @@ man() {
 }
 
 stty -ixon
-
-function set_dark()
-{
-  ${HOME}/bin/gnome-terminal-colors-solarized/set_dark.sh
-  eval $(dircolors ${HOME}/bin/dircolors-solarized/dircolors.ansi-dark)
-}
-
-function set_light()
-{
-  ${HOME}/bin/gnome-terminal-colors-solarized/set_light.sh
-  eval $(dircolors ${HOME}/bin/dircolors-solarized/dircolors.ansi-light)
-}
 
 kernel=`uname -s`
 case $kernel in
@@ -120,39 +111,47 @@ bindkey '^Y' yank
 
 # SSH AutoCompleter
 source $HOME/.internal_hosts
+source $HOME/.krbchrome
 
-hgrep() {
+function hgrep() {
     history | grep -i $1
 }
 
-gamfor() {
-    cd /usr/local/gam
-    export OAUTHFILE="${1}.txt"
-}
-
-instances_by_name() {
+function instances_by_name() {
     aws ec2 describe-instances --filter "Name=tag:Name,Values=*${1}*"  | jq  '.Reservations[].Instances[] | .InstanceId,(.Tags[] | select(.Key == "Name") | .Value)' | sed 's/"//g' | paste - -
 }
 
-asg_instances() {
+function i() {
+    aws ec2 describe-instances --instance-id ${1} |\
+      jq -r '.Reservations[].Instances[] | "InstanceId: \(.InstanceId)", "IP Address: \(.PrivateIpAddress)", (.Tags[] | "\(.Key): \(.Value)")'
+}
+
+function asg_instances() {
     aws autoscaling describe-auto-scaling-groups --auto-scaling-group-name ${1} --output json --query "AutoScalingGroups[].Instances[].InstanceId"
 }
 
-getip() {
+function rds_instances() {
+    if [ $# -eq 1 ]; then
+        aws rds describe-db-instances --db-instance-identifier ${1} | jq '.DBInstances[] | "DBInstanceIdentifier: \(.DBInstanceIdentifier) | EndpointAddress: \(.Endpoint.Address)"'
+    else
+        aws rds describe-db-instances | jq '.DBInstances[] | "DBInstanceIdentifier: \(.DBInstanceIdentifier) | EndpointAddress: \(.Endpoint.Address)"'
+    fi
+}
+function getip() {
     wget -qO- checkip.amazonaws.com
 }
 
-getlocalip()
+function getlocalip()
 {
     networksetup -getinfo Wi-Fi
 }
 
-ssh_instance() {
+function ssh_instance() {
   address=$(aws ec2 describe-instances --instance-ids $1 | jq -r '.Reservations[].Instances[].NetworkInterfaces[].PrivateIpAddress')
-  ssh root@${address}
+  ssh rbot@${address}
 }
 
-ssh() {
+function ssh() {
     if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
         tmux rename-window "$(echo $* | cut -d . -f 1)"
         command ssh "$@"
@@ -162,7 +161,10 @@ ssh() {
     fi
 }
 
-export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
+function ne {
+   $(npm bin)/$@  
+}
+
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 eval "$(hub alias -s)"
@@ -177,3 +179,6 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 export NVM_DIR="/Users/max/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+NPM_PACKAGES=/Users/max/.npm-packages
+NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
+PATH="$NPM_PACKAGES/bin:$PATH"
