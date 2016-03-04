@@ -174,7 +174,7 @@ PERL_MM_OPT="INSTALL_BASE=/Users/max/perl5"; export PERL_MM_OPT;
 
 source $HOME/.iterm2_shell_integration.zsh
 
-export PATH="/usr/local/bin:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam:/usr/local/bin/:$PATH"
+export PATH="/usr/local/bin:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam:/usr/local/bin:$PATH"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 export NVM_DIR="/Users/max/.nvm"
