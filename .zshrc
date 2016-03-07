@@ -59,6 +59,7 @@ alias gam="cd /usr/local/gam; python gam.py"
 alias aws-fd-power="aws --profile fd-power"
 alias aws-fd-power-no-mfa="aws --profile fd-power-no-mfa"
 alias aws-fd-full="aws --profile fd-full"
+alias aws-fd-dev-full="aws --profile fd-dev-full"
 alias aws-turbo-full="aws --profile turbo-full"
 alias ppv="puppet parser validate"
 alias time-eastern="TZ=America/New_York date"
@@ -234,7 +235,7 @@ NPM_PACKAGES="${HOME}/.npm-packages"
 NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
 NPM_PATH="$NPM_PACKAGES/bin"
 
+export PATH="$HOME/.rvm/bin:${NPM_PATH}:/usr/local/bin:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam:/usr/local/bin:$PATH"
+
 # Set up RVM
 [[ -s "$HOME/.rvm/scripts/rvm"  ]] && . "$HOME/.rvm/scripts/rvm" 
-
-export PATH="$HOME/.rvm/bin:${NPM_PATH}:/usr/local/bin:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam:/usr/local/bin:$PATH"
