@@ -2,3 +2,6 @@
 .DS_Store
 vendor/bundle
 .DS_Store
+/.ruby-version
+/.ruby-gemset
+/.sfn-aws
