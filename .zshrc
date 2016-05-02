@@ -69,6 +69,7 @@ alias be="bundle exec"
 alias brew_upgrade="brew update && brew upgrade $(brew outdated)"
 alias sfn="bundle exec sfn"
 alias grep="pcregrep --color=auto"
+alias gup="gfo && ggpull"
 
 
 ################################################################################
