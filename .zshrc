@@ -1,6 +1,6 @@
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="pygmalion"
-plugins=(aws brew colorize colored-man-pages github git git-flow dircycle python django osx pip vagrant virtualenv ruby rails gem gpg-agent ssh-agent urltools web-search zsh-syntax-highlighting vundle rvm emoji npm tmux)
+plugins=(aws brew colorize colored-man-pages github git git-flow dircycle python django osx pip vagrant virtualenv ruby rails gem gpg-agent ssh-agent urltools web-search vundle rvm emoji npm tmux)
 source $ZSH/oh-my-zsh.sh
 source $HOME/.iterm2_shell_integration.zsh
 
