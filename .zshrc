@@ -240,5 +240,7 @@ NPM_PATH="$NPM_PACKAGES/bin"
 
 export PATH="$HOME/.rvm/bin:${NPM_PATH}:/usr/local/bin:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/gam:/usr/local/bin:$PATH"
 
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # Set up RVM
 [[ -s "$HOME/.rvm/scripts/rvm"  ]] && . "$HOME/.rvm/scripts/rvm" 
