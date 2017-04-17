@@ -1,7 +1,13 @@
 .gitconfig
 .DS_Store
-vendor/bundle
+/vendor/bundle
 .DS_Store
 /.ruby-version
 /.ruby-gemset
 /.sfn-aws
+/.bundle
+/Gemfile.lock
+bin/aws-switchrole
+bin/flake8
+bin/tmux-sessions
+bin/tmuxinator.zsh
