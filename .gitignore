@@ -11,3 +11,5 @@ bin/aws-switchrole
 bin/flake8
 bin/tmux-sessions
 bin/tmuxinator.zsh
+/bin/brdeploy
+/bin/shellstack
