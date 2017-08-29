@@ -11,6 +11,11 @@ zplug "plugins/gpg-agent", from:oh-my-zsh
 zplug "plugins/pip", from:oh-my-zsh
 zplug "plugins/ssh-agent", from:oh-my-zsh
 zplug "plugins/virtualenv", from:oh-my-zsh
+zplug "lib/history", from:oh-my-zsh
+zplug "lib/clipboard", from:oh-my-zsh
+zplug "lib/compfix", from:oh-my-zsh
+zplug "lib/completion", from:oh-my-zsh
+zplug "lib/key-bindings", from:oh-my-zsh
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "themes/steeef", from:oh-my-zsh, as:theme
 
