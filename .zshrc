@@ -11,12 +11,14 @@ zplug "plugins/gpg-agent", from:oh-my-zsh
 zplug "plugins/pip", from:oh-my-zsh
 zplug "plugins/ssh-agent", from:oh-my-zsh
 zplug "plugins/virtualenv", from:oh-my-zsh
-zplug "lib/history", from:oh-my-zsh
 zplug "lib/clipboard", from:oh-my-zsh
 zplug "lib/compfix", from:oh-my-zsh
 zplug "lib/completion", from:oh-my-zsh
+zplug "lib/directories", from:oh-my-zsh
+zplug "lib/history", from:oh-my-zsh
 zplug "lib/key-bindings", from:oh-my-zsh
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "supercrabtree/k"
 zplug "themes/steeef", from:oh-my-zsh, as:theme
 
 if ! zplug check; then
@@ -33,6 +35,8 @@ source $HOME/bin/tmuxinator.zsh
 
 # Don't suggest ZSH typo corrections
 unsetopt correct_all
+
+setopt interactivecomments
 
 # Edit the current command line with Ctrl-X,e
 autoload edit-command-line
@@ -56,6 +60,7 @@ set -o clobber
 ################################################################################
 export JAVA_HOME=$(/usr/libexec/java_home)
 export TERM="screen-256color"
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
 
 # Set default editors
 export EDITOR=vim
@@ -88,7 +93,7 @@ alias gam="cd /usr/local/gam; python gam.py"
 alias aws-fd-power="aws --profile fd-power"
 alias aws-fd-power-no-mfa="aws --profile fd-power-no-mfa"
 alias aws-fd-full="aws --profile fd-full"
-alias aws-fd-perftest-full="aws --profile fd-dev-full"
+alias aws-fd-perftest-full="aws --profile fd-perftest-full"
 alias aws-fd-dev-full="aws --profile fd-dev-full"
 alias aws-turbo-full="aws --profile turbo-full"
 alias aws-fd-uk-full="aws --profile fd-uk-full"
