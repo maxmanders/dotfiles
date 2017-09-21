@@ -1,18 +1,20 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+#!/bin/bash
+# ~/.bashr
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+case $- in
+	*i*) ;;
+	*) return;;
+esac
 
-# don't put duplicate lines in the history. See bash(1) for more options
+shopt -s checkwinsize
+shopt -s histappend
+shopt -s cmdhist
+
 export HISTFILESIZE=20000
 export HISTSIZE=10000
-shopt -s histappend
-# Combine multiline commands into one in historty
-shopt -s cmdhist
-export HISTCONTROL=ignoredups
-# ... and ignore same sucessive entries.
 export HISTCONTROL=ignoreboth
 
 export EDITOR=vi
@@ -22,13 +24,7 @@ export MYSQL_PS1="\\d@\\h> "
 
 export PATH=${PATH}:/usr/local/bin:~/bin
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-shopt -s histappend
-shopt -s cmdhist
 
-# make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
 PS1="[\[\033[01;32m\]\u@\h \[\033[01;31m\]\W\[\033[00m\]] $ "
@@ -47,7 +43,7 @@ esac
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
-    eval "`dircolors -b`"
+  eval "$(dircolors -b)"
     alias ls='ls --color=auto'
 fi
 
@@ -71,6 +67,7 @@ alias po='popd'
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ]; then
+    # shellcheck disable=SC1091
     . /etc/bash_completion
 fi
 
@@ -79,8 +76,3 @@ export LESS="-iMFXR"
 
 # allow ctrl-S for history navigation (with ctrl-R)
 stty -ixon
-
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
-PATH=$PATH:/usr/local/rvm/bin # Add RVM to PATH for scripting
