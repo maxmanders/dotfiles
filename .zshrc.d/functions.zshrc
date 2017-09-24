@@ -11,6 +11,7 @@
 function check_bin() {
   bin="${1}"
 
+	# shellcheck disable=SC2154
   command -v "${bin}" >/dev/null 2>&1 || \
     print -P "%{$FG[196]%}'${bin}' not installed%{$reset_color%}"
 }
@@ -42,7 +43,7 @@ check_bin wget
 #   None
 ################################################################################
 function hgrep() {
-  string=$@
+  string="${*}"
   history | ag -i "${string}"
 }
 
@@ -73,33 +74,11 @@ function instances_by_name() {
 #   None
 ################################################################################
 function i() {
-  aws ec2 describe-instances --instance-id ${1} | \
+  aws ec2 describe-instances --instance-id "${1}" | \
   jq -r ".Reservations[].Instances[] | \
             \"InstanceId: \(.InstanceId)\", \
             \"IP Address: \(.PrivateIpAddress)\", \
               (.Tags[] | \"\(.Key): \(.Value)\")"
-}
-
-################################################################################
-# Prints out the EC2 InstanceIds and PrivateIPAddresses for all instances in
-# the given Auto-Scaling Group.
-# Arguments:
-#   $1: an Auto-Scaling Group name to search for
-# Returns:
-#   None
-################################################################################
-function asg_instances() {
-  aws ec2 describe-instances --instance-ids $(
-  aws autoscaling describe-auto-scaling-groups \
-      --auto-scaling-group-name ${1} | \
-      jq ".AutoScalingGroups[].Instances[] | .InstanceId" | \
-        sed 's/"//g' | \
-        paste -) | \
-      jq ".Reservations[].Instances[] | \
-          .InstanceId, \
-          .PrivateIpAddress" | \
-      sed 's/"//g' | \
-      paste - -
 }
 
 ################################################################################
@@ -117,7 +96,7 @@ function rds_instances() {
   fi
   cmd="aws rds describe-db-instances ${param}"
 
-  eval ${cmd} | \
+  eval "${cmd}" | \
   jq ".DBInstances[] | \
       .DBInstanceIdentifier, \
       .Endpoint.Address" | \
@@ -135,7 +114,7 @@ function rds_instances() {
 #   none
 ################################################################################
 function ecwat() {
-  aws elasticache describe-replication-groups --replication-group-id $1 \
+  aws elasticache describe-replication-groups --replication-group-id "${1}" \
       --query "ReplicationGroups[].Description"
 }
 
@@ -147,7 +126,7 @@ function ecwat() {
 #   none
 ################################################################################
 function gfind() {
-  git ls-files | ag -i $1
+  git ls-files | ag -i "${1}"
 }
 
 ################################################################################
@@ -182,10 +161,10 @@ function getlocalip() {
 #   none
 ################################################################################
 function ssh_instance() {
-  address=$(aws ec2 describe-instances --instance-ids $1 | \
+  address=$(aws ec2 describe-instances --instance-ids "${1}" | \
   jq -r '.reservations[].instances[].networkinterfaces[].privateipaddress')
 
-  ssh root@${address}
+  ssh "root@${address}"
 }
 
 ################################################################################
@@ -196,8 +175,9 @@ function ssh_instance() {
 #   none
 ################################################################################
 function ssh() {
+	# shellcheck disable=SC2046
   if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
-      tmux rename-window "$(echo $* | cut -d . -f 1)"
+      tmux rename-window "$(echo "$@" | cut -d . -f 1)"
       command ssh "$@"
       tmux set-window-option automatic-rename "on" 1>/dev/null
   else
