@@ -8,3 +8,7 @@ bindkey '^U' backward-kill-line
 
 # Ctrl-Y: Yank killed lines back to the command line
 bindkey '^Y' yank
+
+# Edit the current command line with Ctrl-X,e
+autoload edit-command-line
+zle -N edit-command-line
