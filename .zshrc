@@ -1,3 +1,5 @@
+#!/usr/local/bin/zsh
+
 export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
@@ -16,6 +18,7 @@ zplug "lib/compfix", from:oh-my-zsh
 zplug "lib/completion", from:oh-my-zsh
 zplug "lib/directories", from:oh-my-zsh
 zplug "lib/history", from:oh-my-zsh
+zplug "lib/spectrum", from:oh-my-zsh
 zplug "lib/key-bindings", from:oh-my-zsh
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "supercrabtree/k"
@@ -30,8 +33,14 @@ fi
 
 zplug load
 
-# Source tmuxinator integration
-source $HOME/bin/tmuxinator.zsh
+for file in ${HOME}/.zshrc.d/*.zshrc; do
+	source "${file}"
+done
+
+eval "$(rbenv init -)"
+# export PATH="$HOME/.pyenv/bin:$PATH"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 
 # Don't suggest ZSH typo corrections
 unsetopt correct_all
@@ -41,13 +50,6 @@ setopt interactivecomments
 # Edit the current command line with Ctrl-X,e
 autoload edit-command-line
 zle -N edit-command-line
-bindkey '^Xe' edit-command-line
-
-# Ctrl-U: kill from cursor to start of line
-bindkey '^U' backward-kill-line
-
-# Ctrl-Y: Yank killed lines back to the command line
-bindkey '^Y' yank
 
 # Avoid accidental terminal pause
 stty -ixon
@@ -113,195 +115,6 @@ alias crontab="VIM_CRONTAB=true crontab"
 
 source /usr/local/bin/aws_zsh_completer.sh
 
-################################################################################
-# Searches history for $1 and outputs those commands that match the search
-# term.
-# Arguments:
-#   $1: a term to search history for
-# Returns:
-#   None
-################################################################################
-function hgrep() {
-    string=$@
-    history | grep -i "${string}"
-}
-
-setbg() {
-  local bg="${1}"
-  if egrep -q -i "light|dark" <(echo ${bg}); then
-    vim -c ":set background=${bg}" +Tmuxline +qall
-  fi
-}
-
-eval "$(rbenv init -)"
-
-# export PATH="$HOME/.pyenv/bin:$PATH"
-# eval "$(pyenv init -)"
-# eval "$(pyenv virtualenv-init -)"
-
-################################################################################
-# Search for EC2 instances with a name tag containing $1, and print a row for
-# each result with the following columns: InstanceId, PrivateIpAddress, Name.
-# Arguments:
-#   $1: a name tag to search for
-# Returns:
-#   None
-################################################################################
-function instances_by_name() {
-    aws ec2 describe-instances --filter "Name=tag:Name,Values=*${1}*" | \
-    jq ".Reservations[].Instances[] | \
-            .InstanceId, \
-            .PrivateIpAddress, \
-            (.Tags[] | select(.Key == \"Name\") | \
-            .Value)" | \
-    sed 's/"//g' | \
-    paste - - -
-}
-
-################################################################################
-# Prints out useful information about an EC2 instance, given an InstanceId.
-# Arguments:
-#   $1: an InstanceId to search for
-# Returns:
-#   None
-################################################################################
-function i() {
-    aws ec2 describe-instances --instance-id ${1} | \
-    jq -r ".Reservations[].Instances[] | \
-                \"InstanceId: \(.InstanceId)\", \
-                \"IP Address: \(.PrivateIpAddress)\", \
-                (.Tags[] | \"\(.Key): \(.Value)\")"
-}
-
-################################################################################
-# Prints out the EC2 InstanceIds and PrivateIPAddresses for all instances in
-# the given Auto-Scaling Group.
-# Arguments:
-#   $1: an Auto-Scaling Group name to search for
-# Returns:
-#   None
-################################################################################
-function asg_instances() {
-    aws ec2 describe-instances --instance-ids $(
-    aws autoscaling describe-auto-scaling-groups \
-        --auto-scaling-group-name ${1} | \
-    jq ".AutoScalingGroups[].Instances[] | .InstanceId" | \
-    sed 's/"//g' | \
-    paste -) | \
-    jq ".Reservations[].Instances[] | \
-            .InstanceId, \
-            .PrivateIpAddress" | \
-    sed 's/"//g' | \
-    paste - -
-}
-
-################################################################################
-# Prints out the endpoint for the given RDS InstanceIdentifier, or all
-# for all InstanceIdentifiers if none is given
-# Arguments:
-#   $1: an InstanceIdentifier to search for
-# Returns:
-#   None
-################################################################################
-function rds_instances() {
-    param=""
-    if [ $# -eq 1 ]; then
-        param="--db-instance-identifier ${1}"
-    fi
-    cmd="aws rds describe-db-instances ${param}"
-
-    eval ${cmd} | \
-    jq ".DBInstances[] | \
-        .DBInstanceIdentifier, \
-        .Endpoint.Address" | \
-    sed 's/"//g' | \
-    paste - - | \
-    column -t
-}
-
-################################################################################
-# Prints out the description of an ElastiCache replication group, given
-# a replication group identifier
-# Arguments:
-#   $1: a ReplicationGroup identifier
-# Returns:
-#   None
-################################################################################
-function ecwat() {
-    aws elasticache describe-replication-groups --replication-group-id $1 \
-        --query "ReplicationGroups[].Description"
-}
-
-################################################################################
-# Search `git ls-files`
-# Arguments:
-#   $1: a term to search for
-# Returns:
-#   None
-################################################################################
-function gfind() {
-    git ls-files | grep -i $1
-}
-
-################################################################################
-# Prints out your public IP.
-# Arguments:
-#   None
-# Returns:
-#   None
-################################################################################
-function getip() {
-    wget -qO- checkip.amazonaws.com
-}
-
-################################################################################
-# Prints out your public IP.
-# Arguments:
-#   None
-# Returns:
-#   None
-################################################################################
-function getlocalip() {
-    if [[ "$(uname)" == 'Darwin' ]]; then
-        networksetup -getinfo Wi-Fi | awk '/^IP address/'
-    fi
-}
-
-################################################################################
-# SSH as root to an EC2 instance by IP
-# Arguments:
-#   None
-# Returns:
-#   None
-################################################################################
-function ssh_instance() {
-  address=$(aws ec2 describe-instances --instance-ids $1 | \
-  jq -r '.Reservations[].Instances[].NetworkInterfaces[].PrivateIpAddress')
-
-  ssh root@${address}
-}
-
-################################################################################
-# SSH wrapper to rename TMUX window title with the connected hostname.
-# Arguments:
-#   None
-# Returns:
-#   None
-################################################################################
-function ssh() {
-    if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
-        tmux rename-window "$(echo $* | cut -d . -f 1)"
-        command ssh "$@"
-        tmux set-window-option automatic-rename "on" 1>/dev/null
-    else
-        command ssh "$@"
-    fi
-}
-
-function brdone() {
-  to_delete=$(git rev-parse --abbrev-ref HEAD)
-  git co production && git br -D "${to_delete}" && gup && unset to_delete
-}
 
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:${NPM_PATH}:$PATH"
