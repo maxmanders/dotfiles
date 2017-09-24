@@ -17,7 +17,7 @@ for f in $(
   # shellcheck disable=SC1001
   if file "$f" | \grep -E --quiet "shell|zsh"; then
     {
-      shellcheck <(sed "s|#\!${ZSH}|#\!${BASH}|g" < "${f}") && echo "  [ok]: linted ${f}"
+      shellcheck <(sed "s|#\\!${ZSH}|#\\!${BASH}|g" < "${f}") && echo "  [ok]: linted ${f}"
     }\
       ||\
     {
