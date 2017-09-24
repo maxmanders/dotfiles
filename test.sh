@@ -27,9 +27,7 @@ for f in $(
 
 done
 
-if [ ${#ERRORS[@]} -eq 0 ]; then
-	echo "  [ok]: no errors found"
-else
+if [ ${#ERRORS[@]} -ne 0 ]; then
 	echo "[fail]: these files failed shellcheck: ${ERRORS[*]}"
 	exit 1
 fi
