@@ -342,3 +342,8 @@ function repo() {
 
 	open "$url" &> /dev/null || (echo "Using $(type open) to open URL failed." && exit 1);
 }
+
+function gen_name(){
+  ruby -e "require 'haikunator'; p Haikunator.haikunate"
+}
+
