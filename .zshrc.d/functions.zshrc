@@ -344,6 +344,6 @@ function repo() {
 }
 
 function gen_name(){
-  ruby -e "require 'haikunator'; p Haikunator.haikunate"
+  ruby -e "require 'haikunator'; p Haikunator.haikunate(0, '')"
 }
 
