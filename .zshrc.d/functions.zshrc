@@ -197,6 +197,20 @@ function brdone() {
   git co production && git br -d "${to_delete}" && gup && unset to_delete
 }
 
+function makesetup() {
+	# shellcheck disable=SC1091
+  source .venv/bin/activate
+
+  DEV_STACK_NAME="${1}" \
+    WAIT_FOR_SETTLED=1 \
+    OVERRIDE_SERVICE_TIMEOUTS=600 \
+    DEVSTACK_SSH_OPTIONS="-o ControlPath=no" \
+    DEVSTACK_SCP_OPTIONS="-o ControlPath=no" \
+    make setup
+
+  deactivate
+}
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ The following functions courtesy of Jess Frazelle
