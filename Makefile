@@ -7,8 +7,8 @@ dotfiles:
 		f=$$(basename $$file); \
 		ln -sfn $$file $(HOME)/$$f; \
 	done; \
-	ln -sfn .zshrc.d $(HOME)/.zshrc.d
-	ln -sfn .git_template $(HOME)/.git_template
+	ln -sfn .zshrc.d $(HOME)/.zshrc.d;
+	ln -sfn .git_template $(HOME)/.git_template;
 
 INTERACTIVE := $(shell [ -t 0 ] && echo 1 || echo 0)
 ifeq ($(INTERACTIVE), 1)
