@@ -29,5 +29,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 if hash gdircolors 2> /dev/null; then 
-  eval $(gdircolors "${HOME}/.dircolors")
+  eval "$(gdircolors "${HOME}/.dircolors")"
 fi

@@ -42,7 +42,7 @@ source /usr/local/bin/aws_zsh_completer.sh
 
 for file in ${HOME}/.zshrc.d/*.zshrc; do
   # shellcheck disable=SC1090
-	source "${file}"
+  source "${file}"
 done
 
 
