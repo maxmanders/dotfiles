@@ -7,6 +7,7 @@ alias aws-fd-perftest-full="aws --profile fd-perftest-full"
 alias aws-fd-power-no-mfa="aws --profile fd-power-no-mfa"
 alias aws-fd-power="aws --profile fd-power"
 alias aws-fd-uk-full="aws --profile fd-uk-full"
+alias aws-nf-full="aws --profile nf-full"
 alias aws-turbo-full="aws --profile turbo-full"
 alias be="bundle exec"
 alias brew_upgrade='brew update && brew upgrade $(brew outdated)'
