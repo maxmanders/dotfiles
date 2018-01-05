@@ -357,7 +357,16 @@ function repo() {
 	open "$url" &> /dev/null || (echo "Using $(type open) to open URL failed." && exit 1);
 }
 
-function gen_name(){
-  ruby -e "require 'haikunator'; p Haikunator.haikunate(0, '')"
+list_devstacks() {
+  aws ec2 describe-instances \
+    --filters Name=tag:Project,Values=DevStacks \
+    --query "Reservations[].Instances[].[[InstanceId, Tags[?Key==\`Name\`].Value][]][].{InstanceId: [0], Name: [1]}" \
+    | jq 'sort_by(.Name) | .[]'
 }
 
+list_production_instances() {
+  aws ec2 describe-instances \
+    --filters Name=tag:Environment,Values=Production \
+    --query "Reservations[].Instances[?!not_null(Tags[?Key==\`aws:autoscaling:groupName\`].Value) && !not_null(Tags[?Key==\`aws:elasticmapreduce:instance-group-role\`].Value)][].[[InstanceId, Tags[?Key==\`Name\`].Value][]][].{InstanceId: [0], Name: [1]}" \
+    | jq 'sort_by(.Name) | .[]'
+}
