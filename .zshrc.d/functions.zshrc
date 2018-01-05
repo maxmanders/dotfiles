@@ -354,7 +354,15 @@ function repo() {
 
 	echo "Calling $(type open) for $url"
 
-	open "$url" &> /dev/null || (echo "Using $(type open) to open URL failed." && exit 1);
+gshow() {
+  git log --graph --color=always \
+      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+  fzf --ansi --preview "echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always %'" \
+             --bind "enter:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
 }
 
 list_devstacks() {
