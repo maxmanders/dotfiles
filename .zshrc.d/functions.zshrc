@@ -11,7 +11,7 @@
 function check_bin() {
   bin="${1}"
 
-	# shellcheck disable=SC2154
+  # shellcheck disable=SC2154
   command -v "${bin}" >/dev/null 2>&1 || \
     print -P "%{$FG[196]%}'${bin}' not installed%{$reset_color%}"
 }
@@ -58,10 +58,10 @@ function hgrep() {
 function instances_by_name() {
   aws ec2 describe-instances --filter "Name=tag:Name,Values=*${1}*" | \
   jq ".Reservations[].Instances[] | \
-        .InstanceId, \
-        .PrivateIpAddress, \
-        (.Tags[] | select(.Key == \"Name\") | \
-            .Value)" | \
+  .InstanceId, \
+  .PrivateIpAddress, \
+  (.Tags[] | select(.Key == \"Name\") | \
+      .Value)" | \
     sed 's/"//g' | \
     paste - - -
 }
@@ -76,9 +76,9 @@ function instances_by_name() {
 function i() {
   aws ec2 describe-instances --instance-id "${1}" | \
   jq -r ".Reservations[].Instances[] | \
-            \"InstanceId: \(.InstanceId)\", \
-            \"IP Address: \(.PrivateIpAddress)\", \
-              (.Tags[] | \"\(.Key): \(.Value)\")"
+      \"InstanceId: \(.InstanceId)\", \
+      \"IP Address: \(.PrivateIpAddress)\", \
+        (.Tags[] | \"\(.Key): \(.Value)\")"
 }
 
 ################################################################################
@@ -175,7 +175,7 @@ function ssh_instance() {
 #   none
 ################################################################################
 function ssh() {
-	# shellcheck disable=SC2046
+  # shellcheck disable=SC2046
   if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
       tmux rename-window "$(echo "$@" | cut -d . -f 1)"
       command ssh "$@"
@@ -198,7 +198,7 @@ function brdone() {
 }
 
 function makesetup() {
-	# shellcheck disable=SC1091
+  # shellcheck disable=SC1091
   source .venv/bin/activate
 
   DEV_STACK_NAME="${1}" \
@@ -226,8 +226,8 @@ function makesetup() {
 #   none
 ################################################################################
 function mkd() {
-	mkdir -p "$@"
-	cd "$@" || exit
+  mkdir -p "$@"
+  cd "$@" || exit
 }
 
 ################################################################################
@@ -238,13 +238,13 @@ function mkd() {
 #   none
 ################################################################################
 function tmpd() {
-	local dir
-	if [ $# -eq 0 ]; then
-		dir=$(mktemp -d)
-	else
-		dir=$(mktemp -d -t "${1}.XXXXXXXXXX")
-	fi
-	cd "$dir" || exit
+  local dir
+  if [ $# -eq 0 ]; then
+    dir=$(mktemp -d)
+  else
+    dir=$(mktemp -d -t "${1}.XXXXXXXXXX")
+  fi
+  cd "$dir" || exit
 }
 
 ################################################################################
@@ -256,11 +256,11 @@ function tmpd() {
 #   none
 ################################################################################
 function gitio() {
-	if [ -z "${1}" ] || [ -z "${2}" ]; then
-		echo "Usage: \`gitio slug url\`"
-		return 1
-	fi
-	curl -i https://git.io/ -F "url=${2}" -F "code=${1}"
+  if [ -z "${1}" ] || [ -z "${2}" ]; then
+    echo "Usage: \`gitio slug url\`"
+    return 1
+  fi
+  curl -i https://git.io/ -F "url=${2}" -F "code=${1}"
 }
 
 ################################################################################
@@ -270,11 +270,11 @@ function gitio() {
 # returns: #   none
 ################################################################################
 function json() {
-	if [ -t 0 ]; then # argument
-		python -mjson.tool <<< "$*" | pygmentize -l javascript
-	else # pipe
-		python -mjson.tool | pygmentize -l javascript
-	fi
+  if [ -t 0 ]; then # argument
+    python -mjson.tool <<< "$*" | pygmentize -l javascript
+  else # pipe
+    python -mjson.tool | pygmentize -l javascript
+  fi
 }
 
 ################################################################################
@@ -285,7 +285,7 @@ function json() {
 #   none
 ################################################################################
 function digga() {
-	dig +nocmd "$1" any +multiline +noall +answer
+  dig +nocmd "$1" any +multiline +noall +answer
 }
 
 ################################################################################
@@ -296,7 +296,7 @@ function digga() {
 #   none
 ################################################################################
 function tre() {
-	tree -aC -I '.git' --dirsfirst "$@" | less -FRNX
+  tree -aC -I '.git' --dirsfirst "$@" | less -FRNX
 }
 
 ################################################################################
@@ -308,51 +308,54 @@ function tre() {
 #   none
 ################################################################################
 function repo() {
-	# Figure out github repo base URL
-	local base_url
-	base_url=$(git config --get remote.origin.url)
-	base_url=${base_url%\.git} # remove .git from end of string
+  # Figure out github repo base URL
+  local base_url
+  base_url=$(git config --get remote.origin.url)
+  base_url=${base_url%\.git} # remove .git from end of string
 
-	# Fix git@github.com: URLs
-	base_url=${base_url//git@github\.com:/https:\/\/github\.com\/}
+  # Fix git@github.com: URLs
+  base_url=${base_url//git@github\.com:/https:\/\/github\.com\/}
 
-	# Fix git://github.com URLS
-	base_url=${base_url//git:\/\/github\.com/https:\/\/github\.com\/}
+  # Fix git://github.com URLS
+  base_url=${base_url//git:\/\/github\.com/https:\/\/github\.com\/}
 
-	# Fix git@bitbucket.org: URLs
-	base_url=${base_url//git@bitbucket.org:/https:\/\/bitbucket\.org\/}
+  # Fix git@bitbucket.org: URLs
+  base_url=${base_url//git@bitbucket.org:/https:\/\/bitbucket\.org\/}
 
-	# Fix git@gitlab.com: URLs
-	base_url=${base_url//git@gitlab\.com:/https:\/\/gitlab\.com\/}
+  # Fix git@gitlab.com: URLs
+  base_url=${base_url//git@gitlab\.com:/https:\/\/gitlab\.com\/}
 
-	# Validate that this folder is a git folder
-	if ! git branch 2>/dev/null 1>&2 ; then
-		echo "Not a git repo!"
-		exit $?
-	fi
+  # Validate that this folder is a git folder
+  if ! git branch 2>/dev/null 1>&2 ; then
+    echo "Not a git repo!"
+    exit $?
+  fi
 
-	# Find current directory relative to .git parent
-	full_path=$(pwd)
-	git_base_path=$(cd "./$(git rev-parse --show-cdup)" || exit 1; pwd)
-	relative_path=${full_path#$git_base_path} # remove leading git_base_path from working directory
+  # Find current directory relative to .git parent
+  full_path=$(pwd)
+  git_base_path=$(cd "./$(git rev-parse --show-cdup)" || exit 1; pwd)
+  relative_path=${full_path#$git_base_path} # remove leading git_base_path from working directory
 
-	# If filename argument is present, append it
-	if [ "$1" ]; then
-		relative_path="$relative_path/$1"
-	fi
+  # If filename argument is present, append it
+  if [ "$1" ]; then
+    relative_path="$relative_path/$1"
+  fi
 
-	# Figure out current git branch
-	# git_where=$(command git symbolic-ref -q HEAD || command git name-rev --name-only --no-undefined --always HEAD) 2>/dev/null
-	git_where=$(command git name-rev --name-only --no-undefined --always HEAD) 2>/dev/null
+  # Figure out current git branch
+  # git_where=$(command git symbolic-ref -q HEAD || command git name-rev --name-only --no-undefined --always HEAD) 2>/dev/null
+  git_where=$(command git name-rev --name-only --no-undefined --always HEAD) 2>/dev/null
 
-	# Remove cruft from branchname
-	branch=${git_where#refs\/heads\/}
+  # Remove cruft from branchname
+  branch=${git_where#refs\/heads\/}
 
-	[[ $base_url == *bitbucket* ]] && tree="src" || tree="tree"
-	url="$base_url/$tree/$branch$relative_path"
+  [[ $base_url == *bitbucket* ]] && tree="src" || tree="tree"
+  url="$base_url/$tree/$branch$relative_path"
 
 
-	echo "Calling $(type open) for $url"
+  echo "Calling $(type open) for $url"
+
+  open "$url" &> /dev/null || (echo "Using $(type open) to open URL failed." && exit 1);
+}
 
 gshow() {
   git log --graph --color=always \
