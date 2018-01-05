@@ -1,5 +1,7 @@
 #!/usr/local/bin/zsh
 
+unalias git
+
 ZPLUG_HOME=/usr/local/opt/zplug
 export ZPLUG_HOME
 # shellcheck source=/dev/null
