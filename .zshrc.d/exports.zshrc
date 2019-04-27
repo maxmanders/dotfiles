@@ -9,14 +9,17 @@ export EDITOR=vim
 export SVN_EDITOR=vim
 export GIT_EDITOR=vim
 
+export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules --ignore venv --ignore .venv -g ""'
+
 export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
 export LESS=" -R "
 
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
-export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$HOME/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:${NPM_PATH}:$PATH"
+export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$HOME/bin:/usr/local/opt/imagemagick@6/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:${NPM_PATH}:$PATH"
 
 eval "$(rbenv init -)"
+eval "$(pyenv init -)"
 
 # shellcheck source=/dev/null
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

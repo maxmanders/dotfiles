@@ -168,24 +168,6 @@ function ssh_instance() {
 }
 
 ################################################################################
-# ssh wrapper to rename tmux window title with the connected hostname.
-# arguments:
-#   none
-# returns:
-#   none
-################################################################################
-function ssh() {
-  # shellcheck disable=SC2046
-  if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
-      tmux rename-window "$(echo "$@" | cut -d . -f 1)"
-      command ssh "$@"
-      tmux set-window-option automatic-rename "on" 1>/dev/null
-  else
-      command ssh "$@"
-  fi
-}
-
-################################################################################
 # return to puppet _production_ branch, pull, and delete feature branch
 # arguments:
 #   none
@@ -380,4 +362,10 @@ list_production_instances() {
     --filters Name=tag:Environment,Values=Production \
     --query "Reservations[].Instances[?!not_null(Tags[?Key==\`aws:autoscaling:groupName\`].Value) && !not_null(Tags[?Key==\`aws:elasticmapreduce:instance-group-role\`].Value)][].[[InstanceId, Tags[?Key==\`Name\`].Value][]][].{InstanceId: [0], Name: [1]}" \
     | jq 'sort_by(.Name) | .[]'
+}
+
+get_ec2_ip() {
+  aws ec2 describe-instances --instance-ids $1 \
+    --query "Reservations[*].Instances[*].PrivateIpAddress" \
+    --output=text
 }
