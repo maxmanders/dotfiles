@@ -2,8 +2,8 @@
 set -e
 set -o pipefail
 
-ZSH=$(which zsh)
-BASH=$(which bash)
+ZSH=$(command -v zsh)
+BASH=$(command -v bash)
 
 ERRORS=()
 
