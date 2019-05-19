@@ -17,7 +17,7 @@ zplug "plugins/github", from:oh-my-zsh
 zplug "plugins/gpg-agent", from:oh-my-zsh
 zplug "plugins/kubectl", from:oh-my-zsh
 zplug "plugins/pip", from:oh-my-zsh
-# zplug "plugins/ssh-agent", from:oh-my-zsh
+zplug "plugins/ssh-agent", from:oh-my-zsh
 zplug "plugins/terraform", from:oh-my-zsh
 zplug "plugins/vagrant", from:oh-my-zsh
 zplug "plugins/virtualenv", from:oh-my-zsh
@@ -42,28 +42,7 @@ fi
 zplug load
 
 # shellcheck source=/dev/null
-source /usr/local/bin/aws_zsh_completer.sh
-
-if [ -z "$TMUX" ]; then
-  if [ -z "$SSH_TTY" ]; then
-    if [ -z "$SSH_AUTH_SOCK" ]; then
-      export SSH_AUTH_SOCK="$HOME/.ssh/.auth_socket"
-    fi
-
-    if [ ! -S "$SSH_AUTH_SOCK" ]; then
-      eval $(ssh-agent -a $SSH_AUTH_SOCK -s) > /dev/null 2>&1
-      echo $SSH_AGENT_PID > $HOME/.ssh/.auth_pid
-    fi
-
-    if [ -z $SSH_AGENT_PID ]; then
-      export SSH_AGENT_PID=$(cat $HOME/.ssh/.auth_pid)
-    fi
-
-  ssh-add 2>/dev/null
-
-  tmux attach
-  fi
-fi
+source $HOME/bin/aws_zsh_completer.sh
 
 for file in ${HOME}/.zshrc.d/*.zshrc; do
   # shellcheck disable=SC1090
@@ -83,13 +62,3 @@ stty -ixon
 # Clobber files with I/O redirection
 set -o clobber
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
-
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/max/dev/pydroptidy/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/max/dev/pydroptidy/node_modules/tabtab/.completions/slss.zsh
