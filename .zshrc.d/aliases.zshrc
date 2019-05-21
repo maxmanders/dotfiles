@@ -22,7 +22,7 @@ alias gist="gist -c"
 alias grep="pcregrep --color=auto"
 alias gup="gfo && ggpull"
 alias h="history"
-alias ls="gls --color"
+alias ls="lsd"
 alias l="ls -p"
 alias less='less -m -g -i -J --underline-special --SILENT'
 alias mkdir="mkdir -p"
