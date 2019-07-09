@@ -7,7 +7,6 @@ export ZPLUG_HOME
 # shellcheck source=/dev/null
 source $ZPLUG_HOME/init.zsh
 
-zplug "plugins/aws", from:oh-my-zsh
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/dircycle", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
