@@ -13,3 +13,8 @@ bin/tmux-sessions
 bin/tmuxinator.zsh
 /bin/brdeploy
 /bin/shellstack
+.vim/spell/en.utf-8.add
+.vim/spell/en.utf-8.add
+.vim/spell/en.utf-8.add.spl
+doc/tags
+/.vim/bundle
