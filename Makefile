@@ -7,8 +7,10 @@ dotfiles:
 		f=$$(basename $$file); \
 		ln -sfn $$file $(HOME)/$$f; \
 	done; \
-	ln -sfn $(CURDIR)/.zshrc.d $(HOME)/.zshrc.d;
 	ln -sfn $(CURDIR)/.git_template $(HOME)/.git_template;
+	ln -sfn $(CURDIR)/.vim $(HOME)/.vim;
+	ln -sfn $(CURDIR)/.zplug $(HOME)/.zplug;
+	ln -sfn $(CURDIR)/.zshrc.d $(HOME)/.zshrc.d;
 
 INTERACTIVE := $(shell [ -t 0 ] && echo 1 || echo 0)
 ifeq ($(INTERACTIVE), 1)
