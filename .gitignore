@@ -18,3 +18,4 @@ bin/tmuxinator.zsh
 .vim/spell/en.utf-8.add.spl
 doc/tags
 /.vim/bundle
+.zshrc.d/extra_config.zshrc
