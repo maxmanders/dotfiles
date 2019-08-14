@@ -1,0 +1,30 @@
+--recurse
+--exclude=.git
+--exclude=.terraform
+
+--langdef=puppet
+--langmap=puppet:.pp
+--regex-puppet=/^class[ \t ]*([:a-zA-Z0-9_\-]+)[ \t ]*/\1/c,class/
+--regex-puppet=/^site[ \t ]*([a-zA-Z0-9_\-]+)[ \t ]*/\1/s,site/
+--regex-puppet=/^node[ \t ]*([a-zA-Z0-9_\-]+)[ \t ]*/\1/n,node/
+--regex-puppet=/^define[ \t ]*([:a-zA-Z0-9_\-]+)[ \t ]*/\1/d,definition/
+
+--langdef=js
+--langmap=js:.js
+--regex-JavaScript=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/o,object/
+--regex-JavaScript=/([A-Za-z0-9._$'"()]+)[ \t]*[:][ \t]*function[ \t]*\([^)]*\)/\1/f,function/
+--regex-JavaScript=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/a,array/
+--regex-JavaScript=/([^= ]+)[ \t]*=[ \t]*'[^']*'/\1/s,string/
+--regex-JavaScript=/([^= ]+)[ \t]*=[ \t]*"[^"]*"/\1/s,string/
+
+--python-kinds=-i
+
+--langdef=terraform
+--langmap=terraform:.tf
+--regex-terraform=/^[[:space:]]*resource[[:space:]]*"([^"]*)"[[:space:]]*"([^"]*)"/\1.\2/r,Resource/
+--regex-terraform=/^[[:space:]]*data[[:space:]]*"([^"]*)"[[:space:]]*"([^"]*)"/\1.\2/d,Data/
+--regex-terraform=/^[[:space:]]*variable[[:space:]]*"([^"]*)"/\1/v,Variable/
+--regex-terraform=/^[[:space:]]*provider[[:space:]]*"([^"]*)"/\1/p,Provider/
+--regex-terraform=/^[[:space:]]*module[[:space:]]*"([^"]*)"/\1/m,Module/
+--regex-terraform=/^[[:space:]]*output[[:space:]]*"([^"]*)"/\1/o,Output/
+--regex-terraform=/^([a-z0-9_]+)[[:space:]]*=/\1/f,TFVar/
