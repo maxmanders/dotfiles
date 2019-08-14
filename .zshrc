@@ -30,7 +30,8 @@ zplug "lib/history", from:oh-my-zsh
 zplug "lib/spectrum", from:oh-my-zsh
 zplug "lib/key-bindings", from:oh-my-zsh
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "themes/steeef", from:oh-my-zsh, as:theme
+# zplug "themes/steeef", from:oh-my-zsh, as:theme
+zplug "~/.zplug/themes", from:local, use:steeef.zsh-theme
 
 if ! zplug check; then
     printf "Install? [y/N]: "
