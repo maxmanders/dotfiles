@@ -54,6 +54,7 @@ Plugin 'mitsuhiko/vim-rst.git'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'qpkorr/vim-bufkill'
 Plugin 'rodjek/vim-puppet.git', {'name': 'vim-puppet-ctags'}
+Plugin 'rhysd/committia.vim'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'scrooloose/nerdtree.git'
 Plugin 'terryma/vim-expand-region'
