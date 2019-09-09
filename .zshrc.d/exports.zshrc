@@ -1,6 +1,11 @@
 #!/usr/local/bin/zsh
 
-JAVA_HOME=$(/usr/libexec/java_home)
+if [ "$(uname)" = "Darwin" ]; then
+  JAVA_HOME=$(/usr/libexec/java_home)
+elif [ "$(uname)" = "Linux" ]; then
+  JAVA_HOME="/usr/lib/jvm/java-12-oracle"
+fi
+
 export JAVA_HOME
 export TERM="screen-256color"
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
