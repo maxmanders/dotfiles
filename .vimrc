@@ -315,14 +315,6 @@ nmap <leader>gs :Gstatus<cr>
 nmap <leader>gb :Gblame<cr>
 nmap <leader>gg :Gbrowse<cr>
 
-
-" ------------------------------------------------------------------------------
-" CtrlP Config
-" ------------------------------------------------------------------------------
-" Set CtrlP Hotkey
-" :map <Leader><leader> :CtrlP<CR>
-" :map <Leader>. :CtrlPTag<CR>
-
 " ------------------------------------------------------------------------------
 " FZF Config
 " ------------------------------------------------------------------------------
@@ -356,23 +348,6 @@ if exists(":Tabularize")
   vmap <Leader>ac :Tabularize /^\s*\S\+\zs/l0c1l0<CR>
   nmap <Leader>ac :Tabularize /^\s*\S\+\zs/l0c1l0<CR>
 endif
-
-
-" ------------------------------------------------------------------------------
-" YCM & UtiliSnips Config
-" ------------------------------------------------------------------------------
-" make YCM compatible with UltiSnips (using supertab)
-" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" better key bindings for UltiSnipsExpandTrigger
-" let g:UltiSnipsExpandTrigger = "<tab>"
-" let g:UltiSnipsJumpForwardTrigger = "<tab>"
-" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-" let g:UltiSnipsSnippetDirectories=["UltiSnips"]
-
-set omnifunc=syntaxcomplete#Complete
 
 
 " ------------------------------------------------------------------------------
@@ -421,17 +396,6 @@ let g:tagbar_type_terraform = {
     \ ],
     \ 'sort' : 0
     \ }
-
-
-" ------------------------------------------------------------------------------
-" ------------------------------------------------------------------------------
-" ------------------------------------------------------------------------------
-
-" ------------------------------------------------------------------------------
-" LiveDown Config
-" ------------------------------------------------------------------------------
-nmap gm :LivedownPreview<CR>
-"
 
 
 " ------------------------------------------------------------------------------
@@ -581,18 +545,6 @@ let g:tagbar_type_ruby = {
 " ------------------------------------------------------------------------------
 let g:table_mode_corner="|"
 
-" ------------------------------------------------------------------------------
-" vimux
-" ------------------------------------------------------------------------------
-map <Leader>vp :VimuxPromptCommand<CR>
-map <Leader>vi :VimuxInspectRunner<CR>
-map <Leader>vz :VimuxZoomRunner<CR>
-
-let vim_markdown_preview_github=1
-let vim_markdown_preview_browser='Google Chrome'
-
 let g:terraform_fmt_on_save=1
-let g:ycm_server_keep_logfiles = 1
-let g:ycm_server_log_level = 'debug'
 
-:set diffopt+=iwhite
+set diffopt+=iwhite
