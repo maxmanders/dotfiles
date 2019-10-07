@@ -1,81 +1,67 @@
-" if (system('uname') =~ "Darwin")
-  " let g:python_host_prog='/Users/max/dev/vimrc/venv/bin/python'
-  " let g:python3_host_prog='/Users/max/dev/vimrc/venv/bin/python'
-" endif
 " ------------------------------------------------------------------------------
 " Vundle Config
 " ------------------------------------------------------------------------------
 "
 set nocompatible
-set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=/usr/local/opt/fzf
-call vundle#begin()
-Plugin 'FooSoft/vim-argwrap'
-Plugin 'JamshedVesuna/vim-markdown-preview'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'SirVer/ultisnips'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'altercation/vim-colors-solarized.git'
-Plugin 'b4b4r07/vim-hcl'
-Plugin 'benmills/vimux'
-Plugin 'c9s/vikube.vim.git'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'dhruvasagar/vim-table-mode.git'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'edkolev/promptline.vim'
-Plugin 'ekalinin/Dockerfile.vim'
-Bundle 'ervandew/supertab'
-Plugin 'garbas/vim-snipmate'
-Plugin 'godlygeek/tabular'
-Plugin 'honza/vim-snippets'
-Plugin 'hashivim/vim-consul'
-Plugin 'hashivim/vim-nomadproject'
-Plugin 'hashivim/vim-packer'
-Plugin 'hashivim/vim-terraform'
-Plugin 'hashivim/vim-vaultproject'
-Plugin 'ingydotnet/yaml-vim'
-Plugin 'jamessan/vim-gnupg.git'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'jlanzarotta/bufexplorer.git'
-Plugin 'junegunn/fzf.git'
-Plugin 'junegunn/goyo.vim'
-Plugin 'jwhitley/vim-matchit.git'
-Plugin 'lepture/vim-jinja'
-Plugin 'leshill/vim-json'
-Plugin 'majutsushi/tagbar'
-Plugin 'martinda/Jenkinsfile-vim-syntax'
-Plugin 'mattn/gist-vim'
-Plugin 'mattn/webapi-vim'
-Plugin 'mileszs/ack.vim.git'
-Plugin 'mitsuhiko/vim-rst.git'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'qpkorr/vim-bufkill'
-Plugin 'rodjek/vim-puppet.git', {'name': 'vim-puppet-ctags'}
-Plugin 'rhysd/committia.vim'
-Plugin 'ryanoasis/vim-devicons'
-Plugin 'scrooloose/nerdtree.git'
-Plugin 'terryma/vim-expand-region'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tomtom/tlib_vim'
-Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-rhubarb'
-Plugin 'tpope/vim-sleuth'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'vim-scripts/The-NERD-Commenter.git'
-Plugin 'vim-scripts/surround.vim.git'
-Plugin 'vim-scripts/unimpaired.vim.git'
-Plugin 'voithos/vim-python-matchit.git'
-Plugin 'voxpupuli/vim-puppet.git'
-Plugin 'w0rp/ale'
-
-call vundle#end()
-filetype plugin indent on
+call plug#begin('~/.vim/plugged')
+Plug 'SirVer/ultisnips'
+Plug 'airblade/vim-gitgutter'
+Plug 'altercation/vim-colors-solarized'
+Plug 'davidhalter/jedi-vim'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'edkolev/promptline.vim'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'elzr/vim-json'
+Plug 'ervandew/supertab'
+Plug 'godlygeek/tabular'
+Plug 'hashivim/vim-consul'
+Plug 'hashivim/vim-nomadproject'
+Plug 'hashivim/vim-packer'
+Plug 'hashivim/vim-terraform'
+Plug 'hashivim/vim-vaultproject'
+Plug 'honza/vim-snippets'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'lepture/vim-jinja'
+Plug 'majutsushi/tagbar'
+Plug 'martinda/Jenkinsfile-vim-syntax'
+Plug 'mattn/gist-vim'
+Plug 'mattn/webapi-vim'
+Plug 'mileszs/ack.vim'
+Plug 'mitsuhiko/vim-rst'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
+Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} " color highlighting
+Plug 'plasticboy/vim-markdown'
+Plug 'qpkorr/vim-bufkill'
+Plug 'rodjek/vim-puppet'
+Plug 'rhysd/committia.vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'scrooloose/nerdtree'
+Plug 'terryma/vim-expand-region'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-sleuth'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-ruby/vim-ruby'
+Plug 'vim-scripts/The-NERD-Commenter'
+Plug 'vim-scripts/surround.vim'
+Plug 'vim-scripts/unimpaired.vim'
+Plug 'w0rp/ale'
+call plug#end()
 
 
 " ------------------------------------------------------------------------------
@@ -174,7 +160,6 @@ set tagcase=smart
 :set smartcase
 :set complete-=i
 
-
 " Toggle line numbering
 nmap <Leader><C-N> :set invnumber<CR>
 
@@ -192,6 +177,45 @@ set statusline=%F%m%r%h%w\ [type=%Y]\ [%p%%]\ [len=%L]\ [POS=%04l,%04v]\
 let NERDSpaceDelims=1
 autocmd FileType gitcommit setlocal spell
 
+
+" ------------------------------------------------------------------------------
+" COC Config
+" ------------------------------------------------------------------------------
+" Better display for messages
+set cmdheight=2
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+" always show signcolumns
+set signcolumn=yes
+
+" Use `lp` and `ln` for navigate diagnostics
+nmap <silent> <leader>lp <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>ln <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> <leader>ld <Plug>(coc-definition)
+nmap <silent> <leader>lt <Plug>(coc-type-definition)
+nmap <silent> <leader>li <Plug>(coc-implementation)
+nmap <silent> <leader>lf <Plug>(coc-references)
+
+" Remap for rename current word
+nmap <leader>lr <Plug>(coc-rename)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " ------------------------------------------------------------------------------
 " Swap & Backup Config
@@ -291,14 +315,6 @@ nmap <leader>gs :Gstatus<cr>
 nmap <leader>gb :Gblame<cr>
 nmap <leader>gg :Gbrowse<cr>
 
-
-" ------------------------------------------------------------------------------
-" CtrlP Config
-" ------------------------------------------------------------------------------
-" Set CtrlP Hotkey
-" :map <Leader><leader> :CtrlP<CR>
-" :map <Leader>. :CtrlPTag<CR>
-
 " ------------------------------------------------------------------------------
 " FZF Config
 " ------------------------------------------------------------------------------
@@ -332,23 +348,6 @@ if exists(":Tabularize")
   vmap <Leader>ac :Tabularize /^\s*\S\+\zs/l0c1l0<CR>
   nmap <Leader>ac :Tabularize /^\s*\S\+\zs/l0c1l0<CR>
 endif
-
-
-" ------------------------------------------------------------------------------
-" YCM & UtiliSnips Config
-" ------------------------------------------------------------------------------
-" make YCM compatible with UltiSnips (using supertab)
-" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" better key bindings for UltiSnipsExpandTrigger
-" let g:UltiSnipsExpandTrigger = "<tab>"
-" let g:UltiSnipsJumpForwardTrigger = "<tab>"
-" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-" let g:UltiSnipsSnippetDirectories=["UltiSnips"]
-
-set omnifunc=syntaxcomplete#Complete
 
 
 " ------------------------------------------------------------------------------
@@ -397,17 +396,6 @@ let g:tagbar_type_terraform = {
     \ ],
     \ 'sort' : 0
     \ }
-
-
-" ------------------------------------------------------------------------------
-" ------------------------------------------------------------------------------
-" ------------------------------------------------------------------------------
-
-" ------------------------------------------------------------------------------
-" LiveDown Config
-" ------------------------------------------------------------------------------
-nmap gm :LivedownPreview<CR>
-"
 
 
 " ------------------------------------------------------------------------------
@@ -557,18 +545,6 @@ let g:tagbar_type_ruby = {
 " ------------------------------------------------------------------------------
 let g:table_mode_corner="|"
 
-" ------------------------------------------------------------------------------
-" vimux
-" ------------------------------------------------------------------------------
-map <Leader>vp :VimuxPromptCommand<CR>
-map <Leader>vi :VimuxInspectRunner<CR>
-map <Leader>vz :VimuxZoomRunner<CR>
-
-let vim_markdown_preview_github=1
-let vim_markdown_preview_browser='Google Chrome'
-
 let g:terraform_fmt_on_save=1
-let g:ycm_server_keep_logfiles = 1
-let g:ycm_server_log_level = 'debug'
 
-:set diffopt+=iwhite
+set diffopt+=iwhite
