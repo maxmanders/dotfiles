@@ -15,6 +15,7 @@ Plug 'edkolev/promptline.vim'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'elzr/vim-json'
 Plug 'ervandew/supertab'
+Plug 'frimik/ultisnips-terraform-snippets'
 Plug 'godlygeek/tabular'
 Plug 'hashivim/vim-consul'
 Plug 'hashivim/vim-nomadproject'
@@ -22,6 +23,7 @@ Plug 'hashivim/vim-packer'
 Plug 'hashivim/vim-terraform'
 Plug 'hashivim/vim-vaultproject'
 Plug 'honza/vim-snippets'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -39,11 +41,13 @@ Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
 Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} " color highlighting
 Plug 'plasticboy/vim-markdown'
 Plug 'qpkorr/vim-bufkill'
+Plug 'rbong/vim-flog'
 Plug 'rodjek/vim-puppet'
 Plug 'rhysd/committia.vim'
 Plug 'ryanoasis/vim-devicons'
@@ -341,12 +345,8 @@ nnoremap <silent> <leader>j :ArgWrap<CR>
 " Tabularize Config
 " ------------------------------------------------------------------------------
 if exists(":Tabularize")
-  nmap <Leader>a= :Tabularize /=><CR>
-  vmap <Leader>a= :Tabularize /=><CR>
-  nmap <Leader>a: :Tabularize /:\zs<CR>
-  vmap <Leader>a: :Tabularize /:\zs<CR>
-  vmap <Leader>ac :Tabularize /^\s*\S\+\zs/l0c1l0<CR>
-  nmap <Leader>ac :Tabularize /^\s*\S\+\zs/l0c1l0<CR>
+  nmap <Leader>k= :Tabularize /^[^=]*\zs=/<CR>
+  nmap <Leader>k: :Tabularize /:\zs<CR>
 endif
 
 
@@ -413,6 +413,12 @@ let g:tagbar_type_terraform = {
 :autocmd FileType javascript set shiftwidth=2
 :autocmd FileType javascript set expandtab
 :autocmd FileType javascript set smartindent
+
+" ------------------------------------------------------------------------------
+" HCL
+" ------------------------------------------------------------------------------
+au BufNewFile,BufRead *.hcl set syntax=terraform
+au BufNewFile,BufRead *.hcl set filetype=terraform
 
 " ------------------------------------------------------------------------------
 " Markdown
