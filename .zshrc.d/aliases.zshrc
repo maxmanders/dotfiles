@@ -29,6 +29,7 @@ alias time-pacific="TZ=Canada/Pacific date"
 alias time-uk="TZ=Europe/London date"
 alias vi='vim'
 alias tf='terraform'
+alias tg='terragrunt'
 alias tfp='terraform plan'
 alias tfa='terraform apply'
 
