@@ -27,6 +27,7 @@ export PATH="${PATH}:${GO_BIN_PATH}"
 
 eval "$(rbenv init -)"
 eval "$(pyenv init -)"
+eval "$(jenv init -)"
 
 # shellcheck source=/dev/null
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
