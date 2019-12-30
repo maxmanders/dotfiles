@@ -6,10 +6,12 @@ set nocompatible
 set rtp+=/usr/local/opt/fzf
 call plug#begin('~/.vim/plugged')
 Plug 'SirVer/ultisnips'
+Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized'
 Plug 'davidhalter/jedi-vim'
 Plug 'dhruvasagar/vim-table-mode'
+Plug 'dense-analysis/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'edkolev/promptline.vim'
 Plug 'ekalinin/Dockerfile.vim'
@@ -34,17 +36,6 @@ Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mileszs/ack.vim'
 Plug 'mitsuhiko/vim-rst'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
-Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} " color highlighting
 Plug 'plasticboy/vim-markdown'
 Plug 'qpkorr/vim-bufkill'
 Plug 'rbong/vim-flog'
@@ -64,7 +55,12 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/The-NERD-Commenter'
 Plug 'vim-scripts/surround.vim'
 Plug 'vim-scripts/unimpaired.vim'
-Plug 'w0rp/ale'
+
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
 call plug#end()
 
 
@@ -180,46 +176,6 @@ set statusline=%F%m%r%h%w\ [type=%Y]\ [%p%%]\ [len=%L]\ [POS=%04l,%04v]\
 
 let NERDSpaceDelims=1
 autocmd FileType gitcommit setlocal spell
-
-
-" ------------------------------------------------------------------------------
-" COC Config
-" ------------------------------------------------------------------------------
-" Better display for messages
-set cmdheight=2
-" Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-" always show signcolumns
-set signcolumn=yes
-
-" Use `lp` and `ln` for navigate diagnostics
-nmap <silent> <leader>lp <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>ln <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> <leader>ld <Plug>(coc-definition)
-nmap <silent> <leader>lt <Plug>(coc-type-definition)
-nmap <silent> <leader>li <Plug>(coc-implementation)
-nmap <silent> <leader>lf <Plug>(coc-references)
-
-" Remap for rename current word
-nmap <leader>lr <Plug>(coc-rename)
-
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " ------------------------------------------------------------------------------
 " Swap & Backup Config
@@ -554,3 +510,25 @@ let g:table_mode_corner="|"
 let g:terraform_fmt_on_save=1
 
 set diffopt+=iwhite
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+let g:LanguageClient_serverCommands = {
+    \ 'python': ['tcp://127.0.0.1:2048'],
+    \ 'java': ['tcp://127.0.0.1:2049'],
+    \ 'puppet': ['tcp://127.0.0.1:2050']
+    \ }
+
+let g:ale_python_pylint_change_directory = 0
+let g:ale_python_flake8_change_directory = 0
+let g:ale_python_auto_pipenv = 1
+let g:ale_python_pylint_options = "--init-hook='import sys; sys.path.append(\".\")'"
+let g:ale_java_eclipselsp_path = '/Users/max/code/src/github.com/max@maxmanders.co.uk/eclipse.jdt.ls/'
