@@ -51,6 +51,8 @@ for file in ${HOME}/.zshrc.d/*.zshrc; do
   source "${file}"
 done
 
+# Nicer directory navigation
+setopt  autocd autopushd pushdignoredups
 
 # Don't suggest ZSH typo corrections
 unsetopt correct_all
@@ -74,3 +76,5 @@ set -o clobber
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /Users/max/dev/currenthealth/serverless-ec2-backups/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/max/dev/currenthealth/serverless-ec2-backups/node_modules/tabtab/.completions/slss.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
