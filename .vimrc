@@ -7,13 +7,13 @@ set rtp+=/usr/local/opt/fzf
 call plug#begin('~/.vim/plugged')
 Plug 'SirVer/ultisnips'
 Plug 'Valloric/YouCompleteMe'
+Plug 'arcticicestudio/nord-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized'
 Plug 'davidhalter/jedi-vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'dense-analysis/ale'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'edkolev/promptline.vim'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'elzr/vim-json'
 Plug 'ervandew/supertab'
@@ -69,7 +69,7 @@ call plug#end()
 " ------------------------------------------------------------------------------
 " Load Vim Solarized theme
 " let g:solarized_termtrans=1
-colorscheme solarized
+colorscheme nord
 
 " Vi-compatible - do not want
 set nocp
@@ -323,7 +323,6 @@ nmap <F2> <ESC>:NERDTreeToggle<RETURN>
 " ------------------------------------------------------------------------------
 set t_Co=256
 let g:airline_powerline_fonts = 1
-" let g:airline_solarized_bg='dark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tabline#fnamecollapse = 0

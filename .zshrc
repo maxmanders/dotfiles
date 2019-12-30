@@ -7,6 +7,8 @@ export ZPLUG_HOME
 # shellcheck source=/dev/null
 source $ZPLUG_HOME/init.zsh
 
+zplug "mafredri/zsh-async", from:github
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/dircycle", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
@@ -21,7 +23,6 @@ zplug "plugins/pyenv", from:oh-my-zsh
 zplug "plugins/ssh-agent", from:oh-my-zsh
 zplug "plugins/terraform", from:oh-my-zsh
 zplug "plugins/vagrant", from:oh-my-zsh
-zplug "plugins/virtualenv", from:oh-my-zsh
 zplug "lib/clipboard", from:oh-my-zsh
 zplug "lib/compfix", from:oh-my-zsh
 zplug "lib/completion", from:oh-my-zsh
@@ -30,8 +31,6 @@ zplug "lib/history", from:oh-my-zsh
 zplug "lib/spectrum", from:oh-my-zsh
 zplug "lib/key-bindings", from:oh-my-zsh
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
-# zplug "themes/steeef", from:oh-my-zsh, as:theme
-zplug "~/.zplug/themes", from:local, use:steeef.zsh-theme
 
 if ! zplug check; then
     printf "Install? [y/N]: "
@@ -52,10 +51,10 @@ for file in ${HOME}/.zshrc.d/*.zshrc; do
 done
 
 # Nicer directory navigation
-setopt  autocd autopushd pushdignoredups
+setopt autocd autopushd pushdignoredups
 
 # Don't suggest ZSH typo corrections
-unsetopt correct_all
+unsetopt correct_all LOCAL_TRAPS
 
 # Allow comments in commands
 setopt interactivecomments
