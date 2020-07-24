@@ -5,11 +5,12 @@
 set nocompatible
 set rtp+=/usr/local/opt/fzf
 call plug#begin('~/.vim/plugged')
+Plug 'OmniSharp/omnisharp-vim'
 Plug 'SirVer/ultisnips'
 Plug 'Valloric/YouCompleteMe'
 Plug 'arcticicestudio/nord-vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'altercation/vim-colors-solarized'
+Plug 'chr4/nginx.vim'
 Plug 'davidhalter/jedi-vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'dense-analysis/ale'
@@ -24,11 +25,14 @@ Plug 'hashivim/vim-nomadproject'
 Plug 'hashivim/vim-packer'
 Plug 'hashivim/vim-terraform'
 Plug 'hashivim/vim-vaultproject'
+Plug 'hdiniz/vim-gradle'
 Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'jlanzarotta/bufexplorer'
+Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'kristijanhusak/vim-carbon-now-sh'
 Plug 'lepture/vim-jinja'
 Plug 'majutsushi/tagbar'
 Plug 'martinda/Jenkinsfile-vim-syntax'
@@ -36,6 +40,7 @@ Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mileszs/ack.vim'
 Plug 'mitsuhiko/vim-rst'
+Plug 'mitsuhiko/jinja2'
 Plug 'plasticboy/vim-markdown'
 Plug 'qpkorr/vim-bufkill'
 Plug 'rbong/vim-flog'
@@ -51,6 +56,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-sleuth'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/The-NERD-Commenter'
 Plug 'vim-scripts/surround.vim'
@@ -67,8 +73,6 @@ call plug#end()
 " ------------------------------------------------------------------------------
 " Startup & General Config
 " ------------------------------------------------------------------------------
-" Load Vim Solarized theme
-" let g:solarized_termtrans=1
 colorscheme nord
 
 " Vi-compatible - do not want
@@ -140,8 +144,8 @@ nnoremap <Leader>wr :set wrap! wrap?<CR>
 " Set characters to use when displaying non-printing characters
 set listchars=tab:→\ ,trail:·,precedes:«,extends:»,eol:¶
 
-" Where to look by default for tags
-set tags=./.git/tags
+set notagrelative
+set tags^=.git/tags,*/.git/tags;~
 set tagcase=smart
 
 " Show command in last line
@@ -278,7 +282,10 @@ nmap <leader>gg :Gbrowse<cr>
 " ------------------------------------------------------------------------------
 " FZF Config
 " ------------------------------------------------------------------------------
-map <Leader><Leader> :FZF<cr>
+"map <Leader><Leader> :FZF<cr>
+"map <Leader><Leader> :GFiles<cr>
+nnoremap <expr> <Leader><Leader> (len(system('git rev-parse')) ? ':FZF' : ':GFiles')."\<cr>"
+
 
 
 " ------------------------------------------------------------------------------
@@ -314,8 +321,7 @@ endif
 " autocmd BufWinEnter * :NERDTreeTabsOpen
 " autocmd BufWinEnter * :NERDTreeMirrorOpen
 " autocmd VimEnter * wincmd w
-" F2: Toggle NERDTree
-nmap <F2> <ESC>:NERDTreeToggle<RETURN>
+nnoremap <silent> <leader>/ <ESC>:NERDTreeToggle<RETURN>
 
 
 " ------------------------------------------------------------------------------
@@ -338,7 +344,6 @@ set laststatus=2
 " TagBar Config
 " ------------------------------------------------------------------------------
 nnoremap <silent> <leader>. :TagbarToggle<CR>  
-nnoremap <silent> <leader>/ :CtrlPTag<cr>  
 
 let g:tagbar_type_terraform = {  
     \ 'ctagstype' : 'terraform',
@@ -520,14 +525,37 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-let g:LanguageClient_serverCommands = {
-    \ 'python': ['tcp://127.0.0.1:2048'],
-    \ 'java': ['tcp://127.0.0.1:2049'],
-    \ 'puppet': ['tcp://127.0.0.1:2050']
-    \ }
-
 let g:ale_python_pylint_change_directory = 0
 let g:ale_python_flake8_change_directory = 0
 let g:ale_python_auto_pipenv = 1
-let g:ale_python_pylint_options = "--init-hook='import sys; sys.path.append(\".\")'"
-let g:ale_java_eclipselsp_path = '/Users/max/code/src/github.com/max@maxmanders.co.uk/eclipse.jdt.ls/'
+" let g:ale_python_pylint_options = "--init-hook='import sys; sys.path.append(\".\")'"
+if $PIPENV_ACTIVE == "1"
+  let $MYPYPATH = $VIRTUAL_ENV . "/lib/python3.7/site-packages/"
+endif
+
+
+let g:LanguageClient_autoStart = 1
+" Use the location list instead of the quickfix list to show linter warnings
+let g:LanguageClient_diagnosticsList = "Location"
+let g:LanguageClient_rootMarkers = {
+    \ 'java': ['.git'],
+    \ 'javascript': ['.git'],
+    \ 'python': ['.git'],
+    \ 'puppet': ['.git'],
+    \ 'yaml': ['.git']
+    \ }
+let g:LanguageClient_serverCommands = {
+    \ 'java': ['java-lsp'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'python': ['pyls'],
+    \ 'yaml': ['yaml-language-server', '--stdio']
+    \ }
+
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+set nofixendofline
