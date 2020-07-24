@@ -8,7 +8,7 @@ export ZPLUG_HOME
 source $ZPLUG_HOME/init.zsh
 
 zplug "mafredri/zsh-async", from:github
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme, at:indestructible-pure
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/dircycle", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
@@ -54,7 +54,7 @@ done
 setopt autocd autopushd pushdignoredups
 
 # Don't suggest ZSH typo corrections
-unsetopt correct_all LOCAL_TRAPS
+unsetopt correct_all
 
 # Allow comments in commands
 setopt interactivecomments

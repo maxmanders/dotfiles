@@ -137,7 +137,7 @@ function gfind() {
 #   none
 ################################################################################
 function getip() {
-  wget -qo- checkip.amazonaws.com
+  curl -s https://ident.me
 }
 
 ################################################################################
@@ -368,4 +368,23 @@ get_ec2_ip() {
   aws ec2 describe-instances --instance-ids $1 \
     --query "Reservations[*].Instances[*].PrivateIpAddress" \
     --output=text
+}
+
+rmd() {
+  local srcfile
+  srcfile="${1}"
+  pandoc -f gfm "${srcfile}" | lynx -stdin
+}
+
+togif() {
+  local infile
+  local base_name
+  local outfile
+
+  infile="${1}"
+  base_name="${infile%.*}"
+  outfile="${base_name}.gif"
+  
+
+  ffmpeg -i "${infile}" -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > "${outfile}"
 }

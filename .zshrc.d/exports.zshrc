@@ -22,8 +22,10 @@ export LESS=" -R "
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
 GO_BIN_PATH="${HOME}/go/bin"
+PIPX_PATH="${HOME}/.local/bin"
 export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$HOME/bin:/usr/local/opt/imagemagick@6/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:${NPM_PATH}:$PATH"
 export PATH="${PATH}:${GO_BIN_PATH}"
+export PATH="${PATH}:${PIPX_PATH}"
 
 eval "$(rbenv init -)"
 eval "$(pyenv init -)"
@@ -42,3 +44,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 # shellcheck source=/dev/null
 [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+
+export GROOVY_HOME=/usr/local/opt/groovy/libexec

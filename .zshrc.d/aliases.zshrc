@@ -32,6 +32,7 @@ alias tf='terraform'
 alias tg='terragrunt'
 alias tfp='terraform plan'
 alias tfa='terraform apply'
+alias v='vim'
 
 # Hub `git` aliases
 eval "$(hub alias -s)"
