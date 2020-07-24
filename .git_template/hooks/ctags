@@ -2,5 +2,5 @@
 set -e
 PATH="/usr/local/bin:$PATH"
 trap "rm -f .git/tags.$$" EXIT
-ctags --tag-relative -Rf.git/tags.$$ --exclude=.git --exclude=log * `gem environment gemdir`
+ctags -Rf .git/tags.$$ --exclude=.git --exclude=log .
 mv .git/tags.$$ .git/tags
