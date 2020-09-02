@@ -16,7 +16,6 @@ Plug 'dense-analysis/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'elzr/vim-json'
-Plug 'ervandew/supertab'
 Plug 'frimik/ultisnips-terraform-snippets'
 Plug 'godlygeek/tabular'
 Plug 'hashivim/vim-consul'
@@ -47,6 +46,7 @@ Plug 'rodjek/vim-puppet'
 Plug 'rhysd/committia.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
+Plug 'shougo/deoplete.nvim'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-eunuch'
@@ -68,6 +68,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-tagprefix'
@@ -76,6 +77,10 @@ Plug 'ncm2/ncm2-markdown-subscope'
 Plug 'ncm2/ncm2-rst-subscope'
 
 call plug#end()
+
+autocmd BufEnter * call ncm2#enable_for_buffer()
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('deoplete-options-yarp', v:true)
 
 
 " ------------------------------------------------------------------------------
@@ -270,10 +275,6 @@ nmap <Leader><Down> ]e
 " Bubble multiple lines
 vmap <Leader><Up> [egv
 vmap <Leader><Down> ]egv
-
-" Insert current date
-:nnoremap <F5> "=strftime("%c")<CR>P
-:inoremap <F5> <C-R>=strftime("%c")<CR>
 
 " Remove whitespace. 
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<cr> 
@@ -545,6 +546,14 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'yaml': ['yaml-language-server', '--stdio']
     \ }
+
+nnoremap <buffer> <silent> F5 :call LanguageClient_contextMenu()<CR>
+nnoremap <buffer> <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <buffer> <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <buffer> <silent> gr :call LanguageClient_textDocument_references()<CR>
+nnoremap <buffer> <silent> <leader>fs :call LanguageClient_textDocument_documentSymbol()<CR>
+nnoremap <buffer> <silent> crr :call LanguageClient_textDocument_rename()<CR>
+nnoremap <buffer> <silent> <a-CR> :call LanguageClient_textDocument_codeAction()<CR>
 
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
