@@ -7,7 +7,6 @@ set rtp+=/usr/local/opt/fzf
 call plug#begin('~/.vim/plugged')
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'SirVer/ultisnips'
-Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
 Plug 'arcticicestudio/nord-vim'
 Plug 'chr4/nginx.vim'
@@ -511,16 +510,6 @@ let g:table_mode_corner="|"
 let g:terraform_fmt_on_save=1
 
 set diffopt+=iwhite
-
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 let g:ale_python_pylint_change_directory = 0
 let g:ale_python_flake8_change_directory = 0
