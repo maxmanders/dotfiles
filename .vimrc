@@ -75,12 +75,17 @@ Plug 'ncm2/ncm2-tagprefix'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'ncm2/ncm2-markdown-subscope'
 Plug 'ncm2/ncm2-rst-subscope'
+Plug 'Shougo/echodoc.vim'
 
 call plug#end()
 
 autocmd BufEnter * call ncm2#enable_for_buffer()
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('deoplete-options-yarp', v:true)
+
+set cmdheight=2
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'signature'
 
 
 " ------------------------------------------------------------------------------
@@ -547,14 +552,17 @@ let g:LanguageClient_serverCommands = {
     \ 'yaml': ['yaml-language-server', '--stdio']
     \ }
 
-nnoremap <buffer> <silent> F5 :call LanguageClient_contextMenu()<CR>
-nnoremap <buffer> <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <buffer> <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <buffer> <silent> gr :call LanguageClient_textDocument_references()<CR>
-nnoremap <buffer> <silent> <leader>fs :call LanguageClient_textDocument_documentSymbol()<CR>
-nnoremap <buffer> <silent> crr :call LanguageClient_textDocument_rename()<CR>
-nnoremap <buffer> <silent> <a-CR> :call LanguageClient_textDocument_codeAction()<CR>
 
+nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
+nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
+nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
