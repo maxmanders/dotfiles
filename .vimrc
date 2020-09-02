@@ -170,9 +170,6 @@ nmap <Leader><C-N> :set invnumber<CR>
 " Toggle display of non-printing characters
 nnoremap <Leader>li :set list! list?<CR>
 
-" Keep code folds open by default.
-:set foldlevelstart=99
-
 " Show the line and column number in the statusbar
 :set ruler
 set laststatus=2
