@@ -537,6 +537,7 @@ set diffopt+=iwhite
 let g:ale_python_pylint_change_directory = 0
 let g:ale_python_flake8_change_directory = 0
 let g:ale_python_auto_pipenv = 1
+let g:ale_java_javac_executable = "javac -cp " . $HOME . "/lombok.jar"
 " let g:ale_python_pylint_options = "--init-hook='import sys; sys.path.append(\".\")'"
 if $PIPENV_ACTIVE == "1"
   let $MYPYPATH = $VIRTUAL_ENV . "/lib/python3.7/site-packages/"
