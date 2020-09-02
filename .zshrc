@@ -13,6 +13,7 @@ zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/dircycle", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
 zplug "plugins/emoji", from:oh-my-zsh
+zplug "plugins/fd", from:oh-my-zsh
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/github", from:oh-my-zsh
 zplug "plugins/gpg-agent", from:oh-my-zsh
