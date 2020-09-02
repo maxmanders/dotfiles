@@ -71,6 +71,9 @@ Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-jedi'
+Plug 'ObserverOfTime/ncm2-jc2', {'for': ['java', 'jsp']}
+Plug 'artur-shaik/vim-javacomplete2', {'for': ['java', 'jsp']}
 Plug 'ncm2/ncm2-tagprefix'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'ncm2/ncm2-markdown-subscope'
