@@ -568,12 +568,14 @@ let g:LanguageClient_rootMarkers = {
     \ 'javascript': ['.git'],
     \ 'python': ['.git'],
     \ 'puppet': ['.git'],
+    \ 'terraform': ['.git'],
     \ 'yaml': ['.git']
     \ }
 let g:LanguageClient_serverCommands = {
     \ 'java': ['java-lsp'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'python': ['pyls'],
+    \ 'terraform': ['terraform-ls', 'serve'],
     \ 'yaml': ['yaml-language-server', '--stdio']
     \ }
 
