@@ -94,14 +94,28 @@ let g:echodoc#type = 'signature'
 
 set completeopt=noinsert,menuone,noselect
 inoremap <c-c> <ESC>
+let g:UltiSnipsExpandTrigger = '<c-t>'
+let g:UltiSnipsListSnippets = "<Nop>"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Press enter key to trigger snippet expansion
+" The parameters are the same as `:help feedkeys()`
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+
+" c-j c-k for moving in snippet
+" let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
 
 
 " ------------------------------------------------------------------------------
 " Startup & General Config
 " ------------------------------------------------------------------------------
 colorscheme nord
+
+set nofoldenable
 
 " Vi-compatible - do not want
 set nocp
