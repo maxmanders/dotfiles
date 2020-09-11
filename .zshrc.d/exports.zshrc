@@ -46,3 +46,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
+
+export VIM_PY_PATH="$(brew --prefix python3)/bin/python3"

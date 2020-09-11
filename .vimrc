@@ -82,6 +82,8 @@ Plug 'Shougo/echodoc.vim'
 
 call plug#end()
 
+let g:python3_host_prog = resolve(expand($VIM_PY_PATH))
+
 autocmd BufEnter * call ncm2#enable_for_buffer()
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('deoplete-options-yarp', v:true)
