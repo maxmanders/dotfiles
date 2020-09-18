@@ -55,7 +55,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-sleuth'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go'
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/The-NERD-Commenter'
 Plug 'vim-scripts/surround.vim'
@@ -564,6 +564,7 @@ let g:LanguageClient_autoStart = 1
 " Use the location list instead of the quickfix list to show linter warnings
 let g:LanguageClient_diagnosticsList = "Location"
 let g:LanguageClient_rootMarkers = {
+    \ 'go': ['.go'],
     \ 'java': ['.git'],
     \ 'javascript': ['.git'],
     \ 'python': ['.git'],
@@ -572,6 +573,7 @@ let g:LanguageClient_rootMarkers = {
     \ 'yaml': ['.git']
     \ }
 let g:LanguageClient_serverCommands = {
+    \ 'go': ['gopls'],
     \ 'java': ['java-lsp'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'python': ['pyls'],
