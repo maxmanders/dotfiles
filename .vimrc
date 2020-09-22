@@ -2,8 +2,8 @@
 " Vundle Config
 " ------------------------------------------------------------------------------
 "
-set nocompatible
 set rtp+=/usr/local/opt/fzf
+set nocompatible
 call plug#begin('~/.vim/plugged')
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'SirVer/ultisnips'
@@ -29,7 +29,7 @@ Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kristijanhusak/vim-carbon-now-sh'
 Plug 'lepture/vim-jinja'
