@@ -39,10 +39,6 @@ if hash gdircolors 2> /dev/null; then
 fi
 
 # shellcheck source=/dev/null
-export NVM_DIR="$HOME/.nvm"
-# shellcheck source=/dev/null
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-# shellcheck source=/dev/null
 [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
