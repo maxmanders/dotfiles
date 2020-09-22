@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-rooter'
 Plug 'arcticicestudio/nord-vim'
 Plug 'chr4/nginx.vim'
 Plug 'davidhalter/jedi-vim'
