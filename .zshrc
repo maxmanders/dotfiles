@@ -17,7 +17,6 @@ zplug "plugins/fd", from:oh-my-zsh
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/github", from:oh-my-zsh
 zplug "plugins/gpg-agent", from:oh-my-zsh
-zplug "plugins/kubectl", from:oh-my-zsh
 zplug "plugins/pip", from:oh-my-zsh
 zplug "plugins/pipenv", from:oh-my-zsh
 zplug "plugins/pyenv", from:oh-my-zsh
@@ -65,16 +64,5 @@ stty -ixon
 
 # Clobber files with I/O redirection
 set -o clobber
-
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/max/dev/currenthealth/serverless-ec2-backups/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/max/dev/currenthealth/serverless-ec2-backups/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/max/dev/currenthealth/serverless-ec2-backups/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/max/dev/currenthealth/serverless-ec2-backups/node_modules/tabtab/.completions/sls.zsh
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/max/dev/currenthealth/serverless-ec2-backups/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/max/dev/currenthealth/serverless-ec2-backups/node_modules/tabtab/.completions/slss.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
