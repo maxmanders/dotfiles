@@ -320,7 +320,7 @@ nmap <leader>gg :Gbrowse<cr>
 " ------------------------------------------------------------------------------
 "map <Leader><Leader> :FZF<cr>
 "map <Leader><Leader> :GFiles<cr>
-nnoremap <expr> <Leader><Leader> (len(system('git rev-parse')) ? ':FZF' : ':GFiles')."\<cr>"
+noremap <expr> <Leader><Leader> (len(system('git rev-parse')) ? ':FZF' : ':GFiles --cached --others')."\<cr>"
 
 
 
