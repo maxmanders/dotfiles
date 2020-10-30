@@ -578,6 +578,7 @@ let g:LanguageClient_serverCommands = {
     \ 'java': ['java-lsp'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'python': ['pyls'],
+    \ 'puppet': ['puppet-lsp'],
     \ 'terraform': ['terraform-ls', 'serve'],
     \ 'yaml': ['yaml-language-server', '--stdio']
     \ }
