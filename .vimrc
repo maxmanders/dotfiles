@@ -325,13 +325,14 @@ noremap <expr> <Leader><Leader> (len(system('git rev-parse')) ? ':FZF' : ':GFile
 
 
 " ------------------------------------------------------------------------------
-" Ack/Ag Config
+" Ack Config
 " ------------------------------------------------------------------------------
 nnoremap <leader>a :Ack!<space>
-if executable("ag")
-  let g:ackprg="ag --nogroup --nocolor --column"
-  set grepprg=ag\ --vimgrep\ $*
-  set grepformat=%f:%l%c%m
+if executable("rg")
+  let g:ackprg="rg --vimgrep --smart-case"
+  let g:ack_autoclose = 1
+  let g:ack_use_cword_for_empty_search = 1
+  cnoreabbrev Ack Ack!
 endif
 
 
