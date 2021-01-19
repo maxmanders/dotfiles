@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+trap "rm -f .git/cscope.out.$$" EXIT
+\find . \( \
+    -name "*.rb" -o \
+    -name "*.erb" -o \
+    -name "*.java" -o \
+    -name "*properties" -o \
+    -name "*.cpp" -o \
+    -name "*.cc" -o \
+    -name "*.hpp" -o \
+    -name "*.py" -o \
+    -name "*.php" -o \
+    -name "*.haml" \) -print \
+  -o -path "./.git" -prune \
+  -o -path "./tmp" -prune \
+  -o -path "./logs" -prune \
+  -o -path "./coverage" -prune \
+  -o -path "./vendor" -prune | cscope -R -b -i - -f .git/cscope.out.$$
+mv .git/cscope.out.$$ .git/cscope.out
+
