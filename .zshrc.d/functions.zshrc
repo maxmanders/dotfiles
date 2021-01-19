@@ -388,3 +388,8 @@ togif() {
 
   ffmpeg -i "${infile}" -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > "${outfile}"
 }
+
+randpw(){
+  < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16}
+  echo
+}
