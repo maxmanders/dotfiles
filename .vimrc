@@ -10,6 +10,7 @@ Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'arcticicestudio/nord-vim'
+Plug 'b4b4r07/vim-hcl'
 Plug 'chr4/nginx.vim'
 Plug 'davidhalter/jedi-vim'
 Plug 'dhruvasagar/vim-table-mode'
@@ -416,6 +417,8 @@ let g:tagbar_type_terraform = {
 " ------------------------------------------------------------------------------
 au BufNewFile,BufRead *.hcl set syntax=terraform
 au BufNewFile,BufRead *.hcl set filetype=terraform
+au BufNewFile,BufRead *.nomad set syntax=hcl
+au BufNewFile,BufRead *.nomad set filetype=hcl
 
 " ------------------------------------------------------------------------------
 " Markdown
@@ -583,7 +586,6 @@ let g:LanguageClient_serverCommands = {
     \ 'terraform': ['terraform-ls', 'serve'],
     \ 'yaml': ['yaml-language-server', '--stdio']
     \ }
-
 
 nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
 nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
