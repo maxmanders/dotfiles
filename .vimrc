@@ -322,7 +322,7 @@ nmap <leader>gg :Gbrowse<cr>
 " ------------------------------------------------------------------------------
 "map <Leader><Leader> :FZF<cr>
 "map <Leader><Leader> :GFiles<cr>
-noremap <expr> <Leader><Leader> (len(system('git rev-parse')) ? ':FZF' : ':GFiles --cached --others')."\<cr>"
+noremap <expr> <Leader><Leader> (len(system('git rev-parse')) ? ':FZF' : ':GFiles --cached --others --exclude-standard')."\<cr>"
 
 
 
@@ -332,7 +332,6 @@ noremap <expr> <Leader><Leader> (len(system('git rev-parse')) ? ':FZF' : ':GFile
 nnoremap <leader>a :Ack!<space>
 if executable("rg")
   let g:ackprg="rg --vimgrep --smart-case"
-  let g:ack_autoclose = 1
   let g:ack_use_cword_for_empty_search = 1
   cnoreabbrev Ack Ack!
 endif
@@ -554,7 +553,10 @@ let g:table_mode_corner="|"
 
 let g:terraform_fmt_on_save=1
 
-set diffopt+=iwhite
+if &diff
+  set diffopt-=internal
+  set diffopt+=iwhite
+endif
 
 let g:ale_python_pylint_change_directory = 0
 let g:ale_python_flake8_change_directory = 0
@@ -580,7 +582,7 @@ let g:LanguageClient_rootMarkers = {
     \ }
 let g:LanguageClient_serverCommands = {
     \ 'go': ['gopls'],
-    \ 'java': ['java-lsp'],
+    \ 'java': [$HOME . '/code/src/github.com/max@maxmanders.co.uk/java-language-server/dist/lang_server_mac.sh'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'python': ['pyls'],
     \ 'puppet': ['puppet-lsp'],
