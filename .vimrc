@@ -62,6 +62,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/The-NERD-Commenter'
 Plug 'vim-scripts/surround.vim'
 Plug 'vim-scripts/unimpaired.vim'
+Plug 'vim-scripts/cscope.vim'
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -605,3 +606,49 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 set nofixendofline
+
+" ------------------------------------------------------------------------------
+" cscope Config
+" ------------------------------------------------------------------------------
+"
+if has("cscope")
+  set nocscopetag
+  set cscopequickfix=s-,c-,d-,i-,t-,e-
+  set nocscopeverbose
+
+  if filereadable(".git/cscope.out")
+    cscope add .git/cscope.out
+  endif
+  set cscopeverbose
+
+  nnoremap <Leader>fs :cscope find s <C-R>=expand("<cword>")<CR><CR>:botright cwindow<CR>
+  nnoremap <Leader>fg :cscope find g <C-R>=expand("<cword>")<CR><CR>:botright cwindow<CR>
+  nnoremap <Leader>fc :cscope find c <C-R>=expand("<cword>")<CR><CR>:botright cwindow<CR>
+  nnoremap <Leader>ft :cscope find t <C-R>=expand("<cword>")<CR><CR>:botright cwindow<CR>
+  nnoremap <Leader>fe :cscope find e <C-R>=expand("<cword>")<CR><CR>:botright cwindow<CR>
+  nnoremap <Leader>ff :cscope find f <C-R>=expand("<cfile>")<CR><CR>:botright cwindow<CR>
+  nnoremap <Leader>fd :cscope find d <C-R>=expand("<cword>")<CR><CR>:botright cwindow<CR>
+  nnoremap <Leader>fi :cscope find i ^<C-R>=expand("<cfile>")<CR>$<CR>:botright cwindow<CR>
+
+  "TODO: figure out how to get cstag output in quickfix or a popup menu.
+  map <C-_> :cstag <C-R>=expand("<cword>")<CR><CR>
+
+  function! CscopeRebuild()
+    cscope kill .git/cscope.out
+    silent execute "!./.git/hooks/cscope"
+    if v:shell_error
+      redraw!
+      echohl ErrorMsg | echo "Unable to run cscope command." | echohl None
+    else
+      if filereadable(".git/cscope.out")
+        redraw!
+        cscope add .git/cscope.out
+      else
+        redraw!
+        echohl ErrorMsg | echo "Unable to read cscope database." | echohl None
+      endif
+    endif
+  endfunction
+
+  command! Cscope call CscopeRebuild()
+endif
