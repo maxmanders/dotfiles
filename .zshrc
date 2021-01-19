@@ -43,7 +43,9 @@ fi
 zplug load
 
 # shellcheck source=/dev/null
-source $HOME/bin/aws_zsh_completer.sh
+# source $HOME/bin/aws_zsh_completer.sh
+autoload bashcompinit && bashcompinit
+complete -C '/usr/local/bin/aws_completer' aws
 
 for file in ${HOME}/.zshrc.d/*.zshrc; do
   # shellcheck disable=SC1090
@@ -66,3 +68,6 @@ stty -ixon
 set -o clobber
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/nomad nomad
