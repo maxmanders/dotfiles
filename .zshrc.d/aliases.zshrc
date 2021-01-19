@@ -1,6 +1,7 @@
 #!/usr/local/bin/zsh
 
 alias awswhoami="aws sts get-caller-identity" 
+alias ag="rg"
 alias be="bundle exec"
 alias brew_upgrade='brew update && brew upgrade $(brew outdated)'
 alias cat="bat"
