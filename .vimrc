@@ -10,6 +10,7 @@ Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
 Plug 'arcticicestudio/nord-vim'
 Plug 'chr4/nginx.vim'
+Plug 'chrisbra/NrrwRgn'
 Plug 'davidhalter/jedi-vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'dense-analysis/ale'
@@ -100,6 +101,8 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Startup & General Config
 " ------------------------------------------------------------------------------
 colorscheme nord
+
+set nofixendofline
 
 " Vi-compatible - do not want
 set nocp
@@ -579,4 +582,3 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-set nofixendofline
