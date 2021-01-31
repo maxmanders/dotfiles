@@ -1,13 +1,13 @@
 #!/bin/bash
 
 here="$(dirname "${0}")"
-cd "${here}/pre-commit.d" || exit
+cd "${here}/post-checkout.d" || exit
 
 for hook in *; do
   bash ${hook}
   RESULT=$?
   if [ ${RESULT} != 0 ]; then
-    echo "pre-commit.d/${hook} returned non-zero: ${RESULT}, abort commit"
+    echo "post-checkout.d/${hook} returned non-zero: ${RESULT}, abort commit"
     exit $RESULT
   fi
 done
