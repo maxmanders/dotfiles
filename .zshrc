@@ -1,5 +1,7 @@
 #!/usr/local/bin/zsh
 
+# zmodload zsh/zprof
+
 $(alias -L | grep -qi "git=") && unalias git
 
 ZPLUG_HOME=/usr/local/opt/zplug
