@@ -27,9 +27,9 @@ export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$HOME/bin:/usr/local/opt/imagem
 export PATH="${PATH}:${GO_BIN_PATH}"
 export PATH="${PATH}:${PIPX_PATH}"
 
-eval "$(rbenv init -)"
-eval "$(pyenv init -)"
-eval "$(jenv init -)"
+eval "$(rbenv init - --no-rehash)"
+eval "$(pyenv init - --no-rehash)"
+eval "$(jenv init - --no-rehash)"
 
 if hash gdircolors 2> /dev/null; then
   eval "$(gdircolors "${HOME}/.dircolors")"

@@ -21,7 +21,6 @@ zplug "plugins/github", from:oh-my-zsh
 zplug "plugins/gpg-agent", from:oh-my-zsh
 zplug "plugins/pip", from:oh-my-zsh
 zplug "plugins/pipenv", from:oh-my-zsh
-zplug "plugins/pyenv", from:oh-my-zsh
 zplug "plugins/ssh-agent", from:oh-my-zsh
 zplug "plugins/terraform", from:oh-my-zsh
 zplug "plugins/vagrant", from:oh-my-zsh
