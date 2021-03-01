@@ -417,8 +417,8 @@ let g:tagbar_type_terraform = {
 " ------------------------------------------------------------------------------
 " HCL
 " ------------------------------------------------------------------------------
-au BufNewFile,BufRead *.hcl set syntax=terraform
-au BufNewFile,BufRead *.hcl set filetype=terraform
+au BufNewFile,BufRead *.hcl set syntax=hcl
+au BufNewFile,BufRead *.hcl set filetype=hcl
 au BufNewFile,BufRead *.nomad set syntax=hcl
 au BufNewFile,BufRead *.nomad set filetype=hcl
 
