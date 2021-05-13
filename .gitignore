@@ -1,7 +1,6 @@
 .gitconfig
-.DS_Store
+/.DS_Store
 /vendor/bundle
-.DS_Store
 /.ruby-version
 /.ruby-gemset
 /.sfn-aws
@@ -21,3 +20,15 @@ doc/tags
 .zshrc.d/extra_config.zshrc
 /.vim/plugged
 /.vim/sessions
+Desktop.ini
+._*
+Thumbs.db
+.Spotlight-V100
+.Trashes
+*.pyc
+*.out
+venv
+node_modules
+.sass-cache
+
+nvm.zshrc_
