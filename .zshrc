@@ -9,29 +9,29 @@ export ZPLUG_HOME
 # shellcheck source=/dev/null
 source $ZPLUG_HOME/init.zsh
 
-zplug "mafredri/zsh-async", from:github
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme, at:indestructible-pure
-zplug "plugins/colored-man-pages", from:oh-my-zsh
-zplug "plugins/dircycle", from:oh-my-zsh
-zplug "plugins/docker", from:oh-my-zsh
-zplug "plugins/emoji", from:oh-my-zsh
-zplug "plugins/fd", from:oh-my-zsh
-zplug "plugins/git", from:oh-my-zsh
-zplug "plugins/github", from:oh-my-zsh
-zplug "plugins/gpg-agent", from:oh-my-zsh
-zplug "plugins/pip", from:oh-my-zsh
-zplug "plugins/pipenv", from:oh-my-zsh
-zplug "plugins/ssh-agent", from:oh-my-zsh
-zplug "plugins/terraform", from:oh-my-zsh
-zplug "plugins/vagrant", from:oh-my-zsh
-zplug "lib/clipboard", from:oh-my-zsh
-zplug "lib/compfix", from:oh-my-zsh
-zplug "lib/completion", from:oh-my-zsh
-zplug "lib/directories", from:oh-my-zsh
-zplug "lib/history", from:oh-my-zsh
-zplug "lib/spectrum", from:oh-my-zsh
-zplug "lib/key-bindings", from:oh-my-zsh
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "mafredri/zsh-async", from:"github"
+zplug "sindresorhus/pure", use:"pure.zsh", from:"github", as:"theme"
+
+zplug "plugins/aws", from:"oh-my-zsh"
+zplug "plugins/colored-man-pages", from:"oh-my-zsh"
+zplug "plugins/docker", from:"oh-my-zsh"
+zplug "plugins/fd", from:"oh-my-zsh"
+zplug "plugins/git", from:"oh-my-zsh"
+zplug "plugins/github", from:"oh-my-zsh"
+zplug "plugins/gpg-agent", from:"oh-my-zsh"
+zplug "plugins/pip", from:"oh-my-zsh"
+zplug "plugins/pipenv", from:"oh-my-zsh"
+zplug "plugins/ssh-agent", from:"oh-my-zsh"
+zplug "plugins/terraform", from:"oh-my-zsh"
+zplug "plugins/vagrant", from:"oh-my-zsh"
+
+zplug "lib/clipboard", from:"oh-my-zsh"
+zplug "lib/compfix", from:"oh-my-zsh"
+zplug "lib/completion", from:"oh-my-zsh"
+zplug "lib/directories", from:"oh-my-zsh"
+zplug "lib/history", from:"oh-my-zsh"
+zplug "lib/key-bindings", from:"oh-my-zsh"
+zplug "lib/spectrum", from:"oh-my-zsh"
 
 if ! zplug check; then
     printf "Install? [y/N]: "
@@ -44,7 +44,6 @@ fi
 zplug load
 
 # shellcheck source=/dev/null
-# source $HOME/bin/aws_zsh_completer.sh
 autoload bashcompinit && bashcompinit
 complete -C '/usr/local/bin/aws_completer' aws
 
@@ -68,7 +67,3 @@ stty -ixon
 # Clobber files with I/O redirection
 set -o clobber
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/nomad nomad
