@@ -29,7 +29,7 @@ export PATH="${PATH}:${PIPX_PATH}"
 
 eval "$(rbenv init - --no-rehash)"
 eval "$(pyenv init - --no-rehash)"
-eval "$(jenv init - --no-rehash)"
+# eval "$(jenv init - --no-rehash)"
 
 if hash gdircolors 2> /dev/null; then
   eval "$(gdircolors "${HOME}/.dircolors")"
@@ -41,3 +41,7 @@ fi
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
 export VIM_PY_PATH="$(brew --prefix python3)/bin/python3"
+
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+export AWS_PAGER=
