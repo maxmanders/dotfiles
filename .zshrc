@@ -45,8 +45,9 @@ fi
 zplug load
 
 # shellcheck source=/dev/null
-autoload bashcompinit && bashcompinit
-complete -C '/usr/local/bin/aws_completer' aws
+complete -C aws_completer aws
+complete -C aws_completer sudo
+complete -C aws_completer aws-vault
 
 for file in ${HOME}/.zshrc.d/*.zshrc; do
   # shellcheck disable=SC1090
