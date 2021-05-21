@@ -45,6 +45,8 @@ fi
 zplug load
 
 # shellcheck source=/dev/null
+autoload bashcompinit && bashcompinit
+autoload -U compinit && compinit
 complete -C aws_completer aws
 complete -C aws_completer sudo
 complete -C aws_completer aws-vault
