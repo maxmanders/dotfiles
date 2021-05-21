@@ -25,6 +25,7 @@ zplug "plugins/pipenv", from:"oh-my-zsh"
 zplug "plugins/ssh-agent", from:"oh-my-zsh"
 zplug "plugins/terraform", from:"oh-my-zsh"
 zplug "plugins/vagrant", from:"oh-my-zsh"
+zplug "zsh-users/zsh-completions", from:"github"
 
 zplug "lib/clipboard", from:"oh-my-zsh"
 zplug "lib/compfix", from:"oh-my-zsh"
