@@ -5,42 +5,27 @@
 set rtp+=/usr/local/opt/fzf
 set nocompatible
 call plug#begin('~/.vim/plugged')
-Plug 'OmniSharp/omnisharp-vim'
 Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'arcticicestudio/nord-vim'
-Plug 'b4b4r07/vim-hcl'
-Plug 'chr4/nginx.vim'
-Plug 'chrisbra/NrrwRgn'
 Plug 'davidhalter/jedi-vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'dense-analysis/ale'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'elzr/vim-json'
-Plug 'frimik/ultisnips-terraform-snippets'
 Plug 'godlygeek/tabular'
-Plug 'hashivim/vim-consul'
-Plug 'hashivim/vim-nomadproject'
-Plug 'hashivim/vim-packer'
-Plug 'hashivim/vim-terraform'
-Plug 'hashivim/vim-vaultproject'
-Plug 'hdiniz/vim-gradle'
 Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'kristijanhusak/vim-carbon-now-sh'
 Plug 'lepture/vim-jinja'
 Plug 'majutsushi/tagbar'
-Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mileszs/ack.vim'
-Plug 'mitsuhiko/vim-rst'
 Plug 'mitsuhiko/jinja2'
 Plug 'plasticboy/vim-markdown'
 Plug 'qpkorr/vim-bufkill'
@@ -50,15 +35,13 @@ Plug 'rhysd/committia.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'shougo/deoplete.nvim'
-Plug 'terryma/vim-expand-region'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-sleuth'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/The-NERD-Commenter'
 Plug 'vim-scripts/surround.vim'
@@ -112,7 +95,6 @@ inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
-
 
 " ------------------------------------------------------------------------------
 " Startup & General Config
@@ -654,3 +636,35 @@ if has("cscope")
 
   command! Cscope call CscopeRebuild()
 endif
+
+
+let g:go_highlight_structs = 0
+let g:go_highlight_interfaces = 0
+let g:go_highlight_operators = 0
+
+let g:go_fmt_fail_silently = 1
+let g:go_debug_windows = {
+      \ 'vars':  'leftabove 35vnew',
+      \ 'stack': 'botright 10new',
+\ }
+
+let g:go_test_show_name = 1
+let g:go_list_type = "quickfix"
+
+let g:go_autodetect_gopath = 1
+let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+let g:go_metalinter_enabled = ['vet', 'golint']
+
+let g:go_gopls_complete_unimported = 1
+
+" 2 is for errors and warnings
+let g:go_diagnostics_level = 2
+let g:go_doc_popup_window = 1
+
+let g:go_imports_mode="gopls"
+let g:go_imports_autosave=1
+
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_operators = 1
+
+let g:go_fold_enable = []
