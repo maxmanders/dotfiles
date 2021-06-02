@@ -72,3 +72,5 @@ stty -ixon
 # Clobber files with I/O redirection
 set -o clobber
 
+# Dedup PATH
+export PATH=$(printf %s "$PATH" | awk -vRS=: '!a[$0]++' | paste -s -d:)
