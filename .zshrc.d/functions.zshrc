@@ -397,3 +397,7 @@ randpw() {
 ghash() {
   git rev-parse --short head
 }
+
+repocd() {
+  cd $(fd --min-depth 2 -d2 --type directory . ~/code/src/github.com | fzf)
+}
