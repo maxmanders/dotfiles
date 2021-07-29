@@ -23,7 +23,7 @@ alias mkdir="mkdir -p"
 alias more='less'
 alias ppv="puppet parser validate"
 alias rake="noglob rake"
-alias serve='python -m SimpleHTTPServer'
+alias serve='python -m http.server'
 alias sfn="bundle exec sfn"
 alias sv="source venv/bin/activate"
 alias time-eastern="TZ=America/New_York date"
