@@ -18,8 +18,7 @@ bin/tmuxinator.zsh
 doc/tags
 /.vim/bundle
 .zshrc.d/extra_config.zshrc
-/.vim/plugged
-/.vim/sessions
+/.vim/
 Desktop.ini
 ._*
 Thumbs.db
