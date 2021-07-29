@@ -18,15 +18,21 @@ Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'jlanzarotta/bufexplorer'
+Plug 'junegunn/goyo.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'leafgarland/typescript-vim'
 Plug 'lepture/vim-jinja'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'mileszs/ack.vim'
 Plug 'mitsuhiko/jinja2'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
+Plug 'peitalin/vim-jsx-typescript'
 Plug 'plasticboy/vim-markdown'
 Plug 'qpkorr/vim-bufkill'
 Plug 'rbong/vim-flog'
@@ -48,6 +54,7 @@ Plug 'vim-scripts/The-NERD-Commenter'
 Plug 'vim-scripts/surround.vim'
 Plug 'vim-scripts/unimpaired.vim'
 Plug 'vim-scripts/cscope.vim'
+Plug 'pedrohdz/vim-yaml-folds'
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -92,9 +99,9 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
 " c-j c-k for moving in snippet
-" let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
-let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+" let g:UltiSnipsExpandTrigger    = "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger  = "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
 
 " ------------------------------------------------------------------------------
@@ -380,7 +387,6 @@ let g:tagbar_type_terraform = {
     \ 'sort' : 0
     \ }
 
-
 " ------------------------------------------------------------------------------
 " YAML
 " ------------------------------------------------------------------------------
@@ -560,6 +566,7 @@ let g:LanguageClient_rootMarkers = {
     \ 'go': ['.go'],
     \ 'java': ['.git'],
     \ 'javascript': ['.git'],
+    \ 'javascript.jsx': ['.git'],
     \ 'python': ['.git'],
     \ 'puppet': ['.git'],
     \ 'terraform': ['.git'],
@@ -568,7 +575,8 @@ let g:LanguageClient_rootMarkers = {
 let g:LanguageClient_serverCommands = {
     \ 'go': ['gopls'],
     \ 'java': [$HOME . '/code/src/github.com/max@maxmanders.co.uk/java-language-server/dist/lang_server_mac.sh'],
-    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript': ['typescript-language-server', '--stdio'],
+    \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
     \ 'python': ['pyls'],
     \ 'puppet': ['puppet-lsp'],
     \ 'terraform': ['terraform-ls', 'serve'],
