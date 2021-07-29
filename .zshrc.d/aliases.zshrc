@@ -9,6 +9,7 @@ alias crontab="VIM_CRONTAB=true crontab"
 alias e='exa -l --git'
 alias find="fd"
 alias gam="cd /usr/local/gam; python gam.py"
+alias gcom='USE_MAIN=$(git branch | grep main); git checkout ${USE_MAIN:-master}'
 alias getname="project-name-generator -o dashed"
 alias gfuck="git reset --hard HEAD && git clean -fd && git fetch && git merge origin"
 alias gist="gist -c"
