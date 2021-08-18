@@ -565,6 +565,7 @@ let g:LanguageClient_diagnosticsList = "Location"
 let g:LanguageClient_rootMarkers = {
     \ 'go': ['.go'],
     \ 'java': ['.git'],
+    \ 'typescript': ['.git'],
     \ 'javascript': ['.git'],
     \ 'javascript.jsx': ['.git'],
     \ 'python': ['.git'],
@@ -575,6 +576,7 @@ let g:LanguageClient_rootMarkers = {
 let g:LanguageClient_serverCommands = {
     \ 'go': ['gopls'],
     \ 'java': [$HOME . '/code/src/github.com/max@maxmanders.co.uk/java-language-server/dist/lang_server_mac.sh'],
+    \ 'typescript': ['typescript-language-server', '--stdio'],
     \ 'javascript': ['typescript-language-server', '--stdio'],
     \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
     \ 'python': ['pyls'],
