@@ -21,11 +21,12 @@ export LESS=" -R "
 
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
-GO_BIN_PATH="${HOME}/go/bin"
-PIPX_PATH="${HOME}/.local/bin"
+export GO_BIN_PATH="${HOME}/go/bin"
+export PIPX_PATH="${HOME}/.local/bin"
 export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$HOME/bin:/usr/local/opt/imagemagick@6/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="${PATH}:${GO_BIN_PATH}"
 export PATH="${PATH}:${PIPX_PATH}"
+export PATH="${HOME}/.pyenv/shims:${PATH}:${PIPX_PATH}"
 
 eval "$(rbenv init - --no-rehash)"
 eval "$(pyenv init - --no-rehash)"
