@@ -1,4 +1,6 @@
-set rtp+=/opt/homebrew/bin/fzf
+let HOMEBREW_PREFIX = system('brew --prefix')
+let FZF_DIR = HOMEBREW_PREFIX . '/bin/fzf'
+set rtp+=FZF_DIR
 
 call plug#begin('~/.local/share/nvim/plugged')
 

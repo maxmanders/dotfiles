@@ -121,11 +121,15 @@ if [ ! -d "${HOME}/bin/" ]; then
   mkdir "${HOME}/bin"
 fi
 
-HOMEBREW_PREFIX="/usr/local"
+if [ $(arch) = "arm64" ]; then
+  HOMEBREW_PREFIX="/opt/homebrew"
+else
+  HOMEBREW_PREFIX="/usr/local"
+fi
 
 if [ -d "$HOMEBREW_PREFIX" ]; then
   if ! [ -r "$HOMEBREW_PREFIX" ]; then
-    sudo chown -R "${LOGNAME}:admin" /usr/local
+    sudo chown -R "${LOGNAME}:admin" $HOMEBREW_PREFIX
   fi
 else
   sudo mkdir "$HOMEBREW_PREFIX"
@@ -158,7 +162,11 @@ if ! command -v brew >/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [ $(arch) = "arm64" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
 
 if brew list | grep -Fq brew-cask; then
   log "Uninstalling old Homebrew-Cask ..."
@@ -168,7 +176,10 @@ fi
 log "Updating Homebrew formulae ..."
 brew update --force # https://github.com/Homebrew/brew/issues/1151
 brew bundle --file=Brewfile
-arch -x86_64 brew bundle --file=Brewfile_x86_64
+if [ $(arch) = "arm64" ]; then
+  arch -x86_64 brew bundle --file=Brewfile_x86_64
+fi
+
 $(brew --prefix python3)/bin/pip3 install neovim pynvim
 
 update_zsh_shell
