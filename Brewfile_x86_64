@@ -1,0 +1,6 @@
+brew "openssl"
+brew "pyenv"
+brew "readline"
+brew "sqlite3"
+brew "xz"
+brew "zlib"
