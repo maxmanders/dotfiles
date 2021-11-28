@@ -1,4 +1,4 @@
-set rtp+=/usr/local/opt/fzf
+set rtp+=/opt/homebrew/bin/fzf
 
 call plug#begin('~/.local/share/nvim/plugged')
 
@@ -77,6 +77,7 @@ set nofixendofline
 set completeopt=noinsert,menuone,noselect
 set cmdheight=2
 set breakindent
+set nohls
 
 syntax on
 filetype on

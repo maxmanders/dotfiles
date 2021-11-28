@@ -1,12 +1,15 @@
 #!/usr/local/bin/zsh
 
-if [ "$(uname)" = "Darwin" ]; then
-  JAVA_HOME=$(/usr/libexec/java_home)
-elif [ "$(uname)" = "Linux" ]; then
-  JAVA_HOME="/usr/lib/jvm/java-12-oracle"
-fi
+export PATH="$PATH:$HOME:/.rbenv/shims:$HOME/.rbenv/bin"
+export PATH="$PATH:$HOME/.pyenv/shims"
+export PATH="$PATH:$HOME:/bin"
+export PATH="$PATH:/opt/local/bin:/opt/local/sbin"
+export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin"
+export PATH="$PATH:$GO_BIN_PATH"
+export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
 
-export JAVA_HOME
+
+export JAVA_HOME=$(/usr/libexec/java_home)
 export TERM="screen-256color"
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
 
@@ -23,12 +26,8 @@ export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
 export GO_BIN_PATH="${HOME}/go/bin"
 export PIPX_PATH="${HOME}/.local/bin"
-export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$HOME/bin:/usr/local/opt/imagemagick@6/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-export PATH="${PATH}:${GO_BIN_PATH}"
-export PATH="${PATH}:${PIPX_PATH}"
-export PATH="${HOME}/.pyenv/shims:${PATH}:${PIPX_PATH}"
 
-eval "$(rbenv init - --no-rehash)"
+# eval "$(rbenv init - --no-rehash)"
 eval "$(pyenv init - --no-rehash)"
 # eval "$(jenv init - --no-rehash)"
 
@@ -43,6 +42,8 @@ export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
 export VIM_PY_PATH="$(brew --prefix python3)/bin/python3"
 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 export AWS_PAGER=
+
+
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=$(brew --prefix)/share/zsh-syntax-highlighting/highlighters
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
