@@ -5,19 +5,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-#!/usr/local/bin/zsh
-
-# zmodload zsh/zprof
-
 $(alias -L | grep -qi "git=") && unalias git
 
-ZPLUG_HOME=/usr/local/opt/zplug
-export ZPLUG_HOME
-# shellcheck source=/dev/null
-source $ZPLUG_HOME/init.zsh
+source ${HOME}/.zplug/init.zsh
 
 zplug "mafredri/zsh-async", from:"github"
-# zplug "sindresorhus/pure", use:"pure.zsh", from:"github", as:"theme"
+zplug "sindresorhus/pure", use:"pure.zsh", from:"github", as:"theme"
 zplug romkatv/powerlevel10k, as:theme, depth:1 
 
 zplug "plugins/aws", from:"oh-my-zsh"
@@ -81,7 +74,10 @@ stty -ixon
 set -o clobber
 
 # Dedup PATH
-export PATH=$(printf %s "$PATH" | awk -vRS=: '!a[$0]++' | paste -s -d:)
+export PATH=$(printf %s "$PATH" | awk -vRS=: '!a[$0]++' | paste -s -d: -)
+
+# Hub `git` aliases
+eval "$(hub alias -s)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
