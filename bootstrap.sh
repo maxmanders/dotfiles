@@ -55,8 +55,11 @@ the terminal, and then follow the prompts. Once the command line
 tools have been installed, you can run this script agian."
 fi
 
+
 # Make sure Rosetta 2 is installed
-softwareupdate --install-rosetta --agree-to-license
+if [ $(arch) = "arm64" ]; then
+  softwareupdate --install-rosetta --agree-to-license
+fi
 
 
 ################################################################################
@@ -174,7 +177,7 @@ if brew list | grep -Fq brew-cask; then
 fi
 
 log "Updating Homebrew formulae ..."
-brew update --force # https://github.com/Homebrew/brew/issues/1151
+# brew update --force # https://github.com/Homebrew/brew/issues/1151
 brew bundle --file=Brewfile
 if [ $(arch) = "arm64" ]; then
   arch -x86_64 brew bundle --file=Brewfile_x86_64
@@ -212,7 +215,7 @@ init.vim
 )
 
 nvim_files=(
-.init.vim
+init.vim
 )
 
 log "Installing dotfiles..."
@@ -229,7 +232,7 @@ for item in "${home_files[@]}"; do
   ln -nfs "${PWD}/${item}" "${HOME}/${item}"
 done
 
-mkdir -p "${HOME}/nvm/config"
+mkdir -p "${HOME}/.config/nvim"
 
 log "Installnig neivoim config..."
 
@@ -248,6 +251,14 @@ done
 log "Installing tmux plugin manager"
 rm -fr "${HOME}/.tmux"
 git clone https://github.com/tmux-plugins/tpm "${HOME}/.tmux/plugins/tpm"
+
+if [ ! -d "${HOME}/.zplug" ]; then
+  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+fi
+
+if [ ! -f "${HOME}/.local/share/nvim/site/autoload/plug.vim" ]; then
+  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+fi
 
 log "Dotfiles installation complete!"
 
