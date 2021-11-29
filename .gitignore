@@ -27,6 +27,7 @@ Thumbs.db
 *.pyc
 *.out
 venv
+.venv
 node_modules
 .sass-cache
 
