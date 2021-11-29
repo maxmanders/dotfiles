@@ -1,4 +1,3 @@
-" ------------------------------------------------------------------------------
 " Vundle Config
 " ------------------------------------------------------------------------------
 "
@@ -55,6 +54,7 @@ Plug 'vim-scripts/surround.vim'
 Plug 'vim-scripts/unimpaired.vim'
 Plug 'vim-scripts/cscope.vim'
 Plug 'pedrohdz/vim-yaml-folds'
+Plug 'Yggdroot/indentLine'
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -75,6 +75,11 @@ Plug 'ncm2/ncm2-markdown-subscope'
 Plug 'ncm2/ncm2-rst-subscope'
 Plug 'Shougo/echodoc.vim'
 
+let g:ncm2#matcher = {
+  \ 'name': 'combine',
+  \ 'matchers': ['abbrfuzzy', 'substr']
+\ }
+
 call plug#end()
 
 let g:python3_host_prog = resolve(expand($VIM_PY_PATH))
@@ -85,24 +90,25 @@ call deoplete#custom#option('deoplete-options-yarp', v:true)
 
 set cmdheight=2
 let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'signature'
+let g:echodoc#type = 'floating'
 
 set completeopt=noinsert,menuone,noselect
 inoremap <c-c> <ESC>
-let g:UltiSnipsExpandTrigger = '<c-t>'
-let g:UltiSnipsListSnippets = "<Nop>"
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Press enter key to trigger snippet expansion
 " The parameters are the same as `:help feedkeys()`
-inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+" inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
 " c-j c-k for moving in snippet
-" let g:UltiSnipsExpandTrigger    = "<Plug>(ultisnips_expand)"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnippets = "<c-l>"
 let g:UltiSnipsJumpForwardTrigger = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger  = "<c-k>"
-let g:UltiSnipsRemoveSelectModeMappings = 0
+" let g:UltiSnipsRemoveSelectModeMappings = 0
+" let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME . "/.vim/plugged/aws-vim/snips/"]
+
 
 " ------------------------------------------------------------------------------
 " Startup & General Config
@@ -214,6 +220,7 @@ set statusline=%F%m%r%h%w\ [type=%Y]\ [%p%%]\ [len=%L]\ [POS=%04l,%04v]\
 
 let NERDSpaceDelims=1
 autocmd FileType gitcommit setlocal spell
+let g:NERDDefaultAlign = 'left'
 
 " ------------------------------------------------------------------------------
 " Swap & Backup Config
@@ -390,18 +397,15 @@ let g:tagbar_type_terraform = {
 " ------------------------------------------------------------------------------
 " YAML
 " ------------------------------------------------------------------------------
-" A tab character is two spaces
-:autocmd FileType yaml set tabstop=2
-" Authoindent is two spaces (one tab)
-:autocmd FileType yaml set shiftwidth=2
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " ------------------------------------------------------------------------------
 " JavaScript
 " ------------------------------------------------------------------------------
-:autocmd FileType javascript set tabstop=2
-:autocmd FileType javascript set shiftwidth=2
-:autocmd FileType javascript set expandtab
-:autocmd FileType javascript set smartindent
+autocmd FileType javascript set tabstop=2
+autocmd FileType javascript set shiftwidth=2
+autocmd FileType javascript set expandtab
+autocmd FileType javascript set smartindent
 
 " ------------------------------------------------------------------------------
 " HCL
@@ -571,7 +575,6 @@ let g:LanguageClient_rootMarkers = {
     \ 'python': ['.git'],
     \ 'puppet': ['.git'],
     \ 'terraform': ['.git'],
-    \ 'yaml': ['.git']
     \ }
 let g:LanguageClient_serverCommands = {
     \ 'go': ['gopls'],
@@ -582,7 +585,6 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'puppet': ['puppet-lsp'],
     \ 'terraform': ['terraform-ls', 'serve'],
-    \ 'yaml': ['yaml-language-server', '--stdio']
     \ }
 
 nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
@@ -679,3 +681,7 @@ let g:go_highlight_build_constraints = 1
 let g:go_highlight_operators = 1
 
 let g:go_fold_enable = []
+
+let g:indentLine_char = '⦙'
+let g:indentLine_setColors = 0
+let g:indentLine_defaultGroup = 'SpecialKey'
