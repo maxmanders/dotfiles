@@ -5,7 +5,7 @@
         "revision": "ca598bfea38d2a0e0316662807d58fca18169e22"
       },
       "homebrew/cask": {
-        "revision": "6b8a4699ead4a66c0894fb990f5d64d59858d840"
+        "revision": "ee822812eebe849de2c418b8076cc923f60c5350"
       },
       "homebrew/cask-fonts": {
         "revision": "4e7f86432a297ce7e476082b3339858529b8af4a"
@@ -14,7 +14,7 @@
         "revision": "4ff6801350f4a9c777bfda1fcdd7286b8da9eda5"
       },
       "homebrew/core": {
-        "revision": "77afc79ab5d788dfced3cafb0d5341df8a978ae8"
+        "revision": "7e1d5046945620245be075f23caf2d23646ee3e3"
       },
       "homebrew/services": {
         "revision": "0c4caad0ccdab8014e9436624379828377d474d8"
@@ -6214,7 +6214,7 @@
         }
       },
       "neovim": {
-        "version": "HEAD-b16b702_1",
+        "version": "0.5.1_1",
         "bottle": {
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
@@ -8143,7 +8143,7 @@
         }
       },
       "ruby-build": {
-        "version": "HEAD-6147a6d",
+        "version": "20211124",
         "bottle": {
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
@@ -9124,7 +9124,7 @@
         }
       },
       "universal-ctags/universal-ctags/universal-ctags": {
-        "version": "HEAD-b537b4f",
+        "version": "HEAD-bddc1de",
         "bottle": false,
         "options": {
           "args": [
@@ -10177,9 +10177,9 @@
   "system": {
     "macos": {
       "monterey": {
-        "HOMEBREW_VERSION": "3.3.5",
+        "HOMEBREW_VERSION": "3.3.6",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "319b9e327cda4cb19364d1f68abfaced73bacede",
+        "Homebrew/homebrew-core": "7e1d5046945620245be075f23caf2d23646ee3e3",
         "CLT": "13.1.0.0.1.1633545042",
         "Xcode": "13.1",
         "macOS": "12.0.1"

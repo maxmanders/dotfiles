@@ -6,8 +6,8 @@ export PATH="$PATH:$HOME:/bin"
 export PATH="$PATH:/opt/local/bin:/opt/local/sbin"
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin"
 export PATH="$PATH:$GO_BIN_PATH"
-export PATH="$PATH:$(brew --prefix)/bin:$(brew --prefix)/sbin"
-export PATH="$PATH:$(brew --prefix)/opt"
+export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
+export PATH="$PATH:/usr/local/opt"
 
 
 export JAVA_HOME=$(/usr/libexec/java_home)
