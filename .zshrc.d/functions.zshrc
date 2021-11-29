@@ -399,5 +399,13 @@ ghash() {
 }
 
 repocd() {
-  cd $(fd --min-depth 2 -d2 --type directory . ~/code/src/github.com | fzf)
+  local query
+
+  query="${1}"
+
+  if [ -z "${query}" ]; then
+    cd $(fd --hidden --type d --glob ".git" ~/code/src/github.com --exec dirname | fzf)
+  else
+    cd $(fd --hidden --type d --glob ".git" ~/code/src/github.com --exec dirname | ag ${query} | fzf)
+  fi
 }
