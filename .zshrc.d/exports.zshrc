@@ -4,8 +4,8 @@ export GOPATH=$HOME/go
 export GOROOT=/usr/local/opt/go/libexec
 export GOBIN=$GOPATH/bin
 
-export PATH="$PATH:$HOME:/.rbenv/shims:$HOME/.rbenv/bin"
-export PATH="$PATH:$HOME/.pyenv/shims"
+# export PATH="$PATH:$HOME:/.rbenv/shims:$HOME/.rbenv/bin"
+# export PATH="$PATH:$HOME/.pyenv/shims"
 export PATH="$PATH:$HOME:/bin"
 export PATH="$PATH:/opt/local/bin:/opt/local/sbin"
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin"
@@ -15,7 +15,7 @@ export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
 export PATH="$PATH:/usr/local/opt"
 
 
-export JAVA_HOME=$(/usr/libexec/java_home)
+# export JAVA_HOME=$(/usr/libexec/java_home)
 export TERM="screen-256color"
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
 
@@ -33,7 +33,7 @@ export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 export PIPX_PATH="${HOME}/.local/bin"
 
 # eval "$(rbenv init - --no-rehash)"
-eval "$(pyenv init --path)"
+# eval "$(pyenv init --path)"
 # eval "$(jenv init - --no-rehash)"
 
 if hash gdircolors 2> /dev/null; then
