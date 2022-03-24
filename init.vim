@@ -20,6 +20,7 @@ Plug 'elzr/vim-json'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'jiangmiao/auto-pairs'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf'
@@ -38,7 +39,7 @@ Plug 'neomake/neomake'
 Plug 'pangloss/vim-javascript'
 Plug 'pedrohdz/vim-yaml-folds'
 Plug 'peitalin/vim-jsx-typescript'
-Plug 'plasticboy/vim-markdown'
+Plug 'preservim/vim-markdown'
 Plug 'qpkorr/vim-bufkill'
 Plug 'rhysd/committia.vim'
 Plug 'ryanoasis/vim-devicons'
@@ -197,6 +198,9 @@ endif
 let g:python3_host_prog = resolve(expand($VIM_PY_PATH))
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('deoplete-options-yarp', v:true)
+call deoplete#custom#option('omni_patterns', {
+\ 'go': '[^. *\t]\.\w*',
+\})
 
 
 " -----------------------------------------------------------------------------
@@ -537,6 +541,10 @@ let g:go_highlight_build_constraints = 1
 let g:go_highlight_operators = 1
 
 let g:go_fold_enable = []
+if executable('asdf')
+  let g:asdf_go_path = trim(system('asdf where golang'))
+  let g:go_bin_path = g:asdf_go_path . "/go/bin"
+endif
 " ------------------------------------------------------------------------------
 
 " Create default mappings
@@ -550,3 +558,8 @@ let g:NERDCompactSexyComs = 1
 
 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
+
+augroup Markdown
+  autocmd!
+  autocmd FileType markdown set wrap
+augroup END

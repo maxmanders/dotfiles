@@ -32,3 +32,5 @@ node_modules
 .sass-cache
 
 nvm.zshrc_
+/.tool-versions
+/.go-version
