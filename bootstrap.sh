@@ -203,6 +203,7 @@ home_files=(
 .git_template
 .gitconfig-dist
 .gitignore
+.mongorc.js
 .p10k.zsh
 .psqlrc
 .screenrc
