@@ -7,6 +7,15 @@ __config = {
 prompt = function() {
     var serverstatus = db.serverStatus();
     var host = serverstatus.host.split('.')[0];
+    var envDomain = db.serverStatus().host.split('.').slice(-2, -1)[0];
+    var envString = '';
+    if (!host.startsWith('ip-')) {
+        if (envDomain.toLowerCase().includes('staging')) {
+            envString = '@staging';
+        } else {
+            envString = '@production';
+        }
+    }
     var repl_set = db._adminCommand({"replSetGetStatus": 1}).ok !== 0;
     var rs_state = '';
     if(repl_set) {
@@ -19,7 +28,7 @@ prompt = function() {
             }
         };
     }
-    return host + ' ' + rs_state + ' (' + db + ') ❯ ';
+    return host + envString + ' ' + rs_state + ' (' + db + ') ❯ ';
 };
 
 // prints the duration of each operation
