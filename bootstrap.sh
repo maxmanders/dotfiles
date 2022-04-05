@@ -234,7 +234,7 @@ done
 
 mkdir -p "${HOME}/.config/nvim"
 
-log "Installnig neivoim config..."
+log "Installing neovim config..."
 
 for item in "${nvim_files[@]}"; do
   if [ -e "${HOME}/.config/nvim/${item}" ]; then
