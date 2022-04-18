@@ -82,4 +82,8 @@ eval "$(hub alias -s)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="/usr/local/opt/openssl@3/bin:$PATH"
 
-. /usr/local/opt/asdf/libexec/asdf.sh
+if [[ "$(arch)" == "arm64" ]]; then
+  source /opt/homebrew/lib/asdf.sh
+else
+  source /usr/local/opt/asdf/libexec/asdf.sh
+fi
