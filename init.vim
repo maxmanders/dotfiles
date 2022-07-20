@@ -4,6 +4,7 @@ set rtp+=FZF_DIR
 
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'ap/vim-buftabline'
 Plug 'FooSoft/vim-argwrap'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -34,7 +35,6 @@ Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mileszs/ack.vim'
 Plug 'mitsuhiko/jinja2'
-Plug 'mxw/vim-jsx'
 Plug 'neomake/neomake'
 Plug 'pangloss/vim-javascript'
 Plug 'pedrohdz/vim-yaml-folds'
@@ -62,6 +62,7 @@ Plug 'vim-scripts/The-NERD-Commenter'
 Plug 'vim-scripts/cscope.vim'
 Plug 'vim-scripts/surround.vim'
 Plug 'vim-scripts/unimpaired.vim'
+Plug 'yuezk/vim-js'
 Plug 'zchee/deoplete-jedi'
 
 call plug#end()
@@ -169,6 +170,9 @@ nmap <Leader><C-N> :set invnumber<CR>
 
 " Toggle display of non-printing characters
 nnoremap <Leader>li :set list! list?<CR>
+
+nnoremap <leader>] :bnext<CR>
+nnoremap <leader>[ :bprev<CR>
 
 " Show the line and column number in the statusbar
 set ruler
@@ -563,3 +567,7 @@ augroup Markdown
   autocmd!
   autocmd FileType markdown set wrap
 augroup END
+
+let g:vim_jsx_pretty_colorful_config = 1 "
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
