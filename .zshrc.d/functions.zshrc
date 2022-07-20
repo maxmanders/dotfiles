@@ -409,3 +409,21 @@ repocd() {
     cd $(fd --hidden --type d --glob ".git" ~/code/src/github.com --exec dirname | ag ${query} | fzf)
   fi
 }
+
+# List all AWS actions for a given service
+# Courtesy of Thomas-Franklin
+aws_services_to_actions() {
+  curl --header 'Connection: keep-alive' \
+     --header 'Pragma: no-cache' \
+     --header 'Cache-Control: no-cache' \
+     --header 'Accept: */*' \
+     --header 'Referer: https://awspolicygen.s3.amazonaws.com/policygen.html' \
+     --header 'Accept-Language: en-US,en;q=0.9' \
+     --silent \
+     --compressed \
+     'https://awspolicygen.s3.amazonaws.com/js/policies.js' |
+    cut -d= -f2 |
+    jq -r '.serviceMap[] | .StringPrefix as $prefix | .Actions[] | "\($prefix):\(.)" | select(. | test($v))' --arg v "${1:-^\w:*}" |
+    sort |
+    uniq
+}
