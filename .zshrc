@@ -45,6 +45,12 @@ fi
 
 zplug load
 
+if [[ "$(arch)" == "arm64" ]]; then
+  source /opt/homebrew/lib/asdf.sh
+else
+  source /usr/local/opt/asdf/libexec/asdf.sh
+fi
+
 # shellcheck source=/dev/null
 autoload bashcompinit && bashcompinit
 autoload -U compinit && compinit
@@ -66,9 +72,6 @@ unsetopt correct_all
 # Allow comments in commands
 setopt interactivecomments
 
-# Avoid accidental terminal pause
-stty -ixon
-
 # Clobber files with I/O redirection
 set -o clobber
 
@@ -82,8 +85,3 @@ eval "$(hub alias -s)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="/usr/local/opt/openssl@3/bin:$PATH"
 
-if [[ "$(arch)" == "arm64" ]]; then
-  source /opt/homebrew/lib/asdf.sh
-else
-  source /usr/local/opt/asdf/libexec/asdf.sh
-fi
