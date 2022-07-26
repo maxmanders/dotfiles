@@ -45,12 +45,6 @@ fi
 
 zplug load
 
-if [[ "$(arch)" == "arm64" ]]; then
-  source /opt/homebrew/lib/asdf.sh
-else
-  source /usr/local/opt/asdf/libexec/asdf.sh
-fi
-
 # shellcheck source=/dev/null
 autoload bashcompinit && bashcompinit
 autoload -U compinit && compinit
@@ -84,4 +78,11 @@ eval "$(hub alias -s)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="/usr/local/opt/openssl@3/bin:$PATH"
+
+
+if [[ "$(arch)" == "arm64" ]]; then
+  . /opt/homebrew/opt/asdf/libexec/asdf.sh
+else
+  source /usr/local/opt/asdf/libexec/asdf.sh
+fi
 
