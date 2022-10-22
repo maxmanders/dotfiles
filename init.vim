@@ -18,7 +18,7 @@ Plug 'dense-analysis/ale'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'elzr/vim-json'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
@@ -514,9 +514,9 @@ endif
 " go
 " ------------------------------------------------------------------------------
 
-let g:go_highlight_structs = 0
-let g:go_highlight_interfaces = 0
-let g:go_highlight_operators = 0
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
 
 let g:go_fmt_fail_silently = 1
 let g:go_debug_windows = {
@@ -548,6 +548,7 @@ if executable('asdf')
   let g:asdf_go_path = trim(system('asdf where golang'))
   let g:go_bin_path = g:asdf_go_path . "/go/bin"
 endif
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
 " ------------------------------------------------------------------------------
 
 " Create default mappings
