@@ -86,3 +86,11 @@ else
   source /usr/local/opt/asdf/libexec/asdf.sh
 fi
 
+
+# Created by `pipx` on 2022-09-07 16:08:59
+export PATH="$PATH:/Users/mama/.local/bin"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/mama/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
