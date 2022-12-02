@@ -21,7 +21,7 @@ Plug 'elzr/vim-json'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'jiangmiao/auto-pairs'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -448,6 +448,7 @@ endif
 let g:ale_python_pylint_change_directory = 0
 let g:ale_python_flake8_change_directory = 0
 let g:ale_python_auto_pipenv = 1
+
 " ------------------------------------------------------------------------------
 
 
@@ -514,11 +515,11 @@ endif
 " go
 " ------------------------------------------------------------------------------
 
-let g:go_highlight_structs = 0
-let g:go_highlight_interfaces = 0
-let g:go_highlight_operators = 0
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
 
-let g:go_fmt_fail_silently = 1
+let g:go_fmt_fail_silently = 0
 let g:go_debug_windows = {
       \ 'vars':  'leftabove 35vnew',
       \ 'stack': 'botright 10new',
@@ -537,7 +538,7 @@ let g:go_gopls_complete_unimported = 1
 let g:go_diagnostics_level = 2
 let g:go_doc_popup_window = 1
 
-let g:go_imports_mode="gopls"
+let g:go_imports_mode="goimports"
 let g:go_imports_autosave=1
 
 let g:go_highlight_build_constraints = 1
@@ -548,6 +549,8 @@ if executable('asdf')
   let g:asdf_go_path = trim(system('asdf where golang'))
   let g:go_bin_path = g:asdf_go_path . "/go/bin"
 endif
+
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
 " ------------------------------------------------------------------------------
 
 " Create default mappings
@@ -570,3 +573,5 @@ augroup END
 let g:vim_jsx_pretty_colorful_config = 1 "
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+let g:csv_no_conceal = 1
