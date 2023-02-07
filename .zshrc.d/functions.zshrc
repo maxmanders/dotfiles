@@ -431,3 +431,16 @@ aws_services_to_actions() {
 docker_tidy() {
 	docker ps -a | sed 1d | awk '{print $1}' | xargs -I {} docker rm {}
 }
+
+gh2azure() {
+  local gh_user="${1}"
+  local org="${2}"
+  local url="https://api.github.com/graphql"
+  local query="query { user(login: \\\"${gh_user}\\\"){organizationVerifiedDomainEmails(login: \\\"${org}\\\")}}"
+
+  curl --request POST --silent "${url}" \
+  --header "Authorization: token ${GITHUB_TOKEN}" \
+  --header "content-type: application/json" \
+  -d "{\"query\": \"${query}\"}" \
+  | jq --raw-output '.data.user.organizationVerifiedDomainEmails[0]'
+}
