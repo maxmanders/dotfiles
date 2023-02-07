@@ -58,7 +58,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/The-NERD-Commenter'
-Plug 'vim-scripts/cscope.vim'
+" Plug 'vim-scripts/cscope.vim'
 Plug 'vim-scripts/surround.vim'
 Plug 'vim-scripts/unimpaired.vim'
 Plug 'yuezk/vim-js'
@@ -468,9 +468,10 @@ nmap ga <Plug>(EasyAlign)
 " cscope Config
 " ------------------------------------------------------------------------------
 
-if has("cscope")
+" if has("cscope")
+if "0"
   set nocscopetag
-  set cscopequickfix=s-,c-,d-,i-,t-,e-
+  " set cscopequickfix=s-,c-,d-,i-,t-,e-
   set nocscopeverbose
 
   if filereadable(".git/cscope.out")
