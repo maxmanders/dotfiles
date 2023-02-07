@@ -427,3 +427,7 @@ aws_services_to_actions() {
     sort |
     uniq
 }
+
+docker_tidy() {
+	docker ps -a | sed 1d | awk '{print $1}' | xargs -I {} docker rm {}
+}
