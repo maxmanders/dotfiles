@@ -18,7 +18,7 @@ Plug 'dense-analysis/ale'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'elzr/vim-json'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -200,7 +200,6 @@ endif
 
 let g:python3_host_prog = resolve(expand($VIM_PY_PATH))
 let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option('deoplete-options-yarp', v:true)
 call deoplete#custom#option('omni_patterns', {
 \ 'go': '[^. *\t]\.\w*',
 \})
@@ -515,7 +514,6 @@ endif
 " ------------------------------------------------------------------------------
 " go
 " ------------------------------------------------------------------------------
-
 let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
@@ -539,7 +537,7 @@ let g:go_gopls_complete_unimported = 1
 let g:go_diagnostics_level = 2
 let g:go_doc_popup_window = 1
 
-let g:go_imports_mode="goimports"
+let g:go_imports_mode="gopls"
 let g:go_imports_autosave=1
 
 let g:go_highlight_build_constraints = 1
