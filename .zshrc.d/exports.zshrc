@@ -24,7 +24,7 @@ export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 export PIPX_PATH="${HOME}/.local/bin"
 
 if hash gdircolors 2> /dev/null; then
-  eval "$(gdircolors "${HOME}/.dircolors")"
+  test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 fi
 
 # shellcheck source=/dev/null
