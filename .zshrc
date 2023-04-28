@@ -47,6 +47,7 @@ fi
 zplug load
 
 # shellcheck source=/dev/null
+fpath=(${HOME}/.zshrc.d/completions/ $fpath)
 autoload bashcompinit && bashcompinit
 autoload -U compinit && compinit
 complete -C aws_completer aws
