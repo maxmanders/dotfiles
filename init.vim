@@ -425,7 +425,9 @@ nnoremap <silent> <leader>/ <ESC>:NERDTreeToggle<RETURN>
 " ------------------------------------------------------------------------------
 " TagBar Config
 " ------------------------------------------------------------------------------
+let g:tagbar_ctags_bin="/opt/homebrew/bin/ctags"
 nnoremap <silent> <leader>. :TagbarToggle<CR>  
+
 " ------------------------------------------------------------------------------
 
 

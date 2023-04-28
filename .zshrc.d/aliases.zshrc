@@ -5,6 +5,7 @@ alias ag="rg"
 alias be="bundle exec"
 alias brew_upgrade='brew update && brew upgrade $(brew outdated)'
 alias cat="bat"
+alias ctags="`brew --prefix`/bin/ctags"
 alias crontab="VIM_CRONTAB=true crontab"
 alias e='exa -l --git'
 alias find="fd"
