@@ -389,8 +389,10 @@ togif() {
   ffmpeg -i "${infile}" -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > "${outfile}"
 }
 
-randpw() {
-  < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16}
+pwgen() {
+  local length
+  length="${1:-16}"
+  < /dev/urandom | LC_CTYPE=ISO8859-1 tr -dc _A-Z-a-z-0-9 | LC_CTYPE=ISO8859-1 head -c${1:-${length}}
   echo
 }
 
