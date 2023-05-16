@@ -48,6 +48,8 @@ zplug load
 
 # shellcheck source=/dev/null
 fpath=(${HOME}/.zshrc.d/completions/ $fpath)
+HOMEBREW_PREFIX="$(brew --prefix)"
+fpath=(${HOMEBREW_PREFIX}/share/zsh/site-functions $fpath)
 autoload bashcompinit && bashcompinit
 autoload -U compinit && compinit
 complete -C aws_completer aws
@@ -73,6 +75,7 @@ set -o clobber
 
 # Dedup PATH
 export PATH=$(printf %s "$PATH" | awk -vRS=: '!a[$0]++' | paste -s -d: -)
+export PATH=$(brew --prefix)/bin:$PATH
 
 # Hub `git` aliases
 eval "$(hub alias -s)"
