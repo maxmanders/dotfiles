@@ -28,6 +28,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'leafgarland/typescript-vim'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'machakann/vim-highlightedyank'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/gist-vim'
@@ -145,7 +146,6 @@ set hidden
 set listchars=tab:→\ ,trail:·,precedes:«,extends:»,eol:¶
 
 set notagrelative
-set tags^=.git/tags,*/.git/tags;~
 set tagcase=smart
 
 " Show command in last line

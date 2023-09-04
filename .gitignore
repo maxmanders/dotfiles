@@ -35,3 +35,4 @@ nvm.zshrc_
 /.tool-versions
 .tool-versions
 /.go-version
+tags*
