@@ -22,7 +22,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -31,7 +31,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'machakann/vim-highlightedyank'
 Plug 'majutsushi/tagbar'
-Plug 'mattn/gist-vim'
+Plug 'mattn/vim-gist'
 Plug 'mattn/webapi-vim'
 Plug 'mileszs/ack.vim'
 Plug 'mitsuhiko/jinja2'
@@ -42,6 +42,7 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'preservim/vim-markdown'
 Plug 'qpkorr/vim-bufkill'
 Plug 'rhysd/committia.vim'
+Plug 'rhysd/vim-grammarous'
 Plug 'ryanoasis/vim-devicons'
 Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdcommenter'
@@ -576,3 +577,5 @@ autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 let g:csv_no_conceal = 1
+
+set splitbelow

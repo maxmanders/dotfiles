@@ -436,13 +436,58 @@ docker_tidy() {
 
 gh2azure() {
   local gh_user="${1}"
-  local org="${2}"
-  local url="https://api.github.com/graphql"
-  local query="query { user(login: \\\"${gh_user}\\\"){organizationVerifiedDomainEmails(login: \\\"${org}\\\")}}"
+  gh api graphql --paginate -f query='
+    query ($endCursor: String) {
+      organization(login: "trustpilot") {
+        samlIdentityProvider {
+          ssoUrl
+          externalIdentities(first: 100, after: $endCursor) {
+            edges {
+              node {
+                guid
+                samlIdentity {
+                  nameId
+                }
+                user {
+                  login
+                }
+              }
+            }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+          }
+        }
+      }
+    }' | jq --arg gh_user ${gh_user} '.data.organization.samlIdentityProvider.externalIdentities.edges[].node | select(.user.login == $gh_user) | .samlIdentity.nameId'
+}
 
-  curl --request POST --silent "${url}" \
-  --header "Authorization: token ${GITHUB_TOKEN}" \
-  --header "content-type: application/json" \
-  -d "{\"query\": \"${query}\"}" \
-  | jq --raw-output '.data.user.organizationVerifiedDomainEmails[0]'
+azure2gh() {
+  local azuread_user="${1}"
+  gh api graphql --paginate -f query='
+    query ($endCursor: String) {
+      organization(login: "trustpilot") {
+        samlIdentityProvider {
+          ssoUrl
+          externalIdentities(first: 100, after: $endCursor) {
+            edges {
+              node {
+                guid
+                samlIdentity {
+                  nameId
+                }
+                user {
+                  login
+                }
+              }
+            }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+          }
+        }
+      }
+    }' | jq --arg azuread_user ${azuread_user} '.data.organization.samlIdentityProvider.externalIdentities.edges[].node | select(.samlIdentity.nameId == $azuread_user) | .user.login'
 }

@@ -5,8 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-$(alias -L | grep -qi "git=") && unalias git
-
 source ${HOME}/.zplug/init.zsh
 
 zplug "mafredri/zsh-async", from:"github"
@@ -46,6 +44,11 @@ fi
 
 zplug load
 
+for file in ${HOME}/.zshrc.d/*.zshrc; do
+  # shellcheck disable=SC1090
+  source "${file}"
+done
+
 # shellcheck source=/dev/null
 fpath=(${HOME}/.zshrc.d/completions/ $fpath)
 HOMEBREW_PREFIX="$(brew --prefix)"
@@ -55,11 +58,6 @@ autoload -U compinit && compinit
 complete -C aws_completer aws
 complete -C aws_completer sudo
 complete -C aws_completer aws-vault
-
-for file in ${HOME}/.zshrc.d/*.zshrc; do
-  # shellcheck disable=SC1090
-  source "${file}"
-done
 
 # Nicer directory navigation
 setopt autocd autopushd pushdignoredups
@@ -77,19 +75,19 @@ set -o clobber
 export PATH=$(printf %s "$PATH" | awk -vRS=: '!a[$0]++' | paste -s -d: -)
 export PATH=$(brew --prefix)/bin:$PATH
 
-# Hub `git` aliases
-eval "$(hub alias -s)"
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="/usr/local/opt/openssl@3/bin:$PATH"
 
 
 if [[ "$(arch)" == "arm64" ]]; then
-  . /opt/homebrew/opt/asdf/libexec/asdf.sh
+  source /opt/homebrew/opt/asdf/libexec/asdf.sh
+  export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
 else
   source /usr/local/opt/asdf/libexec/asdf.sh
+  export PATH="$PATH:/usr/local/homebrew/opt/mysql-client/bin"
 fi
+
 
 
 # Created by `pipx` on 2022-09-07 16:08:59
@@ -99,3 +97,16 @@ export PATH="$PATH:/Users/mama/.local/bin"
 export PATH="/Users/mama/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+###-begin-cdk-completions-###
+_cdk_yargs_completions()
+{
+  local reply
+  local si=$IFS
+  IFS=$'
+' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" cdk --get-yargs-completions "${words[@]}"))
+  IFS=$si
+  _describe 'values' reply
+}
+compdef _cdk_yargs_completions cdk
+###-end-cdk-completions-###

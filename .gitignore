@@ -35,4 +35,5 @@ nvm.zshrc_
 /.tool-versions
 .tool-versions
 /.go-version
+.ipynb_checkpoints/
 tags*
