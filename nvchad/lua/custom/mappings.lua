@@ -11,5 +11,10 @@ M.general = {
 }
 
 -- more keybinds!
+M.disabled = {
+    i =  {
+      ["<C-h>"] = "",
+    }
+}
 
 return M
