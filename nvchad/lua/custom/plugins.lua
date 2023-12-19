@@ -96,6 +96,33 @@ local plugins = {
     "dhruvasagar/vim-table-mode"
   },
 
+  {
+    "sheerun/vim-polyglot",
+    lazy = false,
+  },
+
+  {
+    "rhysd/committia.vim",
+    ft = "gitcommit",
+    config = function()
+      vim.g.committia_min_window_width = 140
+      vim.g.committia_edit_window_width = 90
+    end,
+  },
+
+  {
+    "tpope/vim-fugitive",
+    lazy = false,
+  },
+
+  {
+    "mattn/vim-gist",
+    lazy = false,
+    dependencies = {
+      "mattn/webapi-vim"
+    },
+  },
+
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
