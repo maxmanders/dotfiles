@@ -56,4 +56,15 @@ M.nvimtree = {
   },
 }
 
+M.telescope = {
+  file_ignore_patterns = {
+    "node_modules"
+  },
+  pickers = {
+    find_files = {
+      follow = true
+    }
+  },
+}
+
 return M
