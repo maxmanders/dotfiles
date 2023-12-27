@@ -9,3 +9,5 @@
 vim.g.mapleader = ","
 vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 vim.wo.relativenumber = true
+vim.opt.hls = false
+vim.api.nvim_set_option("clipboard","unnamed")
