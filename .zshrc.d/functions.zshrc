@@ -406,9 +406,9 @@ repocd() {
   query="${1}"
 
   if [ -z "${query}" ]; then
-    cd $(fd --hidden --type d --glob ".git" ~/code/src/github.com --exec dirname | fzf)
+    cd $(fd --no-ignore --hidden --type d --glob ".git" ~/code/src/github.com --exec dirname | fzf)
   else
-    cd $(fd --hidden --type d --glob ".git" ~/code/src/github.com --exec dirname | ag ${query} | fzf)
+    cd $(fd --no-ignore --hidden --type d --glob ".git" ~/code/src/github.com --exec dirname | ag ${query} | fzf)
   fi
 }
 
