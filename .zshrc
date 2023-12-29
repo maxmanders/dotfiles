@@ -53,7 +53,7 @@ done
 fpath=(${HOME}/.zshrc.d/completions/ $fpath)
 HOMEBREW_PREFIX="$(brew --prefix)"
 fpath=(${HOMEBREW_PREFIX}/share/zsh/site-functions $fpath)
-autoload bashcompinit && bashcompinit
+autoload -U bashcompinit && bashcompinit
 autoload -U compinit && compinit
 complete -C aws_completer aws
 complete -C aws_completer sudo
