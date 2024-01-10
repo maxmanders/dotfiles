@@ -73,6 +73,16 @@ local plugins = {
     opts = {},
     config = function()
       require("aerial").setup({
+        float = {
+          relative = "win",
+          override = function(conf)
+            local padding = 1
+            conf.anchor = 'NE'
+            conf.row = padding
+            conf.col = vim.api.nvim_win_get_width(0) - padding
+            return conf
+          end,
+        },
         on_attach = function(bufnr)
           -- Jump forwards/backwards with '{' and '}'
           vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
@@ -119,6 +129,11 @@ local plugins = {
 
   {
     "tpope/vim-fugitive",
+    lazy = false,
+  },
+
+  {
+    "tpope/vim-rhubarb",
     lazy = false,
   },
 
