@@ -99,18 +99,22 @@ local plugins = {
 
   {
     "ludovicchabant/vim-gutentags",
+    lazy = false,
   },
 
   {
-    "airblade/vim-gitgutter"
+    "airblade/vim-gitgutter",
+    lazy = false,
   },
 
   {
-    "airblade/vim-rooter"
+    "airblade/vim-rooter",
+    lazy = false,
   },
 
   {
-    "dhruvasagar/vim-table-mode"
+    "dhruvasagar/vim-table-mode",
+    lazy = false,
   },
 
   {
@@ -129,7 +133,7 @@ local plugins = {
 
   {
     "tpope/vim-fugitive",
-    lazy = false,
+    event = "VeryLazy"
   },
 
   {
