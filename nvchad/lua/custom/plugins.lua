@@ -29,6 +29,15 @@ local plugins = {
     build = function() vim.fn["mkdp#util#install"]() end,
   },
 
+  {
+    "kdheepak/lazygit.nvim",
+    lazy = false,
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+  },
+
   -- override plugin configs
   {
     "williamboman/mason.nvim",
