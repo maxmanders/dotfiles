@@ -1,8 +1,10 @@
 #!/usr/local/bin/zsh
 
-export PATH="$PATH:$HOME:/bin"
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$(brew --prefix)/opt/coreutils/libexec/gnubin"
+export PATH="$PATH:/bin"
 export PATH="$PATH:/opt/local/bin:/opt/local/sbin"
-export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin"
+export PATH="$PATH:/usr/local/sbin:/usr/local/bin"
 export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
 export PATH="$PATH:/usr/local/opt"
 

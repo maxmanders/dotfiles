@@ -58,6 +58,7 @@ autoload -U compinit && compinit
 complete -C aws_completer aws
 complete -C aws_completer sudo
 complete -C aws_completer aws-vault
+source $(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 
 # Nicer directory navigation
 setopt autocd autopushd pushdignoredups
@@ -74,6 +75,7 @@ set -o clobber
 # Dedup PATH
 export PATH=$(printf %s "$PATH" | awk -vRS=: '!a[$0]++' | paste -s -d: -)
 export PATH=$(brew --prefix)/bin:$PATH
+export PATH=$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -110,3 +112,4 @@ _cdk_yargs_completions()
 }
 compdef _cdk_yargs_completions cdk
 ###-end-cdk-completions-###
+eval "$(atuin init zsh)"

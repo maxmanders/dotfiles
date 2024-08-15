@@ -491,3 +491,23 @@ azure2gh() {
       }
     }' | jq --arg azuread_user ${azuread_user} '.data.organization.samlIdentityProvider.externalIdentities.edges[].node | select(.samlIdentity.nameId == $azuread_user) | .user.login'
 }
+
+# Switch from feature branch to default branch
+# Fetch and pull from origin
+# Delete local feature branch
+function gdef() {
+
+  default_branch="$(\
+    git remote show origin \
+    | sed -n '/HEAD branch/s/.*: //p' \
+  )"
+
+  current_branch="$(git rev-parse --abbrev-ref HEAD)"
+
+  git checkout "${default_branch}"
+  git fetch origin
+  git pull origin "${default_branch}"
+  if [ "${default_branch}" != "${current_branch}" ]; then
+    git branch --delete "${current_branch}"
+  fi
+}
