@@ -46,6 +46,12 @@ M.mason = {
     -- python
     "pyre",
     "pyright",
+
+    -- bash
+    "bash-language-server",
+
+    -- terraform
+    "terraform-ls",
   },
 }
 
