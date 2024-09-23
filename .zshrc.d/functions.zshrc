@@ -434,8 +434,10 @@ docker_tidy() {
 	docker ps -a | sed 1d | awk '{print $1}' | xargs -I {} docker rm {}
 }
 
-gh2azure() {
-  local gh_user="${1}"
+gh2entra() {
+  local gh_user
+  gh_user="${1}"
+
   gh api graphql --paginate -f query='
     query ($endCursor: String) {
       organization(login: "trustpilot") {
@@ -445,8 +447,8 @@ gh2azure() {
             edges {
               node {
                 guid
-                samlIdentity {
-                  nameId
+                scimIdentity {
+                  username
                 }
                 user {
                   login
@@ -460,11 +462,16 @@ gh2azure() {
           }
         }
       }
-    }' | jq --arg gh_user ${gh_user} '.data.organization.samlIdentityProvider.externalIdentities.edges[].node | select(.user.login == $gh_user) | .samlIdentity.nameId'
+    }' | jq \
+      --raw-output \
+      --arg gh_user ${gh_user} \
+      '.data.organization.samlIdentityProvider.externalIdentities.edges[].node | select(.user.login == $gh_user) | .scimIdentity.username'
 }
 
-azure2gh() {
-  local azuread_user="${1}"
+entra2gh() {
+  local entra_user
+  entra_user="${1}"
+
   gh api graphql --paginate -f query='
     query ($endCursor: String) {
       organization(login: "trustpilot") {
@@ -474,8 +481,8 @@ azure2gh() {
             edges {
               node {
                 guid
-                samlIdentity {
-                  nameId
+                scimIdentity {
+                  username
                 }
                 user {
                   login
@@ -489,7 +496,10 @@ azure2gh() {
           }
         }
       }
-    }' | jq --arg azuread_user ${azuread_user} '.data.organization.samlIdentityProvider.externalIdentities.edges[].node | select(.samlIdentity.nameId == $azuread_user) | .user.login'
+    }' | jq \
+      --raw-output \
+      --arg entra_user ${entra_user} \
+      '.data.organization.samlIdentityProvider.externalIdentities.edges[].node | select(.scimIdentity.username == $entra_user) | .user.login'
 }
 
 # Switch from feature branch to default branch
