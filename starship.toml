@@ -1,171 +1,131 @@
-[aws]
-symbol = "  "
+[bun]
+format = "via [$symbol]($style)"
 
 [buf]
-symbol = " "
+format = "via [$symbol]($style)"
 
-[c]
-symbol = " "
+[cmake]
+format = "via [$symbol]($style)"
 
-[conda]
-symbol = " "
+[cobol]
+format = "via [$symbol]($style)"
 
 [crystal]
-symbol = " "
+format = "via [$symbol]($style)"
+
+[daml]
+format = "via [$symbol]($style)"
 
 [dart]
-symbol = " "
+format = "via [$symbol]($style)"
 
-[directory]
-read_only = " 󰌾"
+[deno]
+format = "via [$symbol]($style)"
 
-[docker_context]
-symbol = " "
+[dotnet]
+format = "[$symbol(🎯 $tfm )]($style)"
 
 [elixir]
-symbol = " "
+format = 'via [$symbol]($style)'
 
 [elm]
-symbol = " "
+format = 'via [$symbol]($style)'
+
+[erlang]
+format = 'via [$symbol]($style)'
 
 [fennel]
-symbol = " "
+format = 'via [$symbol]($style)'
 
-[fossil_branch]
-symbol = " "
-
-[git_branch]
-symbol = " "
-
-[git_commit]
-tag_symbol = '  '
+[gleam]
+format = 'via [$symbol]($style)'
 
 [golang]
-symbol = " "
-
-[guix_shell]
-symbol = " "
-
-[haskell]
-symbol = " "
-
-[haxe]
-symbol = " "
-
-[hg_branch]
-symbol = " "
-
-[hostname]
-ssh_symbol = " "
-
-[java]
-symbol = " "
-
-[julia]
-symbol = " "
-
-[kotlin]
-symbol = " "
-
-[lua]
-symbol = " "
-
-[memory_usage]
-symbol = "󰍛 "
-
-[meson]
-symbol = "󰔷 "
-
-[nim]
-symbol = "󰆥 "
-
-[nix_shell]
-symbol = " "
-
-[nodejs]
-symbol = " "
-disabled = false
-
-[ocaml]
-symbol = " "
-
-[os.symbols]
-Alpaquita = " "
-Alpine = " "
-AlmaLinux = " "
-Amazon = " "
-Android = " "
-Arch = " "
-Artix = " "
-CentOS = " "
-Debian = " "
-DragonFly = " "
-Emscripten = " "
-EndeavourOS = " "
-Fedora = " "
-FreeBSD = " "
-Garuda = "󰛓 "
-Gentoo = " "
-HardenedBSD = "󰞌 "
-Illumos = "󰈸 "
-Kali = " "
-Linux = " "
-Mabox = " "
-Macos = " "
-Manjaro = " "
-Mariner = " "
-MidnightBSD = " "
-Mint = " "
-NetBSD = " "
-NixOS = " "
-OpenBSD = "󰈺 "
-openSUSE = " "
-OracleLinux = "󰌷 "
-Pop = " "
-Raspbian = " "
-Redhat = " "
-RedHatEnterprise = " "
-RockyLinux = " "
-Redox = "󰀘 "
-Solus = "󰠳 "
-SUSE = " "
-Ubuntu = " "
-Unknown = " "
-Void = " "
-Windows = "󰍲 "
-
-[package]
-symbol = "󰏗 "
-
-[perl]
-symbol = " "
-
-[php]
-symbol = " "
-
-[pijul_channel]
-symbol = " "
-
-[python]
-symbol = " "
-
-[rlang]
-symbol = "󰟔 "
-
-[ruby]
-symbol = " "
-
-[rust]
-symbol = "󱘗 "
-
-[scala]
-symbol = " "
-
-[swift]
-symbol = " "
-
-[zig]
-symbol = " "
+format = 'via [$symbol]($style)'
 
 [gradle]
-symbol = " "
+format = 'via [$symbol]($style)'
+
+[haxe]
+format = 'via [$symbol]($style)'
+
+[helm]
+format = 'via [$symbol]($style)'
+
+[java]
+format = 'via [$symbol]($style)'
+
+[julia]
+format = 'via [$symbol]($style)'
+
+[kotlin]
+format = 'via [$symbol]($style)'
+
+[lua]
+format = 'via [$symbol]($style)'
+
+[meson]
+format = 'via [$symbol]($style)'
+
+[nim]
+format = 'via [$symbol]($style)'
+
+[nodejs]
+format = 'via [$symbol]($style)'
+
+[ocaml]
+format = 'via [$symbol(\($switch_indicator$switch_name\) )]($style)'
+
+[opa]
+format = 'via [$symbol]($style)'
+
+[perl]
+format = 'via [$symbol]($style)'
+
+[php]
+format = 'via [$symbol]($style)'
+
+[pulumi]
+format = 'via [$symbol$stack]($style)'
+
+[purescript]
+format = 'via [$symbol]($style)'
+
+[python]
+format = 'via [$symbol]($style)'
+
+[quarto]
+format = 'via [$symbol]($style)'
+
+[raku]
+format = 'via [$symbol]($style)'
+
+[red]
+format = 'via [$symbol]($style)'
+
+[rlang]
+format = 'via [$symbol]($style)'
+
+[ruby]
+format = 'via [$symbol]($style)'
+
+[rust]
+format = 'via [$symbol]($style)'
+
+[solidity]
+format = 'via [$symbol]($style)'
+
+[typst]
+format = 'via [$symbol]($style)'
+
+[swift]
+format = 'via [$symbol]($style)'
+
+[vagrant]
+format = 'via [$symbol]($style)'
+
+[vlang]
+format = 'via [$symbol]($style)'
+
+[zig]
+format = 'via [$symbol]($style)'
