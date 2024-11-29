@@ -1,3 +1,9 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+[character]
+success_symbol = '[](bold fg:green)'
+error_symbol = '[](bold fg:red)'
+
 [bun]
 format = "via [$symbol]($style)"
 
