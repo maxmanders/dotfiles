@@ -21,6 +21,7 @@ function check_bin() {
 ################################################################################
 check_bin ag
 check_bin aws
+check_bin bkt
 check_bin column
 check_bin curl
 check_bin dig
@@ -405,10 +406,16 @@ repocd() {
 
   query="${1}"
 
+  repo_dirs=$(\
+    bkt --ttl 60m --stale 50m -- \
+      fd --no-ignore --hidden --type d --glob ".git" \
+      ~/code/src/github.com --exec dirname \
+  )
+
   if [ -z "${query}" ]; then
-    cd $(fd --no-ignore --hidden --type d --glob ".git" ~/code/src/github.com --exec dirname | fzf)
+    cd $(echo "${repo_dirs}" | fzf)
   else
-    cd $(fd --no-ignore --hidden --type d --glob ".git" ~/code/src/github.com --exec dirname | ag ${query} | fzf)
+    cd $(echo "${repo_dirs}" | ag ${query} | fzf)
   fi
 }
 
