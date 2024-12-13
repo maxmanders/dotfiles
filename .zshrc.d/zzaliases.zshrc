@@ -4,6 +4,7 @@ alias awswhoami="aws sts get-caller-identity"
 alias ag="rg"
 alias be="bundle exec"
 alias brew_upgrade='brew update && brew upgrade $(brew outdated)'
+alias cd="z"
 alias cat="bat"
 alias ctags="`brew --prefix`/bin/ctags"
 alias crontab="VIM_CRONTAB=true crontab"
