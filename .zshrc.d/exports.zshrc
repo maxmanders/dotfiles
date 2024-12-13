@@ -1,11 +1,11 @@
 #!/usr/local/bin/zsh
 
 export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
 export PATH="$PATH:$(brew --prefix)/opt/coreutils/libexec/gnubin"
 export PATH="$PATH:/bin"
 export PATH="$PATH:/opt/local/bin:/opt/local/sbin"
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin"
-export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
 export PATH="$PATH:/usr/local/opt"
 
 
@@ -30,7 +30,7 @@ if hash gdircolors 2> /dev/null; then
 fi
 
 # shellcheck source=/dev/null
-[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+# [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 

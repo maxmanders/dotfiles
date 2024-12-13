@@ -42,15 +42,18 @@ for file in ${HOME}/.zshrc.d/*.zshrc; do
 done
 
 # shellcheck source=/dev/null
-fpath=(${HOME}/.zshrc.d/completions/ $fpath)
 HOMEBREW_PREFIX="$(brew --prefix)"
+fpath=(${HOME}/.zshrc.d/completions/ $fpath)
 fpath=(${HOMEBREW_PREFIX}/share/zsh/site-functions $fpath)
+fpath=(${HOME}/.granted/zsh_autocomplete/assume/ $fpath)
+fpath=(${HOME}/.granted/zsh_autocomplete/granted/ $fpath)
 autoload -U bashcompinit && bashcompinit
 autoload -U compinit && compinit
 complete -C aws_completer aws
 complete -C aws_completer sudo
 complete -C aws_completer aws-vault
-source $(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+source ${HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+source ${HOMEBREW_PREFIX}/opt/python-argcomplete/share/bash-completion/completions/python-argcomplete
 
 # Nicer directory navigation
 setopt autocd autopushd pushdignoredups
@@ -88,7 +91,6 @@ export PATH="$PATH:/Users/mama/.local/bin"
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/mama/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ###-begin-cdk-completions-###
 _cdk_yargs_completions()
@@ -102,5 +104,7 @@ _cdk_yargs_completions()
 }
 compdef _cdk_yargs_completions cdk
 ###-end-cdk-completions-###
+source <(fzf --zsh)
 eval "$(starship init zsh)"
 eval "$(atuin init zsh)"
+eval "$(zoxide init zsh)"
