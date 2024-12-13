@@ -407,7 +407,7 @@ repocd() {
   query="${1}"
 
   repo_dirs=$(\
-    bkt --ttl 60m --stale 50m -- \
+    bkt --ttl 60m --stale 30m -- \
       fd --no-ignore --hidden --type d --glob ".git" \
       ~/code/src/github.com --exec dirname \
   )
