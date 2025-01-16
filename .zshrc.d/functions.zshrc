@@ -528,3 +528,10 @@ function gdef() {
     git branch --delete "${current_branch}"
   fi
 }
+
+function defang() {
+  case "$1" in
+    "-r") echo "$2" | sed 's/hxxp/http/g' | sed 's/\[:\/\/\]/:\/\//g' | sed 's/\[\.\]/\./g' | tee >(pbcopy) ;;
+    *) echo "$1" | sed 's/http/hxxp/g' | sed 's/:\/\//\[:\/\/\]/g' | sed 's/\./[\.]/g' | tee >(pbcopy) ;;
+  esac
+}
