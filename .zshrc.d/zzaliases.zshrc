@@ -18,6 +18,7 @@ alias gist="gist -c"
 alias grep="pcregrep --color=auto"
 alias gup="gfo && ggpull"
 alias h="history"
+alias kittyreload="kill -SIGUSR1 $KITTY_PID"
 alias ls="lsd"
 alias l="ll"
 alias less='less -m -g -i -J --underline-special --SILENT'
