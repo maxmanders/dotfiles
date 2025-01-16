@@ -26,7 +26,7 @@ zplug "lib/key-bindings", from:"oh-my-zsh"
 zplug "lib/spectrum", from:"oh-my-zsh"
 
 if ! zplug check; then
-    printf "Install? [y/N]: "
+    printf "Install zplug plugins? [y/N]: "
     # shellcheck disable=SC1091
     if read -rq; then
         echo; zplug install
