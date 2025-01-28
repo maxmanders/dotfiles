@@ -37,3 +37,4 @@ nvm.zshrc_
 /.go-version
 .ipynb_checkpoints/
 tags*
+.aws-sam/
