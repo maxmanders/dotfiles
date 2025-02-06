@@ -34,7 +34,7 @@ fi
 
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
-export VIM_PY_PATH="$(brew --prefix python3)/bin/python3.11"
+export VIM_PY_PATH="$(brew --prefix python3)/bin/python3"
 
 export AWS_PAGER=
 
