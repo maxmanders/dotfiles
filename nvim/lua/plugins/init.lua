@@ -175,7 +175,6 @@ return {
       })
     end,
   },
-
   -- {
   -- 	"nvim-treesitter/nvim-treesitter",
   -- 	opts = {
