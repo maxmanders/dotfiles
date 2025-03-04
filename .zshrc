@@ -72,17 +72,7 @@ export PATH=$(brew --prefix)/bin:$PATH
 export PATH=$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH
 
 export PATH="/usr/local/opt/openssl@3/bin:$PATH"
-
-
-if [[ "$(arch)" == "arm64" ]]; then
-  source /opt/homebrew/opt/asdf/libexec/asdf.sh
-  export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
-else
-  source /usr/local/opt/asdf/libexec/asdf.sh
-  export PATH="$PATH:/usr/local/homebrew/opt/mysql-client/bin"
-fi
-
-
+export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
 
 # Created by `pipx` on 2022-09-07 16:08:59
 export PATH="$PATH:/Users/mama/.local/bin"
