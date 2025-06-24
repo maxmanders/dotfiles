@@ -38,3 +38,4 @@ nvm.zshrc_
 .ipynb_checkpoints/
 tags*
 .aws-sam/
+nvim/spell
