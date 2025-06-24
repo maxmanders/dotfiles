@@ -77,9 +77,7 @@ export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
 # Created by `pipx` on 2022-09-07 16:08:59
 export PATH="$PATH:/Users/mama/.local/bin"
 
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/mama/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 ###-begin-cdk-completions-###
 _cdk_yargs_completions()
