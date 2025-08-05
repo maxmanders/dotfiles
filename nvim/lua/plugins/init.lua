@@ -190,20 +190,13 @@ return {
     build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
   {
-    "zeioth/garbage-day.nvim",
-    dependencies = "neovim/nvim-lspconfig",
-    event = "VeryLazy",
-    opts = {
-      -- your options here
-    }
-  },
-  {
     "chentoast/marks.nvim",
     event = "VeryLazy",
     opts = {},
   },
   {
     "junegunn/vim-easy-align",
+    event = "VeryLazy",
   }
 
   -- {
