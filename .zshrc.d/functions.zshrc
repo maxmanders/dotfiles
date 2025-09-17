@@ -535,3 +535,8 @@ function defang() {
     *) echo "$1" | sed 's/http/hxxp/g' | sed 's/:\/\//\[:\/\/\]/g' | sed 's/\./[\.]/g' | tee >(pbcopy) ;;
   esac
 }
+
+function timeshell() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
