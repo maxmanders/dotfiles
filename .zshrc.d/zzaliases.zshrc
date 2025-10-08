@@ -1,5 +1,6 @@
 #!/usr/local/bin/zsh
 
+alias assume=". assume"
 alias awswhoami="aws sts get-caller-identity" 
 alias ag="rg"
 alias be="bundle exec"
