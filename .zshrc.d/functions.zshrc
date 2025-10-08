@@ -409,7 +409,7 @@ repocd() {
   repo_dirs=$(\
     bkt --ttl 60m --stale 30m -- \
       fd --no-ignore --hidden --type d --glob ".git" \
-      ~/code/src/github.com --exec dirname \
+      ~/code/src/github --exec dirname \
   )
 
   if [ -z "${query}" ]; then
