@@ -39,9 +39,9 @@ else
 fi
 
 TIME_ZONE="Europe/London"
-DEFAULT_NODEJS_VERSION="12.18.3"
-DEFAULT_RUBY_VERSION="3.0.3"
-DEFAULT_PYTHON_VERSION="3.9.4"
+DEFAULT_NODEJS_VERSION="24.9.0"
+DEFAULT_RUBY_VERSION="3.4.6"
+DEFAULT_PYTHON_VERSION="3.13.5"
 
 
 ################################################################################
@@ -152,14 +152,6 @@ update_zsh_shell() {
   sudo chsh -s "$shell_path" "$USER"
 }
 
-gem_install_or_update() {
-  if gem list "$1" --installed > /dev/null; then
-    gem update "$@"
-  else
-    gem install "$@"
-  fi
-}
-
 if ! command -v brew >/dev/null; then
   log "Installing Homebrew ..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -179,11 +171,8 @@ fi
 log "Updating Homebrew formulae ..."
 # brew update --force # https://github.com/Homebrew/brew/issues/1151
 brew bundle --file=Brewfile
-if [ $(arch) = "arm64" ]; then
-  arch -x86_64 brew bundle --file=Brewfile_x86_64
-fi
 
-$(brew --prefix python3)/bin/pip3 install neovim pynvim
+#$(brew --prefix python3)/bin/pip3 install neovim pynvim
 
 update_zsh_shell
 
@@ -206,17 +195,9 @@ home_files=(
 .mongorc.js
 .p10k.zsh
 .psqlrc
-.screenrc
 .tmux.conf
-.travis.yml
-.vimrc
 .zshrc
 .zshrc.d
-init.vim
-)
-
-nvim_files=(
-init.vim
 )
 
 log "Installing dotfiles..."
@@ -231,22 +212,6 @@ for item in "${home_files[@]}"; do
   fi
   log "-> Linking ${PWD}/${item} to ${HOME}/${item}..."
   ln -nfs "${PWD}/${item}" "${HOME}/${item}"
-done
-
-mkdir -p "${HOME}/.config/nvim"
-
-log "Installing neovim config..."
-
-for item in "${nvim_files[@]}"; do
-  if [ -e "${HOME}/.config/nvim/${item}" ]; then
-    log "${item} exists."
-    if [ -L "${HOME}/.config/nvim/${item}" ]; then
-      log "Symbolic link detected. Removing..."
-      rm -v "${HOME}/.config/nvim/${item}"
-    fi
-  fi
-  log "-> Linking ${PWD}/${item} to ${HOME}/.config/nvim/${item}..."
-  ln -nfs "${PWD}/${item}" "${HOME}/.config/nvim/${item}"
 done
 
 log "Installing tmux plugin manager"
