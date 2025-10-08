@@ -51,7 +51,7 @@ autoload -U compinit && compinit
 complete -C aws_completer aws
 complete -C aws_completer sudo
 complete -C aws_completer aws-vault
-source ${HOMEBREW_PREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+source ${HOMEBREW_PREFIX}/Caskroom/gcloud-cli/latest/google-cloud-sdk/completion.zsh.inc
 source ${HOMEBREW_PREFIX}/opt/python-argcomplete/share/bash-completion/completions/python-argcomplete
 
 # Nicer directory navigation
