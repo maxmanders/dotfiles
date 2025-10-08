@@ -34,6 +34,7 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	commentchar = ';'
+	pager = delta
 [diff]
 	tool = vimdiff
 [difftool]
@@ -46,3 +47,15 @@
 	helper = osxkeychain
 [push]
 	default = simple
+[commit]
+	gpgsign = true
+[user]
+	signingkey = 261AEB99C6A07A58
+	email = max@maxmanders.co.uk
+	name = Max Manders
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+[merge]
+	conflictStyle = zdiff3
