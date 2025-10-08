@@ -95,3 +95,7 @@ source <(fzf --zsh)
 eval "$(starship init zsh)"
 eval "$(atuin init zsh)"
 eval "$(zoxide init zsh)"
+
+export PATH="$PATH:${HOME}/.local/bin"
+
+. "$HOME/.local/bin/env"
