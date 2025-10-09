@@ -32,7 +32,7 @@
 [init]
 	templatedir = ~/.git_template
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesFile = ~/.gitignore
 	commentchar = ';'
 	pager = delta
 [diff]
