@@ -67,6 +67,16 @@ format = 'via [$symbol]($style)'
 [kotlin]
 format = 'via [$symbol]($style)'
 
+[kubernetes]
+format = '[☸](blue) [$context]($style) \($namespace\) '
+disabled = false
+# Shorten EKS clusters to only the important part of their name
+
+[[kubernetes.contexts]]
+context_pattern = 'arn.*\/(?P<cluster>[\w\/-]+)'
+context_alias = "$cluster"
+style = 'green'
+
 [lua]
 format = 'via [$symbol]($style)'
 
