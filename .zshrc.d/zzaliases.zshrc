@@ -23,6 +23,7 @@ alias k="kubectl"
 alias kgp="kubectl get pods"
 alias kgd="kubectl get deployments"
 alias kittyreload="kill -SIGUSR1 $KITTY_PID"
+alias kubectl=kubecolor
 alias ls="lsd"
 alias l="ll"
 alias less='less -m -g -i -J --underline-special --SILENT'

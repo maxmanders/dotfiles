@@ -89,7 +89,7 @@ _cdk_yargs_completions()
   IFS=$si
   _describe 'values' reply
 }
-compdef _cdk_yargs_completions cdk
+compdef _cdk_yargs_completions cdk kubecolor=kubectl
 ###-end-cdk-completions-###
 source <(fzf --zsh)
 eval "$(starship init zsh)"
