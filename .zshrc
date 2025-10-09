@@ -97,5 +97,6 @@ eval "$(atuin init zsh)"
 eval "$(zoxide init zsh)"
 
 export PATH="$PATH:${HOME}/.local/bin"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 . "$HOME/.local/bin/env"
