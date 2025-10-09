@@ -5,6 +5,7 @@ alias awswhoami="aws sts get-caller-identity"
 alias ag="rg"
 alias be="bundle exec"
 alias brew_upgrade='brew update && brew upgrade $(brew outdated)'
+alias brewdump="brew bundle dump --force"
 alias cd="z"
 alias cat="bat"
 alias ctags="`brew --prefix`/bin/ctags"
