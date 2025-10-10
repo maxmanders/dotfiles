@@ -25,3 +25,11 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo.commentstring = "# %s"
   end
 })
+
+-- Create an autocommand for "BufRead" events
+vim.api.nvim_create_autocmd("BufRead", {
+  pattern = { "*.yaml.gotmpl", "*.gotmpl" },
+  callback = function()
+    vim.opt.filetype = "yaml"
+  end
+})
