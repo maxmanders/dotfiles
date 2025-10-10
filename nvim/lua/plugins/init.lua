@@ -197,8 +197,12 @@ return {
   {
     "junegunn/vim-easy-align",
     event = "VeryLazy",
-  }
-
+  },
+  {
+    "meznaric/key-analyzer.nvim",
+    opts = {},
+    lazy = false,
+  },
   -- {
   -- 	"nvim-treesitter/nvim-treesitter",
   -- 	opts = {
