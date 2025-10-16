@@ -9,6 +9,8 @@ vim.wo.relativenumber = true
 vim.opt.hls = false
 vim.opt.mouse = ""
 
+vim.o.foldenable = false
+
 -- autoformat Go files on save
 local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
