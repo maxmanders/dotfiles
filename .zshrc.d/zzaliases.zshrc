@@ -11,6 +11,7 @@ alias cat="bat"
 alias ctags="`brew --prefix`/bin/ctags"
 alias crontab="VIM_CRONTAB=true crontab"
 alias e='exa -l --git'
+alias f='flux'
 alias find="fd"
 alias gam="cd /usr/local/gam; python gam.py"
 alias gcom='USE_MAIN=$(git branch | grep main); git checkout ${USE_MAIN:-master}'
