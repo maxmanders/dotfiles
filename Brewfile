@@ -232,7 +232,7 @@ brew "the_silver_searcher"
 brew "tig"
 brew "tldr"
 brew "trash"
-brew "universal-ctags", args: ["HEAD"]
+brew "universal-ctags"
 brew "unixodbc"
 brew "vim"
 brew "w3m"
