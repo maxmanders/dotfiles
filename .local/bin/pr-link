@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Get PR Link
+# @raycast.mode silent
+
+# Optional parameters:
+# @raycast.icon https://img.icons8.com/?size=100&id=33292&format=png&color=000000
+# @raycast.packageName Utilities
+# @raycast.argument1 { "type": "text", "placeholder": "link" }
+
+pr_url="$(echo "${1}" | xargs)"
+
+org="$(echo "${pr_url}" | cut -d/ -f4)"
+repo="$(echo "${pr_url}" | cut -d/ -f5)"
+pr_number="$(echo "${pr_url}" | cut -d/ -f7)"
+markdown_link="[${org}/${repo}#${pr_number}](${pr_url})"
+
+echo -n "${markdown_link}" | pbcopy
