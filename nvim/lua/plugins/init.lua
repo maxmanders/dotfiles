@@ -229,4 +229,24 @@ return {
       },
     },
   },
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      defaults = {
+        border = true,
+        layout_strategy = "horizontal",
+        layout_config = {
+          horizontal = {
+            prompt_position = "bottom", -- This is the line you need to add
+            mirror_horizontal = true, -- this will exchange prompt and results
+          },
+        },
+        pickers = {
+          find_files = {
+            theme = "ivy",
+          },
+        },
+      },
+    },
+  }
 }
