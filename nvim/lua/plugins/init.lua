@@ -217,15 +217,6 @@ return {
     "qvalentin/helm-ls.nvim",
     ft = "helm"
   },
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
   {
     'kyazdani42/nvim-tree.lua',
     dependencies = {
