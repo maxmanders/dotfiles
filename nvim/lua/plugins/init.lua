@@ -217,8 +217,6 @@ return {
     "qvalentin/helm-ls.nvim",
     ft = "helm"
   },
--- or { "towolf/vim-helm", ft = "helm" },
--- or even both if you do not want to use tree-sitter for syntax highlighting
   -- {
   -- 	"nvim-treesitter/nvim-treesitter",
   -- 	opts = {
@@ -228,4 +226,16 @@ return {
   -- 		},
   -- 	},
   -- },
+  {
+    'kyazdani42/nvim-tree.lua',
+    dependencies = {
+      {
+        'b0o/nvim-tree-preview.lua',
+        dependencies = {
+          'nvim-lua/plenary.nvim',
+          '3rd/image.nvim', -- Optional, for previewing images
+        },
+      },
+    },
+  },
 }
