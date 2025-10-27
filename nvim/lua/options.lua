@@ -72,3 +72,14 @@ require('nvim-tree').setup {
     -- vim.keymap.set('n', '<Tab>', preview.node_under_cursor, opts 'Preview')
   end,
 }
+
+local api = require("nvim-tree.api")
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    nested = true,
+    callback = function()
+        if (vim.fn.bufname() == "NvimTree_1") then return end
+
+        api.tree.find_file({ buf = vim.fn.bufnr() })
+    end,
+})
