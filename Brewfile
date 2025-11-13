@@ -259,35 +259,7 @@ cask "font-fira-mono"
 cask "gcloud-cli"
 mas "Amphetamine", id: 937984704
 mas "Fantastical", id: 975937182
-mas "GarageBand", id: 682658836
-mas "iMovie", id: 408981434
-mas "Keynote", id: 409183694
 mas "Magnet", id: 441258766
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
-mas "Photomator", id: 1444636541
 mas "Slack", id: 803453959
 mas "Spark Desktop", id: 6445813049
 mas "Todoist", id: 585829637
-go "golang.org/x/tools/cmd/callgraph"
-go "github.com/go-delve/delve/cmd/dlv"
-go "github.com/davidrjenni/reftools/cmd/fillswitch"
-go "github.com/onsi/ginkgo/v2/ginkgo"
-go "github.com/abice/go-enum"
-go "mvdan.cc/gofumpt"
-go "golang.org/x/tools/cmd/goimports"
-go "github.com/twpayne/go-jsonstruct/v3/cmd/gojsonstruct"
-go "github.com/golangci/golangci-lint/v2/cmd/golangci-lint"
-go "github.com/segmentio/golines"
-go "github.com/fatih/gomodifytags"
-go "github.com/abenz1267/gomvp"
-go "golang.org/x/tools/cmd/gonew"
-go "golang.org/x/tools/gopls"
-go "github.com/cweill/gotests/gotests"
-go "gotest.tools/gotestsum"
-go "golang.org/x/vuln/cmd/govulncheck"
-go "github.com/koron/iferr"
-go "github.com/josharian/impl"
-go "github.com/tmc/json-to-struct"
-go "go.uber.org/mock/mockgen"
-go "github.com/kyoh86/richgo"
