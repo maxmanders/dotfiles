@@ -406,10 +406,16 @@ repocd() {
 
   query="${1}"
 
+  src_dir="~/code/src/github"
+  if [ ! -d ~/code/src/github ]; then
+    src_dir="~/code/src/github.com"
+  fi
+
+
   repo_dirs=$(\
     bkt --ttl 60m --stale 30m -- \
       fd --no-ignore --hidden --type d --glob ".git" \
-      ~/code/src/github --exec dirname \
+      ${src_dir} --exec dirname \
   )
 
   if [ -z "${query}" ]; then
