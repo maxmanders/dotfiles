@@ -7,7 +7,7 @@ alias be="bundle exec"
 alias brew_upgrade='brew update && brew upgrade $(brew outdated)'
 alias brewdump="brew bundle dump --force"
 alias cd="z"
-alias cat="bat"
+alias cat="bat --theme Nord "
 alias ctags="`brew --prefix`/bin/ctags"
 alias crontab="VIM_CRONTAB=true crontab"
 alias e='exa -l --git'
