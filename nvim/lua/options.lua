@@ -10,6 +10,8 @@ vim.opt.hls = false
 vim.opt.mouse = ""
 
 vim.o.foldenable = false
+vim.o.fixeol = false
+vim.o.eol = false
 
 -- autoformat Go files on save
 local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
