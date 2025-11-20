@@ -406,9 +406,9 @@ repocd() {
 
   query="${1}"
 
-  src_dir="~/code/src/github"
-  if [ ! -d ~/code/src/github ]; then
-    src_dir="~/code/src/github.com"
+  src_dir="${HOME}/code/src/github"
+  if [ ! -d "${src_dir}" ]; then
+    src_dir="${HOME}/code/src/github.com"
   fi
 
 
