@@ -51,6 +51,7 @@ autoload -U compinit && compinit
 complete -C aws_completer aws
 complete -C aws_completer sudo
 complete -C aws_completer aws-vault
+complete -C $(which terragrunt) terragrunt
 source ${HOMEBREW_PREFIX}/Caskroom/gcloud-cli/latest/google-cloud-sdk/completion.zsh.inc
 source ${HOMEBREW_PREFIX}/opt/python-argcomplete/share/bash-completion/completions/python-argcomplete
 
@@ -105,4 +106,3 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/max/.lmstudio/bin"
 # End of LM Studio CLI section
-
