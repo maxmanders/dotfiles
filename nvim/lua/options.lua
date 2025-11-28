@@ -9,7 +9,18 @@ vim.wo.relativenumber = true
 vim.opt.hls = false
 vim.opt.mouse = ""
 
-vim.o.foldenable = false
+-- fold options
+vim.o.foldenable = true
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = ""
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 1
+vim.opt.foldnestmax = 4
+vim.opt.foldcolumn = "1"
+
+
+-- eol options
 vim.o.fixeol = false
 vim.o.eol = false
 
