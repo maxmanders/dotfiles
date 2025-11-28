@@ -7,7 +7,6 @@ local servers = {
   "gopls",
   "helm-ls",
   "html",
-  "pyre",
   "pyright",
   "terraformls",
   "ts_ls",
@@ -36,5 +35,6 @@ vim.lsp.config("helm-ls", {
 })
 
 vim.lsp.enable(servers)
+
 
 -- read :h vim.lsp.config for changing options of lsp servers 
