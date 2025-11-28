@@ -204,16 +204,6 @@ return {
     lazy = false,
   },
   {
-    'kevinhwang91/nvim-ufo',
-    dependencies = {
-      "kevinhwang91/promise-async",
-    },
-    config = function()
-      require('ufo').setup()
-    end,
-    event = "VeryLazy",
-  },
-  {
     "qvalentin/helm-ls.nvim",
     ft = "helm"
   },
