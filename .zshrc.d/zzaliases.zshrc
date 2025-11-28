@@ -10,6 +10,7 @@ alias cd="z"
 alias cat="bat --theme Nord "
 alias ctags="`brew --prefix`/bin/ctags"
 alias crontab="VIM_CRONTAB=true crontab"
+alias diff="/opt/homebrew/bin/diff"
 alias e='exa -l --git'
 alias f='flux'
 alias find="fd"
