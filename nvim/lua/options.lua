@@ -49,6 +49,12 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
     vim.bo.filetype = "yaml"
   end
 })
+
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+  pattern = { "*/templates/_*.tpl" },
+  callback = function()
+    vim.opt.filetype = "mustache"
+    vim.bo.filetype = "mustache"
   end
 })
 
