@@ -42,10 +42,13 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Create an autocommand for "BufRead" events
-vim.api.nvim_create_autocmd("BufRead", {
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
   pattern = { "*.yaml.gotmpl", "*.gotmpl" },
   callback = function()
     vim.opt.filetype = "yaml"
+    vim.bo.filetype = "yaml"
+  end
+})
   end
 })
 
