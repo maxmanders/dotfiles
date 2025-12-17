@@ -58,6 +58,14 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
   end
 })
 
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+  pattern = { "*.hujson", "*.jsonc" },
+  callback = function()
+    vim.opt.filetype = "jsonc"
+    vim.bo.filetype = "jsonc"
+  end
+})
+
 require('nvim-tree').setup {
   on_attach = function(bufnr)
     local api = require('nvim-tree.api')
