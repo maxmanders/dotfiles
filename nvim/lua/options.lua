@@ -10,7 +10,7 @@ vim.opt.hls = false
 vim.opt.mouse = ""
 
 -- fold options
-vim.o.foldenable = true
+vim.o.foldenable = false
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = ""
