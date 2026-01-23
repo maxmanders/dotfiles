@@ -31,6 +31,7 @@
 	pr = pull-request
 [init]
 	templatedir = ~/.git_template
+	defaultBranch = main
 [core]
 	excludesFile = ~/.gitignore
 	commentchar = ';'
