@@ -52,6 +52,8 @@ brew "cmake"
 brew "cscope"
 brew "csvkit"
 brew "ctags", link: false
+brew "rtmpdump"
+brew "curl"
 brew "diff-so-fancy"
 brew "diffutils"
 brew "docker-compose"
@@ -110,6 +112,7 @@ brew "gh"
 brew "gifsicle"
 brew "git-crypt"
 brew "git-delta"
+brew "git-filter-repo"
 brew "git-lfs"
 brew "git-quick-stats"
 brew "gnu-getopt"
@@ -216,7 +219,6 @@ brew "reattach-to-user-namespace"
 brew "ripgrep"
 brew "rlwrap"
 brew "rsync"
-brew "rtmpdump"
 brew "shellcheck"
 brew "sipcalc"
 brew "sops"
@@ -261,13 +263,3 @@ cask "font-fira-code-nerd-font"
 cask "font-fira-mono"
 cask "gcloud-cli"
 cask "powershell"
-mas "Amphetamine", id: 937984704
-mas "Fantastical", id: 975937182
-mas "Magnet", id: 441258766
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
-mas "reMarkable", id: 1276493162
-mas "Slack", id: 803453959
-mas "SnippetsLab", id: 1006087419
-mas "Spark Desktop", id: 6445813049
-mas "Todoist", id: 585829637
