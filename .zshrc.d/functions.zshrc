@@ -569,3 +569,12 @@ function kbash() {
   echo $cmd
   eval $cmd
 }
+
+function brewdump() {
+  brewfile_realpath="$(realpath ${HOME}/Brewfile)"
+  brewfile_dir="$(dirname ${brewfile_realpath})"
+
+  brew bundle dump --force --file "${brewfile_realpath}"
+  sed -i '' '/^mas /d' "${brewfile_realpath}"
+  sed -i '' '/^go /d' "${brewfile_realpath}"
+}
