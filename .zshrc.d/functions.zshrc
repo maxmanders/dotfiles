@@ -607,3 +607,21 @@ EOF
 
   echo "VolumeSnapshot '${snapshot_name}' for PVC '${pvc_name}' in namespace '${namespace}' created."
 }
+
+function _kube_list_pods() {
+  kubectl get pods --all-namespaces \
+    --output go-template='{{range .items}}{{.metadata.name}}:{{.metadata.namespace}}:{{.status.phase}}{{"\n"}}{{end}}' \
+  | sort -k 2 -k 1 -t:
+}
+
+function podshell() {
+  local cmd
+  cmd="${1}"
+
+  pod=$(_kube_list_pods | fzf)
+
+  pod_name=$(echo "${pod}" | cut -d: -f1)
+  namespace=$(echo "${pod}" | cut -d: -f2)
+
+  kubectl --namespace "${namespace}" exec -it "${pod_name}" -- ${cmd:-bash}
+}
