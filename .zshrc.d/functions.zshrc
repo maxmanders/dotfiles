@@ -13,7 +13,7 @@ function check_bin() {
 
   # shellcheck disable=SC2154
   command -v "${bin}" >/dev/null 2>&1 || \
-    print -P "%{$FG[196]%}'${bin}' not installed%{$reset_color%}"
+    print -P "%{${FG[196]}%}'${bin}' not installed%{${reset_color}%}"
 }
 
 ################################################################################
@@ -311,13 +311,13 @@ function repo() {
   # Validate that this folder is a git folder
   if ! git branch 2>/dev/null 1>&2 ; then
     echo "Not a git repo!"
-    exit $?
+    exit 1
   fi
 
   # Find current directory relative to .git parent
   full_path=$(pwd)
   git_base_path=$(cd "./$(git rev-parse --show-cdup)" || exit 1; pwd)
-  relative_path=${full_path#$git_base_path} # remove leading git_base_path from working directory
+  relative_path="${full_path#"${git_base_path}"}" # remove leading git_base_path from working directory
 
   # If filename argument is present, append it
   if [ "$1" ]; then
@@ -415,13 +415,13 @@ repocd() {
   repo_dirs=$(\
     bkt --ttl 60m --stale 30m -- \
       fd --no-ignore --hidden --type d --glob ".git" \
-      ${src_dir} --exec dirname \
+      "${src_dir}" --exec dirname \
   )
 
   if [ -z "${query}" ]; then
-    cd $(echo "${repo_dirs}" | fzf)
+    cd "$(echo "${repo_dirs}" | fzf)" || false
   else
-    cd $(echo "${repo_dirs}" | ag ${query} | fzf)
+    cd "$(echo "${repo_dirs}" | ag "${query}" | fzf)" || false
   fi
 }
 
@@ -548,7 +548,7 @@ function timeshell() {
 }
 
 function brewdump() {
-  brewfile_realpath="$(realpath ${HOME}/Brewfile)"
+  brewfile_realpath="$(realpath "${HOME}/Brewfile")"
 
   brew bundle dump --force --file "${brewfile_realpath}"
   sed -i '' '/^mas /d' "${brewfile_realpath}"
@@ -599,5 +599,5 @@ function podshell() {
   pod_name=$(echo "${pod}" | cut -d: -f1)
   namespace=$(echo "${pod}" | cut -d: -f2)
 
-  kubectl --namespace "${namespace}" exec -it "${pod_name}" -- ${cmd:-bash}
+  kubectl --namespace "${namespace}" exec -it "${pod_name}" -- "${cmd:-bash}"
 }
