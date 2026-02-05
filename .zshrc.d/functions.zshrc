@@ -549,7 +549,6 @@ function timeshell() {
 
 function brewdump() {
   brewfile_realpath="$(realpath ${HOME}/Brewfile)"
-  brewfile_dir="$(dirname ${brewfile_realpath})"
 
   brew bundle dump --force --file "${brewfile_realpath}"
   sed -i '' '/^mas /d' "${brewfile_realpath}"
