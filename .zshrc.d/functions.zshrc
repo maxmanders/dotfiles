@@ -365,18 +365,6 @@ list_production_instances() {
     | jq 'sort_by(.Name) | .[]'
 }
 
-get_ec2_ip() {
-  aws ec2 describe-instances --instance-ids $1 \
-    --query "Reservations[*].Instances[*].PrivateIpAddress" \
-    --output=text
-}
-
-rmd() {
-  local srcfile
-  srcfile="${1}"
-  pandoc -f gfm "${srcfile}" | lynx -stdin
-}
-
 togif() {
   local infile
   local base_name
@@ -388,13 +376,6 @@ togif() {
   
 
   ffmpeg -i "${infile}" -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > "${outfile}"
-}
-
-pwgen() {
-  local length
-  length="${1:-16}"
-  < /dev/urandom | LC_CTYPE=ISO8859-1 tr -dc _A-Z-a-z-0-9 | LC_CTYPE=ISO8859-1 head -c${1:-${length}}
-  echo
 }
 
 ghash() {
@@ -447,74 +428,6 @@ docker_tidy() {
 	docker ps -a | sed 1d | awk '{print $1}' | xargs -I {} docker rm {}
 }
 
-gh2entra() {
-  local gh_user
-  gh_user="${1}"
-
-  gh api graphql --paginate -f query='
-    query ($endCursor: String) {
-      organization(login: "trustpilot") {
-        samlIdentityProvider {
-          ssoUrl
-          externalIdentities(first: 100, after: $endCursor) {
-            edges {
-              node {
-                guid
-                scimIdentity {
-                  username
-                }
-                user {
-                  login
-                }
-              }
-            }
-            pageInfo {
-              hasNextPage
-              endCursor
-            }
-          }
-        }
-      }
-    }' | jq \
-      --raw-output \
-      --arg gh_user ${gh_user} \
-      '.data.organization.samlIdentityProvider.externalIdentities.edges[].node | select(.user.login == $gh_user) | .scimIdentity.username'
-}
-
-entra2gh() {
-  local entra_user
-  entra_user="${1}"
-
-  gh api graphql --paginate -f query='
-    query ($endCursor: String) {
-      organization(login: "trustpilot") {
-        samlIdentityProvider {
-          ssoUrl
-          externalIdentities(first: 100, after: $endCursor) {
-            edges {
-              node {
-                guid
-                scimIdentity {
-                  username
-                }
-                user {
-                  login
-                }
-              }
-            }
-            pageInfo {
-              hasNextPage
-              endCursor
-            }
-          }
-        }
-      }
-    }' | jq \
-      --raw-output \
-      --arg entra_user ${entra_user} \
-      '.data.organization.samlIdentityProvider.externalIdentities.edges[].node | select(.scimIdentity.username == $entra_user) | .user.login'
-}
-
 # Switch from feature branch to default branch
 # Fetch and pull from origin
 # Delete local feature branch
@@ -540,11 +453,6 @@ function defang() {
     "-r") echo "$2" | sed 's/hxxp/http/g' | sed 's/\[:\/\/\]/:\/\//g' | sed 's/\[\.\]/\./g' | tee >(pbcopy) ;;
     *) echo "$1" | sed 's/http/hxxp/g' | sed 's/:\/\//\[:\/\/\]/g' | sed 's/\./[\.]/g' | tee >(pbcopy) ;;
   esac
-}
-
-function timeshell() {
-  shell=${1-$SHELL}
-  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
 function brewdump() {
