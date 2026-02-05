@@ -547,29 +547,6 @@ function timeshell() {
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
-function kbash() {
-  if [ x$1 = x ] ; then
-    echo "Usage: kbash <pod> [flags_to_kubectl]"
-    return 1
-  fi
-
-  local POD=$1
-  shift
-
-  local COLUMNS=$(tput cols)
-  local LINES=$(tput lines)
-  local TERM=xterm
-  kubectl exec $POD -i -t -- test -e /bin/bash
-  if [ $? -eq 0 ] ; then
-    local KUBE_SHELL=${KUBE_SHELL:-/bin/bash -il}
-  else
-    local KUBE_SHELL=${KUBE_SHELL:-/bin/sh -il}
-  fi
-  local cmd="kubectl exec -i -t $POD $@ -- env COLUMNS=$COLUMNS LINES=$LINES TERM=$TERM $KUBE_SHELL"
-  echo $cmd
-  eval $cmd
-}
-
 function brewdump() {
   brewfile_realpath="$(realpath ${HOME}/Brewfile)"
   brewfile_dir="$(dirname ${brewfile_realpath})"
