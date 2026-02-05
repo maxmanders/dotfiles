@@ -578,3 +578,32 @@ function brewdump() {
   sed -i '' '/^mas /d' "${brewfile_realpath}"
   sed -i '' '/^go /d' "${brewfile_realpath}"
 }
+
+create-volume-snapshot() {
+  local pvc_name
+  local namespace
+  local snapshot_name
+
+  pvc_name="${1}"
+  namespace="${2}"
+  snapshot_name="${3}"
+
+  if [[ -z "${pvc_name}" || -z "${namespace}" || -z "${snapshot_name}" ]]; then
+    echo "Usage: create_volume_snapshot <pvc_name> <namespace> <snapshot_name>"
+    return 1
+  fi
+
+  cat <<EOF | kubectl apply -f -
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: ${snapshot_name}
+  namespace: ${namespace}
+spec:
+  volumeSnapshotClassName: csi-aws-ebs-delete-vsc
+  source:
+    persistentVolumeClaimName: ${pvc_name}
+EOF
+
+  echo "VolumeSnapshot '${snapshot_name}' for PVC '${pvc_name}' in namespace '${namespace}' created."
+}
