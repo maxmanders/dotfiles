@@ -197,6 +197,7 @@ brew "neovim", args: ["HEAD"]
 brew "nghttp2"
 brew "nmap"
 brew "nvm"
+brew "oauth2l"
 brew "onefetch"
 brew "tmux"
 brew "overmind"
