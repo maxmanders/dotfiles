@@ -279,5 +279,13 @@ return {
     "esmuellert/codediff.nvim",
     dependencies = { "MunifTanjim/nui.nvim" },
     cmd = "CodeDiff",
+  },
+  {
+    'chipsenkbeil/distant.nvim',
+    branch = 'v0.3',
+    lazy = false,
+    config = function()
+      require('distant'):setup()
+    end
   }
 }

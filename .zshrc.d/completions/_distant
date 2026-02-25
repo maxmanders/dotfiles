@@ -1,0 +1,1814 @@
+#compdef distant
+
+autoload -U is-at-least
+
+_distant() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_distant_commands" \
+"*::: :->distant" \
+&& ret=0
+    case $state in
+    (distant)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-command-$line[1]:"
+        case $line[1] in
+            (api)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--timeout=[Represents the maximum time (in seconds) to wait for a network request before timing out]:TIMEOUT: ' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(connect)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--options=[Additional options to provide, typically forwarded to the handler within the manager facilitating the connection. Options are key-value pairs separated by comma]:OPTIONS: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'-f+[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--format=[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':destination:' \
+&& ret=0
+;;
+(fs)
+_arguments "${_arguments_options[@]}" \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_distant__fs_commands" \
+"*::: :->fs" \
+&& ret=0
+
+    case $state in
+    (fs)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-fs-command-$line[1]:"
+        case $line[1] in
+            (copy)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+':src -- The path to the file or directory on the remote machine:_files' \
+':dst -- New location on the remote machine for copy of file or directory:_files' \
+&& ret=0
+;;
+(exists)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+':path -- The path to the file or directory on the remote machine:_files' \
+&& ret=0
+;;
+(make-dir)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'--all[Whether or not to create all parent directories]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':path -- The path to the directory on the remote machine:_files' \
+&& ret=0
+;;
+(metadata)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'--canonicalize[Whether or not to include a canonicalized version of the path, meaning returning the canonical, absolute form of a path with all intermediate components normalized and symbolic links resolved]' \
+'--resolve-file-type[Whether or not to follow symlinks to determine absolute file type (dir/file)]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':path -- The path to the file, directory, or symlink on the remote machine:_files' \
+&& ret=0
+;;
+(read)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--depth=[Maximum depth to traverse with 0 indicating there is no maximum depth and 1 indicating the most immediate children within the directory]:DEPTH: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'--absolute[Whether or not to return absolute or relative paths]' \
+'--canonicalize[Whether or not to canonicalize the resulting paths, meaning returning the canonical, absolute form of a path with all intermediate components normalized and symbolic links resolved]' \
+'--include-root[Whether or not to include the root directory in the retrieved entries]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':path -- The path to the file or directory on the remote machine:_files' \
+&& ret=0
+;;
+(remove)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'--force[Whether or not to remove all contents within directory if is a directory. Does nothing different for files]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':path -- The path to the file or directory on the remote machine:_files' \
+&& ret=0
+;;
+(rename)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+':src -- The path to the file or directory on the remote machine:_files' \
+':dst -- New location on the remote machine for the file or directory:_files' \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--target=[Kind of data to examine using condition]:TARGET:((path\:"Checks path of file, directory, or symlink"
+contents\:"Checks contents of files"))' \
+'--include=[Regex to use to filter paths being searched to only those that match the include condition]:INCLUDE: ' \
+'--exclude=[Regex to use to filter paths being searched to only those that do not match the exclude condition]:EXCLUDE: ' \
+'--limit=[Maximum results to return before stopping the query]:LIMIT: ' \
+'--max-depth=[Maximum depth (directories) to search]:MAX_DEPTH: ' \
+'--pagination=[Amount of results to batch before sending back excluding final submission that will always include the remaining results even if less than pagination request]:PAGINATION: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'--upward[Search upward through parent directories rather than the traditional downward search that recurses through all children directories]' \
+'--follow-symbolic-links[Search should follow symbolic links]' \
+'--ignore-hidden[If true, will skip searching hidden files]' \
+'--use-ignore-files[If true, will read \`.ignore\` files that are used by \`ripgrep\` and \`The Silver Searcher\` to determine which files and directories to not search]' \
+'--use-parent-ignore-files[If true, will read \`.ignore\` files from parent directories that are used by \`ripgrep\` and \`The Silver Searcher\` to determine which files and directories to not search]' \
+'--use-git-ignore-files[If true, will read \`.gitignore\` files to determine which files and directories to not search]' \
+'--use-global-git-ignore-files[If true, will read global \`.gitignore\` files to determine which files and directories to not search]' \
+'--use-git-exclude-files[If true, will read \`.git/info/exclude\` files to determine which files and directories to not search]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':pattern -- Condition to meet to be considered a match:' \
+'*::paths -- Paths in which to perform the query:_files' \
+&& ret=0
+;;
+(set-permissions)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-R[Recursively set permissions of files/directories/symlinks]' \
+'--recursive[Recursively set permissions of files/directories/symlinks]' \
+'-L[Follow symlinks, which means that they will be unaffected]' \
+'--follow-symlinks[Follow symlinks, which means that they will be unaffected]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':mode -- Mode string following `chmod` format (or set readonly flag if `readonly` or `notreadonly` is specified):' \
+':path -- The path to the file, directory, or symlink on the remote machine:_files' \
+&& ret=0
+;;
+(watch)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'*--only=[Filter to only report back specified changes]:ONLY:(access attribute close_write close_no_write create delete modify open rename unknown)' \
+'*--except=[Filter to report back changes except these specified changes]:EXCEPT:(access attribute close_write close_no_write create delete modify open rename unknown)' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'--recursive[If true, will recursively watch for changes within directories, othewise will only watch for changes immediately within directories]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':path -- The path to the file, directory, or symlink on the remote machine:_files' \
+&& ret=0
+;;
+(write)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'--append[If specified, will append to a file versus overwriting it]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':path -- The path to the file on the remote machine:_files' \
+'::data -- Data for server-side writing of content. If not provided, will read from stdin:' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_distant__fs__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-fs-help-command-$line[1]:"
+        case $line[1] in
+            (copy)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(exists)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(make-dir)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(metadata)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(read)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(remove)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(rename)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(set-permissions)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(watch)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(write)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(launch)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--distant=[Path to distant program on remote machine to execute via ssh; by default, this program needs to be available within PATH as specified when compiling ssh (not your login shell)]:distant: ' \
+'--distant-bind-server=[Control the IP address that the server binds to]:ssh|any|IP: ' \
+'--distant-args=[Additional arguments to provide to the server]:distant-args: ' \
+'--options=[Additional options to provide, typically forwarded to the handler within the manager facilitating the launch of a distant server. Options are key-value pairs separated by comma]:OPTIONS: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'-f+[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--format=[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':destination:' \
+&& ret=0
+;;
+(shell)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--current-dir=[Alternative current directory for the remote process]:CURRENT_DIR:_files' \
+'--environment=[Environment variables to provide to the shell]:ENVIRONMENT: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+'*::CMD -- Optional command to run instead of $SHELL:' \
+&& ret=0
+;;
+(spawn)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--lsp=[If specified, will assume the remote process is a LSP server and will translate paths that are local into \`distant\` and vice versa]' \
+'--shell=[If specified, will spawn the process in the specified shell, defaulting to the user-configured shell]' \
+'--current-dir=[Alternative current directory for the remote process]:CURRENT_DIR:_files' \
+'--environment=[Environment variables to provide to the shell]:ENVIRONMENT: ' \
+'()-c+[If present, commands are read from the provided string]:CMD_STR: ' \
+'()--cmd=[If present, commands are read from the provided string]:CMD_STR: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'--pty[If specified, will spawn process using a pseudo tty]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'*::CMD -- Command to run:' \
+&& ret=0
+;;
+(system-info)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(version)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--connection=[Specify a connection being managed]:CONNECTION: ' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'-f+[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--format=[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(manager)
+_arguments "${_arguments_options[@]}" \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_distant__manager_commands" \
+"*::: :->manager" \
+&& ret=0
+
+    case $state in
+    (manager)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-manager-command-$line[1]:"
+        case $line[1] in
+            (select)
+_arguments "${_arguments_options[@]}" \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'-f+[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--format=[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'::connection -- Connection to use, otherwise will prompt to select:' \
+&& ret=0
+;;
+(service)
+_arguments "${_arguments_options[@]}" \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_distant__manager__service_commands" \
+"*::: :->service" \
+&& ret=0
+
+    case $state in
+    (service)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-manager-service-command-$line[1]:"
+        case $line[1] in
+            (start)
+_arguments "${_arguments_options[@]}" \
+'--kind=[Type of service manager used to run this service, defaulting to platform native]:KIND:((launchd\:"Use launchd to manage the service"
+openrc\:"Use OpenRC to manage the service"
+rcd\:"Use rc.d to manage the service"
+sc\:"Use Windows service controller to manage the service"
+systemd\:"Use systemd to manage the service"))' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'--user[If specified, starts as a user-level service]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(stop)
+_arguments "${_arguments_options[@]}" \
+'--kind=[]:KIND:((launchd\:"Use launchd to manage the service"
+openrc\:"Use OpenRC to manage the service"
+rcd\:"Use rc.d to manage the service"
+sc\:"Use Windows service controller to manage the service"
+systemd\:"Use systemd to manage the service"))' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'--user[If specified, stops a user-level service]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+'--kind=[]:KIND:((launchd\:"Use launchd to manage the service"
+openrc\:"Use OpenRC to manage the service"
+rcd\:"Use rc.d to manage the service"
+sc\:"Use Windows service controller to manage the service"
+systemd\:"Use systemd to manage the service"))' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'--user[If specified, installs as a user-level service]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'*::ARGS -- Additional arguments to provide to the manager when started:' \
+&& ret=0
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+'--kind=[]:KIND:((launchd\:"Use launchd to manage the service"
+openrc\:"Use OpenRC to manage the service"
+rcd\:"Use rc.d to manage the service"
+sc\:"Use Windows service controller to manage the service"
+systemd\:"Use systemd to manage the service"))' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'--user[If specified, uninstalls a user-level service]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_distant__manager__service__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-manager-service-help-command-$line[1]:"
+        case $line[1] in
+            (start)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(stop)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(listen)
+_arguments "${_arguments_options[@]}" \
+'--access=[Type of access to apply to created unix socket or windows pipe]:ACCESS:((owner\:"Equates to \`0o600\` on Unix (read & write for owner)"
+group\:"Equates to \`0o660\` on Unix (read & write for owner and group)"
+anyone\:"Equates to \`0o666\` on Unix (read & write for owner, group, and other)"))' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'--daemon[If specified, will fork the process to run as a standalone daemon]' \
+'--user[If specified, will listen on a user-local unix socket or local windows named pipe]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(version)
+_arguments "${_arguments_options[@]}" \
+'-f+[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--format=[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(info)
+_arguments "${_arguments_options[@]}" \
+'-f+[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--format=[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':id:' \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+'-f+[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--format=[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--cache=[Location to store cached data]:CACHE:_files' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(kill)
+_arguments "${_arguments_options[@]}" \
+'-f+[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--format=[]:FORMAT:((json\:"Sends and receives data in JSON format"
+shell\:"Commands are traditional shell commands and output responses are inline with what is expected of a program'\''s output in a shell"))' \
+'--unix-socket=[Override the path to the Unix socket used by the manager (unix-only)]:UNIX_SOCKET:_files' \
+'--windows-pipe=[Override the name of the local named Windows pipe used by the manager (windows-only)]:WINDOWS_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+':id:' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_distant__manager__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-manager-help-command-$line[1]:"
+        case $line[1] in
+            (select)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(service)
+_arguments "${_arguments_options[@]}" \
+":: :_distant__manager__help__service_commands" \
+"*::: :->service" \
+&& ret=0
+
+    case $state in
+    (service)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-manager-help-service-command-$line[1]:"
+        case $line[1] in
+            (start)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(stop)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(listen)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(version)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(info)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(kill)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(server)
+_arguments "${_arguments_options[@]}" \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_distant__server_commands" \
+"*::: :->server" \
+&& ret=0
+
+    case $state in
+    (server)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-server-command-$line[1]:"
+        case $line[1] in
+            (listen)
+_arguments "${_arguments_options[@]}" \
+'--host=[Control the IP address that the distant binds to]:ssh|any|IP: ' \
+'--port=[Set the port(s) that the server will attempt to bind to]:PORT[:PORT2]: ' \
+'--shutdown=[Logic to apply to server when determining when to shutdown automatically]:SHUTDOWN: ' \
+'--current-dir=[Changes the current working directory (cwd) to the specified directory]:CURRENT_DIR:_files' \
+'--watch-poll-interval=[If specified, represents the time (in seconds) between polls of files being watched, only relevant when using the polling watcher implementation]:WATCH_POLL_INTERVAL: ' \
+'--watch-debounce-timeout=[Represents the maximum time (in seconds) to wait for filesystem changes before reporting them, which is useful to avoid noisy changes as well as serves to consolidate different events that represent the same action]:WATCH_DEBOUNCE_TIMEOUT: ' \
+'--watch-debounce-tick-rate=[Represents how often (in seconds) to check for new events before the debounce timeout occurs. Defaults to 1/4 the debounce timeout if not set]:WATCH_DEBOUNCE_TICK_RATE: ' \
+'--output-to-local-pipe=[]:OUTPUT_TO_LOCAL_PIPE: ' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-6[If specified, will bind to the ipv6 interface if host is "any" instead of ipv4]' \
+'--use-ipv6[If specified, will bind to the ipv6 interface if host is "any" instead of ipv4]' \
+'--daemon[If specified, will fork the process to run as a standalone daemon]' \
+'--watch-polling[If specified, will use the polling-based watcher for filesystem changes]' \
+'--watch-compare-contents[If true, will attempt to load a file and compare its contents to detect file changes, only relevant when using the polling watcher implementation (VERY SLOW)]' \
+'--key-from-stdin[If specified, the server will not generate a key but instead listen on stdin for the next 32 bytes that it will use as the key instead. Receiving less than 32 bytes before stdin is closed is considered an error and any bytes after the first 32 are not used for the key]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_distant__server__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-server-help-command-$line[1]:"
+        case $line[1] in
+            (listen)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(generate)
+_arguments "${_arguments_options[@]}" \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_distant__generate_commands" \
+"*::: :->generate" \
+&& ret=0
+
+    case $state in
+    (generate)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-generate-command-$line[1]:"
+        case $line[1] in
+            (config)
+_arguments "${_arguments_options[@]}" \
+'-o+[Write output to a file instead of stdout]:FILE:_files' \
+'--output=[Write output to a file instead of stdout]:FILE:_files' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(completion)
+_arguments "${_arguments_options[@]}" \
+'--output=[Write output to a file instead of stdout]:FILE:_files' \
+'--log-level=[Log level to use throughout the application]:LOG_LEVEL:(off error warn info debug trace)' \
+'--log-file=[Path to file to use for logging]:LOG_FILE:_files' \
+'--config=[Configuration file to load instead of the default paths]:CONFIG_PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+':shell -- Specific shell to target for the generated output:(bash elvish fish powershell zsh)' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_distant__generate__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-generate-help-command-$line[1]:"
+        case $line[1] in
+            (config)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(completion)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+":: :_distant__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-help-command-$line[1]:"
+        case $line[1] in
+            (api)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(connect)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(fs)
+_arguments "${_arguments_options[@]}" \
+":: :_distant__help__fs_commands" \
+"*::: :->fs" \
+&& ret=0
+
+    case $state in
+    (fs)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-help-fs-command-$line[1]:"
+        case $line[1] in
+            (copy)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(exists)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(make-dir)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(metadata)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(read)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(remove)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(rename)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(set-permissions)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(watch)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(write)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(launch)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(shell)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(spawn)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(system-info)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(version)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(manager)
+_arguments "${_arguments_options[@]}" \
+":: :_distant__help__manager_commands" \
+"*::: :->manager" \
+&& ret=0
+
+    case $state in
+    (manager)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-help-manager-command-$line[1]:"
+        case $line[1] in
+            (select)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(service)
+_arguments "${_arguments_options[@]}" \
+":: :_distant__help__manager__service_commands" \
+"*::: :->service" \
+&& ret=0
+
+    case $state in
+    (service)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-help-manager-service-command-$line[1]:"
+        case $line[1] in
+            (start)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(stop)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(uninstall)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(listen)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(version)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(info)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(kill)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(server)
+_arguments "${_arguments_options[@]}" \
+":: :_distant__help__server_commands" \
+"*::: :->server" \
+&& ret=0
+
+    case $state in
+    (server)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-help-server-command-$line[1]:"
+        case $line[1] in
+            (listen)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(generate)
+_arguments "${_arguments_options[@]}" \
+":: :_distant__help__generate_commands" \
+"*::: :->generate" \
+&& ret=0
+
+    case $state in
+    (generate)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:distant-help-generate-command-$line[1]:"
+        case $line[1] in
+            (config)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+(completion)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+}
+
+(( $+functions[_distant_commands] )) ||
+_distant_commands() {
+    local commands; commands=(
+'api:Listen over stdin & stdout to communicate with a distant server using the JSON lines API' \
+'connect:Requests that active manager connects to the server at the specified destination' \
+'fs:Subcommands for file system operations' \
+'launch:Launches the server-portion of the binary on a remote machine' \
+'shell:Specialized treatment of running a remote shell process' \
+'spawn:Spawn a process on the remote machine' \
+'system-info:Represents common networking configuration' \
+'version:Retrieves version information of the remote server' \
+'manager:Perform manager commands' \
+'server:Perform server commands' \
+'generate:Perform generation commands' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'distant commands' commands "$@"
+}
+(( $+functions[_distant__api_commands] )) ||
+_distant__api_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant api commands' commands "$@"
+}
+(( $+functions[_distant__help__api_commands] )) ||
+_distant__help__api_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help api commands' commands "$@"
+}
+(( $+functions[_distant__generate__completion_commands] )) ||
+_distant__generate__completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant generate completion commands' commands "$@"
+}
+(( $+functions[_distant__generate__help__completion_commands] )) ||
+_distant__generate__help__completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant generate help completion commands' commands "$@"
+}
+(( $+functions[_distant__help__generate__completion_commands] )) ||
+_distant__help__generate__completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help generate completion commands' commands "$@"
+}
+(( $+functions[_distant__generate__config_commands] )) ||
+_distant__generate__config_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant generate config commands' commands "$@"
+}
+(( $+functions[_distant__generate__help__config_commands] )) ||
+_distant__generate__help__config_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant generate help config commands' commands "$@"
+}
+(( $+functions[_distant__help__generate__config_commands] )) ||
+_distant__help__generate__config_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help generate config commands' commands "$@"
+}
+(( $+functions[_distant__connect_commands] )) ||
+_distant__connect_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant connect commands' commands "$@"
+}
+(( $+functions[_distant__help__connect_commands] )) ||
+_distant__help__connect_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help connect commands' commands "$@"
+}
+(( $+functions[_distant__fs__copy_commands] )) ||
+_distant__fs__copy_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs copy commands' commands "$@"
+}
+(( $+functions[_distant__fs__help__copy_commands] )) ||
+_distant__fs__help__copy_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs help copy commands' commands "$@"
+}
+(( $+functions[_distant__help__fs__copy_commands] )) ||
+_distant__help__fs__copy_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help fs copy commands' commands "$@"
+}
+(( $+functions[_distant__fs__exists_commands] )) ||
+_distant__fs__exists_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs exists commands' commands "$@"
+}
+(( $+functions[_distant__fs__help__exists_commands] )) ||
+_distant__fs__help__exists_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs help exists commands' commands "$@"
+}
+(( $+functions[_distant__help__fs__exists_commands] )) ||
+_distant__help__fs__exists_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help fs exists commands' commands "$@"
+}
+(( $+functions[_distant__fs_commands] )) ||
+_distant__fs_commands() {
+    local commands; commands=(
+'copy:Copies a file or directory on the remote machine' \
+'exists:Checks whether the specified path exists on the remote machine' \
+'make-dir:Creates a directory on the remote machine' \
+'metadata:Retrieves metadata for the specified path on the remote machine' \
+'read:Reads the contents of a file or retrieves the entries within a directory on the remote machine' \
+'remove:Removes a file or directory on the remote machine' \
+'rename:Moves/renames a file or directory on the remote machine' \
+'search:Search files & directories on the remote machine' \
+'set-permissions:Sets permissions for the specified path on the remote machine' \
+'watch:Watch a path for changes on the remote machine' \
+'write:Writes the contents to a file on the remote machine' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'distant fs commands' commands "$@"
+}
+(( $+functions[_distant__help__fs_commands] )) ||
+_distant__help__fs_commands() {
+    local commands; commands=(
+'copy:Copies a file or directory on the remote machine' \
+'exists:Checks whether the specified path exists on the remote machine' \
+'make-dir:Creates a directory on the remote machine' \
+'metadata:Retrieves metadata for the specified path on the remote machine' \
+'read:Reads the contents of a file or retrieves the entries within a directory on the remote machine' \
+'remove:Removes a file or directory on the remote machine' \
+'rename:Moves/renames a file or directory on the remote machine' \
+'search:Search files & directories on the remote machine' \
+'set-permissions:Sets permissions for the specified path on the remote machine' \
+'watch:Watch a path for changes on the remote machine' \
+'write:Writes the contents to a file on the remote machine' \
+    )
+    _describe -t commands 'distant help fs commands' commands "$@"
+}
+(( $+functions[_distant__generate_commands] )) ||
+_distant__generate_commands() {
+    local commands; commands=(
+'config:Generate configuration file with base settings' \
+'completion:' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'distant generate commands' commands "$@"
+}
+(( $+functions[_distant__help__generate_commands] )) ||
+_distant__help__generate_commands() {
+    local commands; commands=(
+'config:Generate configuration file with base settings' \
+'completion:' \
+    )
+    _describe -t commands 'distant help generate commands' commands "$@"
+}
+(( $+functions[_distant__fs__help_commands] )) ||
+_distant__fs__help_commands() {
+    local commands; commands=(
+'copy:Copies a file or directory on the remote machine' \
+'exists:Checks whether the specified path exists on the remote machine' \
+'make-dir:Creates a directory on the remote machine' \
+'metadata:Retrieves metadata for the specified path on the remote machine' \
+'read:Reads the contents of a file or retrieves the entries within a directory on the remote machine' \
+'remove:Removes a file or directory on the remote machine' \
+'rename:Moves/renames a file or directory on the remote machine' \
+'search:Search files & directories on the remote machine' \
+'set-permissions:Sets permissions for the specified path on the remote machine' \
+'watch:Watch a path for changes on the remote machine' \
+'write:Writes the contents to a file on the remote machine' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'distant fs help commands' commands "$@"
+}
+(( $+functions[_distant__fs__help__help_commands] )) ||
+_distant__fs__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs help help commands' commands "$@"
+}
+(( $+functions[_distant__generate__help_commands] )) ||
+_distant__generate__help_commands() {
+    local commands; commands=(
+'config:Generate configuration file with base settings' \
+'completion:' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'distant generate help commands' commands "$@"
+}
+(( $+functions[_distant__generate__help__help_commands] )) ||
+_distant__generate__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant generate help help commands' commands "$@"
+}
+(( $+functions[_distant__help_commands] )) ||
+_distant__help_commands() {
+    local commands; commands=(
+'api:Listen over stdin & stdout to communicate with a distant server using the JSON lines API' \
+'connect:Requests that active manager connects to the server at the specified destination' \
+'fs:Subcommands for file system operations' \
+'launch:Launches the server-portion of the binary on a remote machine' \
+'shell:Specialized treatment of running a remote shell process' \
+'spawn:Spawn a process on the remote machine' \
+'system-info:Represents common networking configuration' \
+'version:Retrieves version information of the remote server' \
+'manager:Perform manager commands' \
+'server:Perform server commands' \
+'generate:Perform generation commands' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'distant help commands' commands "$@"
+}
+(( $+functions[_distant__help__help_commands] )) ||
+_distant__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help help commands' commands "$@"
+}
+(( $+functions[_distant__manager__help_commands] )) ||
+_distant__manager__help_commands() {
+    local commands; commands=(
+'select:Select the active connection' \
+'service:Interact with a manager being run by a service management platform' \
+'listen:Listen for incoming requests as a manager' \
+'version:Retrieve a list of capabilities that the manager supports' \
+'info:Retrieve information about a specific connection' \
+'list:List information about all connections' \
+'kill:Kill a specific connection' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'distant manager help commands' commands "$@"
+}
+(( $+functions[_distant__manager__help__help_commands] )) ||
+_distant__manager__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager help help commands' commands "$@"
+}
+(( $+functions[_distant__manager__service__help_commands] )) ||
+_distant__manager__service__help_commands() {
+    local commands; commands=(
+'start:Start the manager as a service' \
+'stop:Stop the manager as a service' \
+'install:Install the manager as a service' \
+'uninstall:Uninstall the manager as a service' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'distant manager service help commands' commands "$@"
+}
+(( $+functions[_distant__manager__service__help__help_commands] )) ||
+_distant__manager__service__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager service help help commands' commands "$@"
+}
+(( $+functions[_distant__server__help_commands] )) ||
+_distant__server__help_commands() {
+    local commands; commands=(
+'listen:Listen for incoming requests as a server' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'distant server help commands' commands "$@"
+}
+(( $+functions[_distant__server__help__help_commands] )) ||
+_distant__server__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant server help help commands' commands "$@"
+}
+(( $+functions[_distant__help__manager__info_commands] )) ||
+_distant__help__manager__info_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help manager info commands' commands "$@"
+}
+(( $+functions[_distant__manager__help__info_commands] )) ||
+_distant__manager__help__info_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager help info commands' commands "$@"
+}
+(( $+functions[_distant__manager__info_commands] )) ||
+_distant__manager__info_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager info commands' commands "$@"
+}
+(( $+functions[_distant__help__manager__service__install_commands] )) ||
+_distant__help__manager__service__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help manager service install commands' commands "$@"
+}
+(( $+functions[_distant__manager__help__service__install_commands] )) ||
+_distant__manager__help__service__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager help service install commands' commands "$@"
+}
+(( $+functions[_distant__manager__service__help__install_commands] )) ||
+_distant__manager__service__help__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager service help install commands' commands "$@"
+}
+(( $+functions[_distant__manager__service__install_commands] )) ||
+_distant__manager__service__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager service install commands' commands "$@"
+}
+(( $+functions[_distant__help__manager__kill_commands] )) ||
+_distant__help__manager__kill_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help manager kill commands' commands "$@"
+}
+(( $+functions[_distant__manager__help__kill_commands] )) ||
+_distant__manager__help__kill_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager help kill commands' commands "$@"
+}
+(( $+functions[_distant__manager__kill_commands] )) ||
+_distant__manager__kill_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager kill commands' commands "$@"
+}
+(( $+functions[_distant__help__launch_commands] )) ||
+_distant__help__launch_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help launch commands' commands "$@"
+}
+(( $+functions[_distant__launch_commands] )) ||
+_distant__launch_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant launch commands' commands "$@"
+}
+(( $+functions[_distant__help__manager__list_commands] )) ||
+_distant__help__manager__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help manager list commands' commands "$@"
+}
+(( $+functions[_distant__manager__help__list_commands] )) ||
+_distant__manager__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager help list commands' commands "$@"
+}
+(( $+functions[_distant__manager__list_commands] )) ||
+_distant__manager__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager list commands' commands "$@"
+}
+(( $+functions[_distant__help__manager__listen_commands] )) ||
+_distant__help__manager__listen_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help manager listen commands' commands "$@"
+}
+(( $+functions[_distant__help__server__listen_commands] )) ||
+_distant__help__server__listen_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help server listen commands' commands "$@"
+}
+(( $+functions[_distant__manager__help__listen_commands] )) ||
+_distant__manager__help__listen_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager help listen commands' commands "$@"
+}
+(( $+functions[_distant__manager__listen_commands] )) ||
+_distant__manager__listen_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager listen commands' commands "$@"
+}
+(( $+functions[_distant__server__help__listen_commands] )) ||
+_distant__server__help__listen_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant server help listen commands' commands "$@"
+}
+(( $+functions[_distant__server__listen_commands] )) ||
+_distant__server__listen_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant server listen commands' commands "$@"
+}
+(( $+functions[_distant__fs__help__make-dir_commands] )) ||
+_distant__fs__help__make-dir_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs help make-dir commands' commands "$@"
+}
+(( $+functions[_distant__fs__make-dir_commands] )) ||
+_distant__fs__make-dir_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs make-dir commands' commands "$@"
+}
+(( $+functions[_distant__help__fs__make-dir_commands] )) ||
+_distant__help__fs__make-dir_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help fs make-dir commands' commands "$@"
+}
+(( $+functions[_distant__help__manager_commands] )) ||
+_distant__help__manager_commands() {
+    local commands; commands=(
+'select:Select the active connection' \
+'service:Interact with a manager being run by a service management platform' \
+'listen:Listen for incoming requests as a manager' \
+'version:Retrieve a list of capabilities that the manager supports' \
+'info:Retrieve information about a specific connection' \
+'list:List information about all connections' \
+'kill:Kill a specific connection' \
+    )
+    _describe -t commands 'distant help manager commands' commands "$@"
+}
+(( $+functions[_distant__manager_commands] )) ||
+_distant__manager_commands() {
+    local commands; commands=(
+'select:Select the active connection' \
+'service:Interact with a manager being run by a service management platform' \
+'listen:Listen for incoming requests as a manager' \
+'version:Retrieve a list of capabilities that the manager supports' \
+'info:Retrieve information about a specific connection' \
+'list:List information about all connections' \
+'kill:Kill a specific connection' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'distant manager commands' commands "$@"
+}
+(( $+functions[_distant__fs__help__metadata_commands] )) ||
+_distant__fs__help__metadata_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs help metadata commands' commands "$@"
+}
+(( $+functions[_distant__fs__metadata_commands] )) ||
+_distant__fs__metadata_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs metadata commands' commands "$@"
+}
+(( $+functions[_distant__help__fs__metadata_commands] )) ||
+_distant__help__fs__metadata_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help fs metadata commands' commands "$@"
+}
+(( $+functions[_distant__fs__help__read_commands] )) ||
+_distant__fs__help__read_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs help read commands' commands "$@"
+}
+(( $+functions[_distant__fs__read_commands] )) ||
+_distant__fs__read_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs read commands' commands "$@"
+}
+(( $+functions[_distant__help__fs__read_commands] )) ||
+_distant__help__fs__read_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help fs read commands' commands "$@"
+}
+(( $+functions[_distant__fs__help__remove_commands] )) ||
+_distant__fs__help__remove_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs help remove commands' commands "$@"
+}
+(( $+functions[_distant__fs__remove_commands] )) ||
+_distant__fs__remove_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs remove commands' commands "$@"
+}
+(( $+functions[_distant__help__fs__remove_commands] )) ||
+_distant__help__fs__remove_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help fs remove commands' commands "$@"
+}
+(( $+functions[_distant__fs__help__rename_commands] )) ||
+_distant__fs__help__rename_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs help rename commands' commands "$@"
+}
+(( $+functions[_distant__fs__rename_commands] )) ||
+_distant__fs__rename_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs rename commands' commands "$@"
+}
+(( $+functions[_distant__help__fs__rename_commands] )) ||
+_distant__help__fs__rename_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help fs rename commands' commands "$@"
+}
+(( $+functions[_distant__fs__help__search_commands] )) ||
+_distant__fs__help__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs help search commands' commands "$@"
+}
+(( $+functions[_distant__fs__search_commands] )) ||
+_distant__fs__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs search commands' commands "$@"
+}
+(( $+functions[_distant__help__fs__search_commands] )) ||
+_distant__help__fs__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help fs search commands' commands "$@"
+}
+(( $+functions[_distant__help__manager__select_commands] )) ||
+_distant__help__manager__select_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help manager select commands' commands "$@"
+}
+(( $+functions[_distant__manager__help__select_commands] )) ||
+_distant__manager__help__select_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager help select commands' commands "$@"
+}
+(( $+functions[_distant__manager__select_commands] )) ||
+_distant__manager__select_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager select commands' commands "$@"
+}
+(( $+functions[_distant__help__server_commands] )) ||
+_distant__help__server_commands() {
+    local commands; commands=(
+'listen:Listen for incoming requests as a server' \
+    )
+    _describe -t commands 'distant help server commands' commands "$@"
+}
+(( $+functions[_distant__server_commands] )) ||
+_distant__server_commands() {
+    local commands; commands=(
+'listen:Listen for incoming requests as a server' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'distant server commands' commands "$@"
+}
+(( $+functions[_distant__help__manager__service_commands] )) ||
+_distant__help__manager__service_commands() {
+    local commands; commands=(
+'start:Start the manager as a service' \
+'stop:Stop the manager as a service' \
+'install:Install the manager as a service' \
+'uninstall:Uninstall the manager as a service' \
+    )
+    _describe -t commands 'distant help manager service commands' commands "$@"
+}
+(( $+functions[_distant__manager__help__service_commands] )) ||
+_distant__manager__help__service_commands() {
+    local commands; commands=(
+'start:Start the manager as a service' \
+'stop:Stop the manager as a service' \
+'install:Install the manager as a service' \
+'uninstall:Uninstall the manager as a service' \
+    )
+    _describe -t commands 'distant manager help service commands' commands "$@"
+}
+(( $+functions[_distant__manager__service_commands] )) ||
+_distant__manager__service_commands() {
+    local commands; commands=(
+'start:Start the manager as a service' \
+'stop:Stop the manager as a service' \
+'install:Install the manager as a service' \
+'uninstall:Uninstall the manager as a service' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'distant manager service commands' commands "$@"
+}
+(( $+functions[_distant__fs__help__set-permissions_commands] )) ||
+_distant__fs__help__set-permissions_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs help set-permissions commands' commands "$@"
+}
+(( $+functions[_distant__fs__set-permissions_commands] )) ||
+_distant__fs__set-permissions_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs set-permissions commands' commands "$@"
+}
+(( $+functions[_distant__help__fs__set-permissions_commands] )) ||
+_distant__help__fs__set-permissions_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help fs set-permissions commands' commands "$@"
+}
+(( $+functions[_distant__help__shell_commands] )) ||
+_distant__help__shell_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help shell commands' commands "$@"
+}
+(( $+functions[_distant__shell_commands] )) ||
+_distant__shell_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant shell commands' commands "$@"
+}
+(( $+functions[_distant__help__spawn_commands] )) ||
+_distant__help__spawn_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help spawn commands' commands "$@"
+}
+(( $+functions[_distant__spawn_commands] )) ||
+_distant__spawn_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant spawn commands' commands "$@"
+}
+(( $+functions[_distant__help__manager__service__start_commands] )) ||
+_distant__help__manager__service__start_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help manager service start commands' commands "$@"
+}
+(( $+functions[_distant__manager__help__service__start_commands] )) ||
+_distant__manager__help__service__start_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager help service start commands' commands "$@"
+}
+(( $+functions[_distant__manager__service__help__start_commands] )) ||
+_distant__manager__service__help__start_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager service help start commands' commands "$@"
+}
+(( $+functions[_distant__manager__service__start_commands] )) ||
+_distant__manager__service__start_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager service start commands' commands "$@"
+}
+(( $+functions[_distant__help__manager__service__stop_commands] )) ||
+_distant__help__manager__service__stop_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help manager service stop commands' commands "$@"
+}
+(( $+functions[_distant__manager__help__service__stop_commands] )) ||
+_distant__manager__help__service__stop_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager help service stop commands' commands "$@"
+}
+(( $+functions[_distant__manager__service__help__stop_commands] )) ||
+_distant__manager__service__help__stop_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager service help stop commands' commands "$@"
+}
+(( $+functions[_distant__manager__service__stop_commands] )) ||
+_distant__manager__service__stop_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager service stop commands' commands "$@"
+}
+(( $+functions[_distant__help__system-info_commands] )) ||
+_distant__help__system-info_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help system-info commands' commands "$@"
+}
+(( $+functions[_distant__system-info_commands] )) ||
+_distant__system-info_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant system-info commands' commands "$@"
+}
+(( $+functions[_distant__help__manager__service__uninstall_commands] )) ||
+_distant__help__manager__service__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help manager service uninstall commands' commands "$@"
+}
+(( $+functions[_distant__manager__help__service__uninstall_commands] )) ||
+_distant__manager__help__service__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager help service uninstall commands' commands "$@"
+}
+(( $+functions[_distant__manager__service__help__uninstall_commands] )) ||
+_distant__manager__service__help__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager service help uninstall commands' commands "$@"
+}
+(( $+functions[_distant__manager__service__uninstall_commands] )) ||
+_distant__manager__service__uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager service uninstall commands' commands "$@"
+}
+(( $+functions[_distant__help__manager__version_commands] )) ||
+_distant__help__manager__version_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help manager version commands' commands "$@"
+}
+(( $+functions[_distant__help__version_commands] )) ||
+_distant__help__version_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help version commands' commands "$@"
+}
+(( $+functions[_distant__manager__help__version_commands] )) ||
+_distant__manager__help__version_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager help version commands' commands "$@"
+}
+(( $+functions[_distant__manager__version_commands] )) ||
+_distant__manager__version_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant manager version commands' commands "$@"
+}
+(( $+functions[_distant__version_commands] )) ||
+_distant__version_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant version commands' commands "$@"
+}
+(( $+functions[_distant__fs__help__watch_commands] )) ||
+_distant__fs__help__watch_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs help watch commands' commands "$@"
+}
+(( $+functions[_distant__fs__watch_commands] )) ||
+_distant__fs__watch_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs watch commands' commands "$@"
+}
+(( $+functions[_distant__help__fs__watch_commands] )) ||
+_distant__help__fs__watch_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help fs watch commands' commands "$@"
+}
+(( $+functions[_distant__fs__help__write_commands] )) ||
+_distant__fs__help__write_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs help write commands' commands "$@"
+}
+(( $+functions[_distant__fs__write_commands] )) ||
+_distant__fs__write_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant fs write commands' commands "$@"
+}
+(( $+functions[_distant__help__fs__write_commands] )) ||
+_distant__help__fs__write_commands() {
+    local commands; commands=()
+    _describe -t commands 'distant help fs write commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_distant" ]; then
+    _distant "$@"
+else
+    compdef _distant distant
+fi
