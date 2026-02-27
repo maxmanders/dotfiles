@@ -208,7 +208,8 @@ return {
     ft = "helm"
   },
   {
-    'kyazdani42/nvim-tree.lua',
+    'nvim-tree/nvim-tree.lua',
+    tag = 'v1.15.0',
     dependencies = {
       {
         'b0o/nvim-tree-preview.lua',
