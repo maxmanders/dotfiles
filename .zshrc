@@ -103,6 +103,3 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 . "$HOME/.local/bin/env"
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/max/.lmstudio/bin"
-# End of LM Studio CLI section
