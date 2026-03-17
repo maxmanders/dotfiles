@@ -103,3 +103,7 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 . "$HOME/.local/bin/env"
 
+
+# Generated for pdtm. Do not edit.
+export PATH=$PATH:/Users/max/.pdtm/go/bin
+
