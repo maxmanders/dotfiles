@@ -461,6 +461,7 @@ function brewdump() {
   brew bundle dump --force --file "${brewfile_realpath}"
   sed -i '' '/^mas /d' "${brewfile_realpath}"
   sed -i '' '/^go /d' "${brewfile_realpath}"
+  sed -i '' '/^uv /d' "${brewfile_realpath}"
 }
 
 create-volume-snapshot() {
