@@ -446,6 +446,8 @@ function gdef() {
   if [ "${default_branch}" != "${current_branch}" ]; then
     git branch --delete "${current_branch}"
   fi
+
+  git remote prune origin
 }
 
 function defang() {
