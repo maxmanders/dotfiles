@@ -501,14 +501,26 @@ function _kube_list_pods() {
   | sort -k 2 -k 1 -t:
 }
 
-function podshell() {
-  local cmd
-  cmd="${1}"
+function podshell () {
+    local cmd pod pod_name namespace containers container
 
-  pod=$(_kube_list_pods | fzf)
+    cmd="${1}"
+    pod=$(_kube_list_pods | fzf --prompt="Select pod: ")
+    pod_name=$(echo "${pod}" | cut -d: -f1)
+    namespace=$(echo "${pod}" | cut -d: -f2)
 
-  pod_name=$(echo "${pod}" | cut -d: -f1)
-  namespace=$(echo "${pod}" | cut -d: -f2)
+    # Get containers for the selected pod
+    containers=$(kubectl --namespace "${namespace}" get pod "${pod_name}" \
+        -o jsonpath='{.spec.containers[*].name}' | tr ' ' '\n')
 
-  kubectl --namespace "${namespace}" exec -it "${pod_name}" -- "${cmd:-bash}"
+    # If more than one container, prompt for selection
+    container_count=$(echo "${containers}" | wc -l | tr -d ' ')
+    if [[ "${container_count}" -gt 1 ]]; then
+        container=$(echo "${containers}" | fzf --prompt="Select container: ")
+    else
+        container="${containers}"
+    fi
+
+    kubectl --namespace "${namespace}" exec -it "${pod_name}" \
+        -c "${container}" -- "${cmd:-bash}"
 }
