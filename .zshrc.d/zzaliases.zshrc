@@ -6,6 +6,7 @@ alias ag="rg"
 alias be="bundle exec"
 alias brew_upgrade='brew update && brew upgrade $(brew outdated)'
 alias cd="z"
+alias cx='kubectx'
 alias cat="bat --theme Nord "
 alias ctags="`brew --prefix`/bin/ctags"
 alias crontab="VIM_CRONTAB=true crontab"
@@ -31,6 +32,7 @@ alias l="ll"
 alias less='less -m -g -i -J --underline-special --SILENT'
 alias mkdir="mkdir -p"
 alias more='less'
+alias ns='kubens'
 alias ppv="puppet parser validate"
 alias rake="noglob rake"
 alias serve='python -m http.server'
