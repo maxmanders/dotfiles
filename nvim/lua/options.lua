@@ -4,18 +4,17 @@ require "nvchad.options"
 
 -- local o = vim.o
 -- o.cursorlineopt ='both' -- to enable cursorline!
-vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
-vim.wo.relativenumber = true
+vim.opt.relativenumber = true
 vim.opt.hls = false
 vim.opt.mouse = ""
 
 -- fold options
-vim.o.foldenable = false
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldenable = true
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = ""
 vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 1
+vim.opt.foldlevelstart = 99
 vim.opt.foldnestmax = 4
 vim.opt.foldcolumn = "1"
 
@@ -41,29 +40,14 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
--- Create an autocommand for "BufRead" events
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-  pattern = { "*.yaml.gotmpl", "*.gotmpl" },
-  callback = function()
-    vim.opt.filetype = "yaml"
-    vim.bo.filetype = "yaml"
-  end
-})
-
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-  pattern = { "*/templates/_*.tpl" },
-  callback = function()
-    vim.opt.filetype = "mustache"
-    vim.bo.filetype = "mustache"
-  end
-})
-
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-  pattern = { "*.hujson", "*.jsonc" },
-  callback = function()
-    vim.opt.filetype = "jsonc"
-    vim.bo.filetype = "jsonc"
-  end
+vim.filetype.add({
+  extension = {
+    gotmpl = "yaml",
+    hujson = "jsonc",
+  },
+  pattern = {
+    [".*/templates/_.+%.tpl"] = "mustache",
+  },
 })
 
 require('nvim-tree').setup {
