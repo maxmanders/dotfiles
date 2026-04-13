@@ -7,6 +7,7 @@ require "nvchad.options"
 vim.opt.relativenumber = true
 vim.opt.hls = false
 vim.opt.mouse = ""
+vim.opt.textwidth = 80
 
 -- fold options
 vim.opt.foldenable = true

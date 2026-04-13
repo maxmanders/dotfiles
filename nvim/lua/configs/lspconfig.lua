@@ -43,6 +43,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
     if client and client:supports_method("textDocument/inlayHint") then
       vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
     end
+    -- Restore gq to use Vim's built-in line-wrapper instead of LSP
+    vim.bo[args.buf].formatexpr = ""
   end,
 })
 
