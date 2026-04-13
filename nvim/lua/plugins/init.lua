@@ -102,27 +102,12 @@ return {
   },
 
   {
-    "ludovicchabant/vim-gutentags",
-    lazy = false,
-  },
-
-  {
-    "airblade/vim-gitgutter",
-    lazy = false,
-  },
-
-  {
     "airblade/vim-rooter",
     lazy = false,
   },
 
   {
     "dhruvasagar/vim-table-mode",
-    lazy = false,
-  },
-
-  {
-    "sheerun/vim-polyglot",
     lazy = false,
   },
 
