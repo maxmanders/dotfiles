@@ -8,6 +8,7 @@ local servers = {
   "helm-ls",
   "html",
   "pyright",
+  "ruff",
   "terraformls",
   "ts_ls",
   "yaml-language-server",
@@ -36,5 +37,13 @@ vim.lsp.config("helm-ls", {
 
 vim.lsp.enable(servers)
 
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and client:supports_method("textDocument/inlayHint") then
+      vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+    end
+  end,
+})
 
--- read :h vim.lsp.config for changing options of lsp servers 
+-- read :h vim.lsp.config for changing options of lsp servers
