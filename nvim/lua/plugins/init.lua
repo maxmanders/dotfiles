@@ -255,6 +255,19 @@ return {
           { "<leader>,", ":Telescope live_grep_args<CR>", desc = "Live Grep" },
         },
       },
+      {
+        "nvim-telescope/telescope-ui-select.nvim",
+        config = function()
+          require("telescope").setup({
+            extensions = {
+              ["ui-select"] = {
+                require("telescope.themes").get_dropdown({}),
+              },
+            },
+          })
+          require("telescope").load_extension("ui-select")
+        end,
+      },
     },
   },
   {
@@ -276,5 +289,16 @@ return {
           { "mason-org/mason.nvim", opts = {} },
           "neovim/nvim-lspconfig",
       },
+  },
+  {
+    "jfryy/keytrail.nvim",
+    lazy = false,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-telescope/telescope.nvim",
+    },
+    config = function()
+      require("keytrail").setup()
+    end,
   }
 }
