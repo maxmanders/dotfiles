@@ -16,6 +16,11 @@ return {
 {
   'nvim-treesitter/nvim-treesitter',
     branch = 'main',
+    config = function()
+      require('nvim-treesitter').setup({
+        ensure_installed = { "helm" },
+      })
+    end,
     init = function()
       vim.api.nvim_create_autocmd('FileType', {
         callback = function()
