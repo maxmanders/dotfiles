@@ -14,6 +14,7 @@ alias diff="/opt/homebrew/bin/diff"
 alias e='exa -l --git'
 alias f='flux'
 alias find="fd"
+alias fw="flux events --watch"
 alias gam="cd /usr/local/gam; python gam.py"
 alias gcom='USE_MAIN=$(git branch | grep main); git checkout ${USE_MAIN:-master}'
 alias getname="project-name-generator -o dashed"
