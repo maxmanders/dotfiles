@@ -41,16 +41,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
-vim.filetype.add({
-  extension = {
-    gotmpl = "yaml",
-    hujson = "jsonc",
-  },
-  pattern = {
-    [".*/templates/_.+%.tpl"] = "mustache",
-  },
-})
-
 require('nvim-tree').setup {
   on_attach = function(bufnr)
     local api = require('nvim-tree.api')
