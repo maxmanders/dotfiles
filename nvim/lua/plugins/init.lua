@@ -300,6 +300,7 @@ return {
       "nvim-telescope/telescope.nvim",
     },
     config = function()
+      table.insert(require("keytrail.autocmds").PATTERNS, "*.yaml.gotmpl")
       require("keytrail").setup()
     end,
   }
