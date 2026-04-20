@@ -9,6 +9,14 @@ vim.opt.hls = false
 vim.opt.mouse = ""
 vim.opt.textwidth = 80
 
+vim.api.nvim_create_autocmd("BufReadPre", {
+  callback = function(args)
+    if args.file:find("/.git/", 1, true) then
+      vim.opt_local.swapfile = false
+    end
+  end,
+})
+
 -- fold options
 vim.opt.foldenable = true
 vim.opt.foldmethod = "expr"
