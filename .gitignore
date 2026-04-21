@@ -39,3 +39,4 @@ nvm.zshrc_
 tags*
 .aws-sam/
 nvim/spell
+pyrightconfig.json
