@@ -6,6 +6,14 @@ vim.filetype.add({
   },
 })
 
+vim.filetype.add({
+  extension = {
+    tf = "terraform",
+    tfvars = "terraform-vars",
+    hcl = "hcl",
+  },
+})
+
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.yaml.gotmpl",
   callback = function()

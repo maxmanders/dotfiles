@@ -1,7 +1,7 @@
 return {
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
+    event = 'BufWritePre',
     opts = require "configs.conform",
   },
 
@@ -157,12 +157,6 @@ return {
   },
   {
     "hashivim/vim-terraform",
-    init = function()
-      vim.api.nvim_create_autocmd({'BufWritePre'}, {
-        pattern = '*.tf',
-        command = "TerraformFmt"
-      })
-    end,
   },
   {
     "ray-x/go.nvim",
