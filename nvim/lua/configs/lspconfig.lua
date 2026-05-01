@@ -28,12 +28,13 @@ vim.lsp.config("yaml-language-server", {
 vim.lsp.config("helm-ls", {
   settings = {
     helm_ls = {
-      yalmls = {
+      yamlls = {
         path = "yaml-language-server",
       },
     },
   },
 })
+
 
 vim.lsp.enable(servers)
 
