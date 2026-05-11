@@ -17,10 +17,9 @@ vim.api.nvim_create_autocmd("BufReadPre", {
   end,
 })
 
--- fold options
+-- fold options (per-buffer treesitter folding is set in plugins/init.lua FileType autocmd)
 vim.opt.foldenable = true
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldmethod = "indent"
 vim.opt.foldtext = ""
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
