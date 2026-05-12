@@ -94,16 +94,15 @@ compdef _cdk_yargs_completions cdk
 compdef kubecolor=kubectl
 ###-end-cdk-completions-###
 source <(fzf --zsh)
-eval "$(starship init zsh)"
-eval "$(atuin init zsh)"
-eval "$(zoxide init zsh)"
 
 export PATH="$PATH:${HOME}/.local/bin"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 . "$HOME/.local/bin/env"
 
-
 # Generated for pdtm. Do not edit.
 export PATH=$PATH:/Users/max/.pdtm/go/bin
 
+eval "$(starship init zsh)"
+eval "$(atuin init zsh)"
+eval "$(zoxide init zsh)"
