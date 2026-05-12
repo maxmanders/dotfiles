@@ -152,7 +152,13 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     lazy = false,
     config = function()
-      require('render-markdown').setup({})
+      local tmpdir = vim.env.TMPDIR or '/tmp/'
+      require('render-markdown').setup({
+        ignore = function(buf)
+          local name = vim.api.nvim_buf_get_name(buf)
+          return vim.startswith(name, tmpdir) or vim.startswith(name, '/tmp/')
+        end,
+      })
     end,
   },
   {
