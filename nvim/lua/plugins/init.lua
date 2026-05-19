@@ -23,17 +23,22 @@ return {
     end,
     init = function()
       _G._safe_ts_foldexpr = function()
+        local buf = vim.api.nvim_get_current_buf()
+        if not vim.api.nvim_buf_is_valid(buf) then return "0" end
         local ok, result = pcall(vim.treesitter.foldexpr)
         return ok and result or "0"
       end
 
+      local tmpdir = vim.env.TMPDIR or '/tmp/'
       vim.api.nvim_create_autocmd('FileType', {
-        callback = function()
-          -- Enable treesitter highlighting and disable regex syntax
-          local ok = pcall(vim.treesitter.start)
-          -- Only enable treesitter-based indentation and folding if a parser is available
+        callback = function(args)
+          local name = vim.api.nvim_buf_get_name(args.buf)
+          if vim.startswith(name, tmpdir) or vim.startswith(name, '/tmp/') then
+            return
+          end
+          local ok = pcall(vim.treesitter.start, args.buf)
           if ok then
-            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
             vim.opt_local.foldmethod = "expr"
             vim.opt_local.foldexpr = "v:lua._safe_ts_foldexpr()"
           end
