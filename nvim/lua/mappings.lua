@@ -30,3 +30,9 @@ map("n", "]e", "<cmd>m .+1<CR>==",  { desc = "Move line down" })
 map("n", "[e", "<cmd>m .-2<CR>==",  { desc = "Move line up" })
 map("v", "]e", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 map("v", "[e", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+
+map("n", "<leader>,", function()
+  local dir = vim.fn.input("Dir: ", vim.fn.getcwd() .. "/", "dir")
+  if dir == "" then return end
+  require("telescope").extensions.live_grep_args.live_grep_args({ search_dirs = { dir } })
+end, { desc = "Live Grep (dir)" })
