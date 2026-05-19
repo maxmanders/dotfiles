@@ -29,11 +29,12 @@ return {
         return ok and result or "0"
       end
 
-      local tmpdir = vim.env.TMPDIR or '/tmp/'
       vim.api.nvim_create_autocmd('FileType', {
         callback = function(args)
           local name = vim.api.nvim_buf_get_name(args.buf)
-          if vim.startswith(name, tmpdir) or vim.startswith(name, '/tmp/') then
+          local resolved = vim.fn.resolve(name)
+          local tmpdir = vim.fn.resolve(vim.env.TMPDIR or '/tmp/')
+          if vim.startswith(resolved, tmpdir) or vim.startswith(resolved, '/private/tmp/') or vim.startswith(name, '/tmp/') then
             return
           end
           local ok = pcall(vim.treesitter.start, args.buf)
@@ -157,12 +158,17 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     lazy = false,
     config = function()
-      local tmpdir = vim.env.TMPDIR or '/tmp/'
+      local function is_tmp_buf(buf)
+        local name = vim.api.nvim_buf_get_name(buf)
+        if name == "" then return false end
+        local resolved = vim.fn.resolve(name)
+        local tmpdir = vim.fn.resolve(vim.env.TMPDIR or '/tmp/')
+        return vim.startswith(resolved, tmpdir)
+          or vim.startswith(resolved, '/private/tmp/')
+          or vim.startswith(name, '/tmp/')
+      end
       require('render-markdown').setup({
-        ignore = function(buf)
-          local name = vim.api.nvim_buf_get_name(buf)
-          return vim.startswith(name, tmpdir) or vim.startswith(name, '/tmp/')
-        end,
+        ignore = is_tmp_buf,
       })
     end,
   },
