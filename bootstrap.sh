@@ -196,6 +196,8 @@ home_files=(
 .p10k.zsh
 .psqlrc
 .tmux.conf
+.yamllint
+.yamlfmt
 .zshrc
 .zshrc.d
 )
