@@ -524,3 +524,9 @@ function podshell () {
     kubectl --namespace "${namespace}" exec -it "${pod_name}" \
         -c "${container}" -- "${cmd:-bash}"
 }
+
+tfclean() {
+  \find . \
+  -type d -name '.terragrunt-cache' -prune -exec rm -rf {} + \
+  -o -type f -name '.terraform.lock.hcl' -delete
+}
