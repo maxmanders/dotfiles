@@ -40,3 +40,4 @@ tags*
 .aws-sam/
 nvim/spell
 pyrightconfig.json
+.terragrunt-cache/
