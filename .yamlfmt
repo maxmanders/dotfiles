@@ -2,4 +2,4 @@ formatter:
   type: basic
   scan_folded_as_literal: true
   trim_trailing_whitespace: true
-  include_document_start: false
+  include_document_start: true
