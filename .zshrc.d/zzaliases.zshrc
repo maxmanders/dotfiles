@@ -20,6 +20,7 @@ alias gcom='USE_MAIN=$(git branch | grep main); git checkout ${USE_MAIN:-master}
 alias getname="project-name-generator -o dashed"
 alias gfuck="git reset --hard HEAD && git clean -fd && git fetch && git merge origin"
 alias gist="gist -c"
+alias glow="glow -nlt -w0"
 alias grep="pcregrep --color=auto"
 alias gup="gfo && ggpull"
 alias h="history"
