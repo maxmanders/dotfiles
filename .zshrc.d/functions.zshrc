@@ -530,3 +530,42 @@ tfclean() {
   -type d -name '.terragrunt-cache' -prune -exec rm -rf {} + \
   -o -type f -name '.terraform.lock.hcl' -delete
 }
+
+prs-today() {
+  local today opened closed
+  today="$(date +%F)"
+
+  opened="$(gh search prs --author=@me --created="$today" --limit 100 --json url,title)"
+  closed="$(gh search prs --author=@me --closed="$today"  --limit 100 --json url,title)"
+
+  jq -rn --argjson opened "$opened" --argjson closed "$closed" '
+    ($opened | map({url, title, opened: true}))
+    + ($closed | map({url, title, closed: true}))
+    | group_by(.url)
+    | map(
+        .[0] as $f
+        | {
+            url:    $f.url,
+            title:  $f.title,
+            opened: (map(.opened) | any),
+            closed: (map(.closed) | any)
+          }
+      )
+    | sort_by(.url)
+    | (
+        ["| Status | PR | Title |",
+         "| --- | --- | --- |"]
+        + (
+          map(
+            ([ (if .opened then "opened" else empty end),
+               (if .closed then "closed" else empty end) ] | join("+")) as $status
+            | ( .url | capture("github\\.com/(?<r>[^/]+/[^/]+)/pull/(?<n>[0-9]+)")
+                    | "\(.r)#\(.n)" ) as $pr
+            | ( .title | gsub("\\|"; "\\|") ) as $title
+            | "| \($status) | \($pr) | \($title) |"
+          )
+        )
+      )
+    | .[]
+  '
+}
