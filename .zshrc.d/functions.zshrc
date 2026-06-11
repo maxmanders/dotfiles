@@ -531,9 +531,14 @@ tfclean() {
   -o -type f -name '.terraform.lock.hcl' -delete
 }
 
-prs-today() {
+prs-by-day() {
   local today opened closed
-  today="$(date +%F)"
+
+  today="${1}"
+
+  if [ -z "${today}" ]; then
+    today="$(date +%F)"
+  fi
 
   opened="$(gh search prs --author=@me --created="$today" --limit 100 --json url,title)"
   closed="$(gh search prs --author=@me --closed="$today"  --limit 100 --json url,title)"
