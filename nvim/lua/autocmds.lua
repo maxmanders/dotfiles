@@ -1,5 +1,12 @@
 require "nvchad.autocmds"
 
+vim.api.nvim_create_autocmd("UIEnter", {
+  once = true,
+  callback = function()
+    vim.api.nvim_set_hl(0, "LineNr", { fg = "#60778F" })
+  end,
+})
+
 -- Re-enable swap files for temp directory files (e.g. buffers opened by gh pr create, git commit, etc.)
 -- so that editor crashes don't lose the PR body or commit message.
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
