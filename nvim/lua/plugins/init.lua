@@ -26,7 +26,7 @@ return {
     branch = 'main',
     config = function()
       require('nvim-treesitter').setup({
-        ensure_installed = { "helm" },
+        ensure_installed = { "helm", "python" },
       })
     end,
     init = function()
@@ -52,6 +52,54 @@ return {
             vim.opt_local.foldexpr = "v:lua._safe_ts_foldexpr()"
           end
         end,
+      })
+    end,
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "BufReadPost",
+    config = function()
+      require("nvim-treesitter-textobjects").setup({
+        select = {
+          enable = true,
+          lookahead = true, -- jump to next match if cursor is not inside one
+          keymaps = {
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
+            ["ac"] = "@class.outer",
+            ["ic"] = "@class.inner",
+            ["ai"] = "@conditional.outer",
+            ["ii"] = "@conditional.inner",
+            ["al"] = "@loop.outer",
+            ["il"] = "@loop.inner",
+          },
+        },
+        move = {
+          enable = true,
+          set_jumps = true, -- add to jumplist so <C-o>/<C-i> work
+          goto_next_start = {
+            ["]m"] = "@function.outer",
+            ["]k"] = "@class.outer",
+            ["]i"] = "@conditional.outer",
+            ["]o"] = "@loop.outer",
+          },
+          goto_next_end = {
+            ["]M"] = "@function.outer",
+            ["]K"] = "@class.outer",
+          },
+          goto_previous_start = {
+            ["[m"] = "@function.outer",
+            ["[k"] = "@class.outer",
+            ["[i"] = "@conditional.outer",
+            ["[o"] = "@loop.outer",
+          },
+          goto_previous_end = {
+            ["[M"] = "@function.outer",
+            ["[K"] = "@class.outer",
+          },
+        },
       })
     end,
   },
