@@ -74,6 +74,8 @@ return {
             ["ii"] = "@conditional.inner",
             ["al"] = "@loop.outer",
             ["il"] = "@loop.inner",
+            ["ay"] = "@block.outer",
+            ["iy"] = "@block.inner",
           },
         },
         move = {
