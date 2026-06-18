@@ -18,7 +18,7 @@ vim.lsp.config("yaml-language-server", {
     yaml = {
       schemas = {
         -- ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json"] = ["/*.yaml","/*.yml"],
-        ["kubernetes"] = "/*.yaml",
+        ["kubernetes"] = { "**/k8s/*.yaml", "**/manifests/*.yaml", "**/kubernetes/*.yaml", "**/clusters/**/*.yaml" },
         ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose*.yml",
       },
     },
@@ -28,20 +28,32 @@ vim.lsp.config("yaml-language-server", {
 vim.lsp.config("helm-ls", {
   settings = {
     helm_ls = {
+      logLevel = "info",
+      valuesFiles = {
+        mainValuesFile = "values.yaml",
+        lintOverlayValuesFile = "values.lint.yaml",
+        additionalValuesFilesGlobPattern = "values*.yaml",
+      },
       yamlls = {
         path = "yaml-language-server",
+        config = {
+          yaml = {
+            completion = true,
+            hover = true,
+            validate = true,
+          },
+        },
       },
     },
   },
 })
-
 
 vim.lsp.enable(servers)
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client and client:supports_method("textDocument/inlayHint") then
+    if client and client:supports_method "textDocument/inlayHint" then
       vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
     end
     -- Restore gq to use Vim's built-in line-wrapper instead of LSP

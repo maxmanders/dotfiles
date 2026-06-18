@@ -34,9 +34,74 @@ vim.filetype.add({
   },
 })
 
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = "*.yaml.gotmpl",
-  callback = function()
-    vim.bo.filetype = "yaml"
+local function helm_chart_root(path)
+  if vim.fn.fnamemodify(path, ":t") == "Chart.yaml" then return nil end
+  local dir = vim.fn.fnamemodify(path, ":h")
+  while dir ~= "/" do
+    if vim.fn.filereadable(dir .. "/Chart.yaml") == 1 then return dir end
+    dir = vim.fn.fnamemodify(dir, ":h")
+  end
+end
+
+vim.filetype.add({
+  pattern = {
+    [".*%.yaml%.gotmpl$"] = function(path)
+      return helm_chart_root(path) and "helm" or "yaml"
+    end,
+    [".*%.yaml$"] = function(path)
+      if helm_chart_root(path) then return "helm" end
+    end,
+  },
+})
+
+-- The helm treesitter grammar uses injection.combined for YAML (spanning the whole file).
+-- This causes the incremental updater to not re-highlight newly typed template nodes.
+-- Force a full invalidate + reparse on every text change so highlights stay current.
+vim.api.nvim_create_autocmd({ "TextChanged", "InsertLeave" }, {
+  callback = function(args)
+    if vim.bo[args.buf].filetype ~= "helm" then return end
+    local parser = vim.treesitter.get_parser(args.buf, "helm", { error = false })
+    if parser then
+      parser:invalidate(true)
+      parser:parse()
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "helm",
+  callback = function(args)
+    local function chart_root(file)
+      local dir = vim.fn.fnamemodify(file, ":h")
+      while dir ~= "/" do
+        if vim.fn.filereadable(dir .. "/Chart.yaml") == 1 then return dir end
+        dir = vim.fn.fnamemodify(dir, ":h")
+      end
+    end
+
+    local opts = function(desc) return { buffer = args.buf, silent = true, desc = desc } end
+
+    vim.keymap.set("n", "<leader>Hl", function()
+      local root = chart_root(vim.api.nvim_buf_get_name(args.buf))
+      if root then vim.cmd("!" .. "helm lint " .. vim.fn.shellescape(root)) end
+    end, opts("Helm lint"))
+
+    vim.keymap.set("n", "<leader>Ht", function()
+      local root = chart_root(vim.api.nvim_buf_get_name(args.buf))
+      if root then
+        local name = vim.fn.fnamemodify(root, ":t")
+        vim.cmd("new | read !helm template " .. vim.fn.shellescape(name) .. " " .. vim.fn.shellescape(root))
+      end
+    end, opts("Helm template (dry run)"))
+
+    vim.keymap.set("n", "<leader>Hv", function()
+      local root = chart_root(vim.api.nvim_buf_get_name(args.buf))
+      if root then vim.cmd("edit " .. root .. "/values.yaml") end
+    end, opts("Open values.yaml"))
+
+    vim.keymap.set("n", "<leader>Hc", function()
+      local root = chart_root(vim.api.nvim_buf_get_name(args.buf))
+      if root then vim.cmd("edit " .. root .. "/Chart.yaml") end
+    end, opts("Open Chart.yaml"))
   end,
 })
