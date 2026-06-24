@@ -42,3 +42,5 @@ nvim/spell
 pyrightconfig.json
 .terragrunt-cache/
 .terraform.lock.hcl
+
+**/.claude/settings.local.json
