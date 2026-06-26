@@ -19,20 +19,10 @@ brew "xz"
 brew "tree"
 # Automate deployment, configuration, and upgrading
 brew "ansible"
-# Library and utilities for processing GIFs
-brew "giflib"
-# Library for manipulating PNG images
-brew "libpng"
-# TIFF library and utilities
-brew "libtiff"
-# Color management engine supporting ICC profiles
-brew "little-cms2"
-# Image format providing lossless and lossy compression for web images
-brew "webp"
 # Codec library for encoding and decoding AV1 video streams
 brew "aom"
 # Powerful, clean, object-oriented scripting language
-brew "ruby", link: false
+brew "ruby"
 # Text processor and publishing toolchain for AsciiDoc
 brew "asciidoctor"
 # Record and share terminal sessions
@@ -45,10 +35,10 @@ brew "atuin"
 brew "autoconf"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.13"
 # Official Amazon AWS command-line interface
 brew "awscli"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.13"
 # Microsoft Azure CLI 2.0
 brew "azure-cli"
 # C string library for manipulating Unicode strings
@@ -79,6 +69,8 @@ brew "boost"
 brew "btop"
 # Asynchronous DNS library
 brew "c-ares"
+# Library for manipulating PNG images
+brew "libpng"
 # Software library to render fonts
 brew "freetype"
 # XML-based font configuration API for X Windows
@@ -151,12 +143,16 @@ brew "libogg"
 brew "flac"
 # Implementation of the Unicode BiDi algorithm
 brew "fribidi"
+# Library and utilities for processing GIFs
+brew "giflib"
 # Smart font renderer for non-Roman scripts
 brew "graphite2"
 # OpenType text shaping engine
 brew "harfbuzz"
 # C/C++ and Java libraries for Unicode and globalization
 brew "icu4c@77"
+# TIFF library and utilities
+brew "libtiff"
 # Generic library support script
 brew "libtool"
 # Command-line outline and bitmap font editor/converter
@@ -169,6 +165,10 @@ brew "fzf"
 brew "mpfr"
 # GNU awk utility
 brew "gawk"
+# Color management engine supporting ICC profiles
+brew "little-cms2"
+# Image format providing lossless and lossy compression for web images
+brew "webp"
 # Graphics library to dynamically manipulate images
 brew "gd"
 # GNU database manager
@@ -199,8 +199,6 @@ brew "gnu-indent"
 brew "gnu-sed"
 # GNU version of the tar archiving utility
 brew "gnu-tar"
-# Asynchronous event library
-brew "libevent"
 # International domain name library (IDNA2008, Punycode and TR46)
 brew "libidn2"
 # ASN.1 structure parser library
@@ -209,8 +207,6 @@ brew "libtasn1"
 brew "nettle"
 # Library to load and enumerate PKCS#11 modules
 brew "p11-kit"
-# Validating, recursive, caching DNS resolver
-brew "unbound"
 # GNU Transport Layer Security (TLS) Library
 brew "gnutls"
 # Common error values for all GnuPG components
@@ -287,6 +283,8 @@ brew "jq"
 brew "json-c"
 # Multi-platform support library with a focus on asynchronous I/O
 brew "libuv"
+# Portable Foreign Function Interface library
+brew "libffi"
 # JSON parser and validator with a CLI
 brew "jsonlint"
 # Handy way to save and run project-specific commands
@@ -323,10 +321,10 @@ brew "libass"
 brew "libbluray"
 # Asynchronous event library
 brew "libev"
+# Asynchronous event library
+brew "libevent"
 # C library for Couchbase
 brew "libcouchbase"
-# Portable Foreign Function Interface library
-brew "libffi"
 # C library for the MaxMind DB file format
 brew "libmaxminddb"
 # C library for creating IP packets
@@ -453,6 +451,8 @@ brew "rubberband"
 brew "shellcheck"
 # Advanced console-based IP subnet calculator
 brew "sipcalc"
+# Automate your tmux workflow
+brew "smug"
 # Compression/decompression library aiming for high speed
 brew "snappy"
 # Editor of encrypted files
@@ -497,6 +497,8 @@ brew "trash"
 brew "tree-sitter-cli"
 # Incremental parsing library
 brew "tree-sitter@0.25"
+# Validating, recursive, caching DNS resolver
+brew "unbound"
 # Maintained ctags implementation
 brew "universal-ctags"
 # ODBC 3 connectivity for UNIX
