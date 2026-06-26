@@ -574,3 +574,46 @@ prs-by-day() {
     | .[]
   '
 }
+
+# tmux session manager
+tm() {
+  emulate -L zsh
+  setopt local_options pipe_fail
+
+  # --- 1. Pick a directory -------------------------------------------------
+  local dir
+  local src_dir
+  src_dir="${HOME}/code/src/github"
+  dir=$(fd --type d --hidden --glob ".git" "${src_dir}" 2>/dev/null --exec dirname | fzf) || false
+
+  [[ -z "${dir}" ]] && return 0
+  dir="${dir:A}"
+  [[ -d "${dir}" ]] || { print -ru2 "tm: not a directory: ${dir}"; return 1 }
+
+  # --- 2. tmux-safe session name (strip '.' and ':' target separators) -----
+  local name="${${dir:t}//[.:]/_}"
+
+  # --- 3. Build the session only if it doesn't already exist ---------------
+  if ! tmux has-session -t="${name}" 2>/dev/null; then
+    tmux new-session -d -s "${name}" -c "${dir}" -n main
+    tmux send-keys -t "${name}:main" 'nvim' C-m
+
+    pane_0="$(tmux display-message -t "${name}:main" -p '#{pane_id}')"
+    pane_1="$(tmux split-window -t "${name}:main" -h -l '35%' -c "${dir}" -P -F '#{pane_id}')"
+    pane_2="$(tmux split-window -t "${pane_1}" -v -l '50%' -c "${dir}")"
+  fi
+
+  # --- 4. Enter the session ------------------------------------------------
+  if [[ -n "${TMUX}" ]]; then
+    tmux switch-client -t "${name}"
+  else
+    tmux attach-session -t "${name}"
+  fi
+}
+
+# kill tmux sessions interactively
+tk() {
+  tmux list-sessions -F '#{session_name}' | fzf --multi | while read -r s; do
+    tmux kill-session -t "${s}"
+  done
+}
