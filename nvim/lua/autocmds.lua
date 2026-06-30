@@ -6,6 +6,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
     local real_file = vim.fn.filereadable(data.file) == 1
     local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
     if not real_file and not no_name then return end
+    -- Skip when opened as $EDITOR by git (commit messages, rebase todo, etc.)
+    if data.file:find("[/\\]%.git[/\\]", 1) then return end
     require("nvim-tree.api").tree.toggle({ focus = false, find_file = true })
   end,
 })
