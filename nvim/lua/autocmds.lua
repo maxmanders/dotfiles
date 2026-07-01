@@ -8,6 +8,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
     if not real_file and not no_name then return end
     -- Skip when opened as $EDITOR by git (commit messages, rebase todo, etc.)
     if data.file:find("[/\\]%.git[/\\]", 1) then return end
+    -- Skip when opened as $EDITOR by gh or other tools (PR/issue bodies in tmp)
+    local tmpdir = (os.getenv("TMPDIR") or "/tmp"):gsub("/$", "")
+    if data.file:find("^/tmp/", 1, true) or data.file:find("^" .. vim.pesc(tmpdir) .. "/", 1) then return end
     require("nvim-tree.api").tree.toggle({ focus = false, find_file = true })
   end,
 })
