@@ -1,7 +1,7 @@
 return {
   {
     "stevearc/conform.nvim",
-    event = 'BufWritePre',
+    event = "BufWritePre",
     opts = require "configs.conform",
   },
 
@@ -21,28 +21,34 @@ return {
     end,
   },
 
-{
-  'nvim-treesitter/nvim-treesitter',
-    branch = 'main',
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     config = function()
-      require('nvim-treesitter').setup({
+      require("nvim-treesitter").setup {
         ensure_installed = { "helm", "python" },
-      })
+      }
     end,
     init = function()
       _G._safe_ts_foldexpr = function()
         local buf = vim.api.nvim_get_current_buf()
-        if not vim.api.nvim_buf_is_valid(buf) then return "0" end
+        if not vim.api.nvim_buf_is_valid(buf) then
+          return "0"
+        end
         local ok, result = pcall(vim.treesitter.foldexpr)
         return ok and result or "0"
       end
 
-      vim.api.nvim_create_autocmd('FileType', {
+      vim.api.nvim_create_autocmd("FileType", {
         callback = function(args)
           local name = vim.api.nvim_buf_get_name(args.buf)
           local resolved = vim.fn.resolve(name)
-          local tmpdir = vim.fn.resolve(vim.env.TMPDIR or '/tmp/')
-          if vim.startswith(resolved, tmpdir) or vim.startswith(resolved, '/private/tmp/') or vim.startswith(name, '/tmp/') then
+          local tmpdir = vim.fn.resolve(vim.env.TMPDIR or "/tmp/")
+          if
+            vim.startswith(resolved, tmpdir)
+            or vim.startswith(resolved, "/private/tmp/")
+            or vim.startswith(name, "/tmp/")
+          then
             return
           end
           local ok = pcall(vim.treesitter.start, args.buf)
@@ -61,7 +67,7 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = "BufReadPost",
     config = function()
-      require("nvim-treesitter-textobjects").setup({
+      require("nvim-treesitter-textobjects").setup {
         select = {
           enable = true,
           lookahead = true, -- jump to next match if cursor is not inside one
@@ -102,7 +108,7 @@ return {
             ["[K"] = "@class.outer",
           },
         },
-      })
+      }
     end,
   },
 
@@ -132,16 +138,16 @@ return {
   },
 
   {
-    'stevearc/aerial.nvim',
+    "stevearc/aerial.nvim",
     lazy = false,
     opts = {},
     config = function()
-      require("aerial").setup({
+      require("aerial").setup {
         float = {
           relative = "win",
           override = function(conf)
             local padding = 1
-            conf.anchor = 'NE'
+            conf.anchor = "NE"
             conf.row = padding
             conf.col = vim.api.nvim_win_get_width(0) - padding
             return conf
@@ -152,12 +158,12 @@ return {
           vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
           vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
         end,
-      })
+      }
     end,
     -- Optional dependencies
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons"
+      "nvim-tree/nvim-web-devicons",
     },
   },
 
@@ -182,7 +188,7 @@ return {
 
   {
     "tpope/vim-fugitive",
-    event = "VeryLazy"
+    event = "VeryLazy",
   },
 
   {
@@ -194,7 +200,7 @@ return {
     "mattn/vim-gist",
     lazy = false,
     dependencies = {
-      "mattn/webapi-vim"
+      "mattn/webapi-vim",
     },
   },
 
@@ -203,31 +209,33 @@ return {
     lazy = false,
     config = function()
       -- Mapping tab is already used by NvChad
-      vim.g.copilot_no_tab_map = true;
-      vim.g.copilot_assume_mapped = true;
-      vim.g.copilot_tab_fallback = "";
+      vim.g.copilot_no_tab_map = true
+      vim.g.copilot_assume_mapped = true
+      vim.g.copilot_tab_fallback = ""
       -- The mapping is set to other key, see custom/lua/mappings
       -- or run <leader>ch to see copilot mapping section
-    end
+    end,
   },
   {
-    'MeanderingProgrammer/markdown.nvim',
-    name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    "MeanderingProgrammer/markdown.nvim",
+    name = "render-markdown", -- Only needed if you have another plugin named markdown.nvim
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     lazy = false,
     config = function()
       local function is_tmp_buf(buf)
         local name = vim.api.nvim_buf_get_name(buf)
-        if name == "" then return false end
+        if name == "" then
+          return false
+        end
         local resolved = vim.fn.resolve(name)
-        local tmpdir = vim.fn.resolve(vim.env.TMPDIR or '/tmp/')
+        local tmpdir = vim.fn.resolve(vim.env.TMPDIR or "/tmp/")
         return vim.startswith(resolved, tmpdir)
-          or vim.startswith(resolved, '/private/tmp/')
-          or vim.startswith(name, '/tmp/')
+          or vim.startswith(resolved, "/private/tmp/")
+          or vim.startswith(name, "/tmp/")
       end
-      require('render-markdown').setup({
+      require("render-markdown").setup {
         ignore = is_tmp_buf,
-      })
+      }
     end,
   },
   {
@@ -235,14 +243,14 @@ return {
     lazy = false,
     config = function()
       require("wrapping").setup()
-    end
+    end,
   },
   {
     "hashivim/vim-terraform",
   },
   {
     "ray-x/go.nvim",
-    dependencies = {  -- optional packages
+    dependencies = { -- optional packages
       "ray-x/guihua.lua",
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
@@ -250,9 +258,9 @@ return {
     config = function()
       require("go").setup()
     end,
-    event = {"CmdlineEnter"},
-    ft = {"go", 'gomod'},
-    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+    event = { "CmdlineEnter" },
+    ft = { "go", "gomod" },
+    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
   {
     "chentoast/marks.nvim",
@@ -270,17 +278,17 @@ return {
   },
   {
     "qvalentin/helm-ls.nvim",
-    ft = "helm"
+    ft = "helm",
   },
   {
-    'nvim-tree/nvim-tree.lua',
-    tag = 'v1.15.0',
+    "nvim-tree/nvim-tree.lua",
+    tag = "v1.15.0",
     dependencies = {
       {
-        'b0o/nvim-tree-preview.lua',
+        "b0o/nvim-tree-preview.lua",
         dependencies = {
-          'nvim-lua/plenary.nvim',
-          '3rd/image.nvim', -- Optional, for previewing images
+          "nvim-lua/plenary.nvim",
+          "3rd/image.nvim", -- Optional, for previewing images
         },
       },
     },
@@ -309,7 +317,7 @@ return {
         "nvim-telescope/telescope-live-grep-args.nvim",
         event = "VeryLazy",
         config = function(_, _)
-          require("telescope").load_extension("live_grep_args")
+          require("telescope").load_extension "live_grep_args"
         end,
         keys = {
           { "<leader>,", ":Telescope live_grep_args<CR>", desc = "Live Grep" },
@@ -318,14 +326,14 @@ return {
       {
         "nvim-telescope/telescope-ui-select.nvim",
         config = function()
-          require("telescope").setup({
+          require("telescope").setup {
             extensions = {
               ["ui-select"] = {
-                require("telescope.themes").get_dropdown({}),
+                require("telescope.themes").get_dropdown {},
               },
             },
-          })
-          require("telescope").load_extension("ui-select")
+          }
+          require("telescope").load_extension "ui-select"
         end,
       },
     },
@@ -335,20 +343,20 @@ return {
     cmd = "CodeDiff",
   },
   {
-    'chipsenkbeil/distant.nvim',
-    branch = 'v0.3',
+    "chipsenkbeil/distant.nvim",
+    branch = "v0.3",
     lazy = false,
     config = function()
-      require('distant'):setup()
-    end
+      require("distant"):setup()
+    end,
   },
   {
-      "mason-org/mason-lspconfig.nvim",
-      opts = {},
-      dependencies = {
-          { "mason-org/mason.nvim", opts = {} },
-          "neovim/nvim-lspconfig",
-      },
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
+    },
   },
   {
     "jfryy/keytrail.nvim",
