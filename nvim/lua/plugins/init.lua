@@ -343,14 +343,6 @@ return {
     cmd = "CodeDiff",
   },
   {
-    "chipsenkbeil/distant.nvim",
-    branch = "v0.3",
-    lazy = false,
-    config = function()
-      require("distant"):setup()
-    end,
-  },
-  {
     "mason-org/mason-lspconfig.nvim",
     opts = {},
     dependencies = {
