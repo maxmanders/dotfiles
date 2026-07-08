@@ -7,6 +7,8 @@ tap "universal-ctags/universal-ctags"
 brew "adns"
 # Recompression utilities for .PNG, .MNG, .ZIP, and .GZ files
 brew "advancecomp"
+# Asciicast to GIF converter
+brew "agg"
 # C library SSHv1/SSHv2 client and server protocols
 brew "libssh"
 # YAML Parser
@@ -27,6 +29,10 @@ brew "ruby"
 brew "asciidoctor"
 # Record and share terminal sessions
 brew "asciinema"
+# Text-based UI library
+brew "ncurses"
+# Aquarium animation in ASCII art
+brew "asciiquarium"
 # Extendable version manager with support for Ruby, Node.js, Erlang & more
 brew "asdf"
 # Improved shell history for zsh, bash, fish and nushell
@@ -45,8 +51,6 @@ brew "azure-cli"
 brew "libunistring"
 # GNU internationalization (i18n) and localization (l10n) library
 brew "gettext"
-# Text-based UI library
-brew "ncurses"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
 # Programmable completion for Bash 3.2
@@ -95,6 +99,8 @@ brew "cmctl"
 brew "cscope"
 # Suite of command-line tools for converting to and working with CSV
 brew "csvkit"
+# Command-line csv viewer
+brew "csvlens"
 # Reimplementation of ctags(1)
 brew "ctags", link: false
 # Get a file from an HTTP, HTTPS or FTP server
@@ -319,6 +325,8 @@ brew "less"
 brew "libass"
 # Blu-Ray disc playback library for media players like VLC
 brew "libbluray"
+# Convert pixel information into colored ASCII art
+brew "libcaca"
 # Asynchronous event library
 brew "libev"
 # Asynchronous event library
