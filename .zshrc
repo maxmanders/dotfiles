@@ -49,8 +49,6 @@ fpath=(${HOME}/.granted/zsh_autocomplete/granted/ $fpath)
 autoload -U bashcompinit && bashcompinit
 autoload -U compinit && compinit
 complete -C aws_completer aws
-complete -C aws_completer sudo
-complete -C aws_completer aws-vault
 complete -C $(which terragrunt) terragrunt
 source ${HOMEBREW_PREFIX}/Caskroom/gcloud-cli/latest/google-cloud-sdk/completion.zsh.inc
 source ${HOMEBREW_PREFIX}/opt/python-argcomplete/share/bash-completion/completions/python-argcomplete
@@ -74,9 +72,6 @@ export PATH=$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH
 
 export PATH="/usr/local/opt/openssl@3/bin:$PATH"
 export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
-
-# Created by `pipx` on 2022-09-07 16:08:59
-export PATH="$PATH:/Users/mama/.local/bin"
 
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
