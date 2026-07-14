@@ -2,7 +2,7 @@
 
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
-export PATH="$PATH:$(brew --prefix)/opt/coreutils/libexec/gnubin"
+export PATH="$PATH:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin"
 export PATH="$PATH:/bin"
 export PATH="$PATH:/opt/local/bin:/opt/local/sbin"
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin"
@@ -32,15 +32,11 @@ fi
 # shellcheck source=/dev/null
 # [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 
-export GROOVY_HOME=/usr/local/opt/groovy/libexec
-
-export VIM_PY_PATH="$(brew --prefix python3)/bin/python3"
-
 export AWS_PAGER=
 
 
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=$(brew --prefix)/share/zsh-syntax-highlighting/highlighters
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/highlighters
+source ${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 LESSPIPE=`which src-hilite-lesspipe.sh`
 export LESSOPEN="| ${LESSPIPE} %s"

@@ -8,9 +8,9 @@ alias brew_upgrade='brew update && brew upgrade $(brew outdated)'
 alias cd="z"
 alias cx='kubectx'
 alias cat="bat --theme Nord "
-alias ctags="`brew --prefix`/bin/ctags"
+alias ctags="${HOMEBREW_PREFIX}/bin/ctags"
 alias crontab="VIM_CRONTAB=true crontab"
-alias diff="/opt/homebrew/bin/diff"
+alias diff="${HOMEBREW_PREFIX}/bin/diff"
 alias e='exa -l --git'
 alias f='flux'
 alias find="fd"

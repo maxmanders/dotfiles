@@ -35,13 +35,14 @@ fi
 
 zplug load
 
+HOMEBREW_PREFIX="$(brew --prefix)"
+
 for file in ${HOME}/.zshrc.d/*.zshrc; do
   # shellcheck disable=SC1090
   source "${file}"
 done
 
 # shellcheck source=/dev/null
-HOMEBREW_PREFIX="$(brew --prefix)"
 fpath=(${HOME}/.zshrc.d/completions/ $fpath)
 fpath=(${HOMEBREW_PREFIX}/share/zsh/site-functions $fpath)
 fpath=(${HOME}/.granted/zsh_autocomplete/assume/ $fpath)
@@ -67,8 +68,8 @@ set -o clobber
 
 # Dedup PATH
 export PATH=$(printf %s "$PATH" | awk -vRS=: '!a[$0]++' | paste -s -d: -)
-export PATH=$(brew --prefix)/bin:$PATH
-export PATH=$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH
+export PATH=${HOMEBREW_PREFIX}/bin:$PATH
+export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:$PATH
 
 export PATH="/usr/local/opt/openssl@3/bin:$PATH"
 export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"

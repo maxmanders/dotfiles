@@ -19,7 +19,7 @@ function check_bin() {
 ################################################################################
 # Check dependencies
 ################################################################################
-check_bin ag
+check_bin rg
 check_bin aws
 check_bin bkt
 check_bin column
@@ -152,20 +152,6 @@ function getlocalip() {
   if [[ "$(uname)" == 'Darwin' ]]; then
     networksetup -getinfo wi-fi | awk '/^IP address/'
   fi
-}
-
-################################################################################
-# ssh as root to an ec2 instance by ip
-# arguments:
-#   none
-# returns:
-#   none
-################################################################################
-function ssh_instance() {
-  address=$(aws ec2 describe-instances --instance-ids "${1}" | \
-  jq -r '.reservations[].instances[].networkinterfaces[].privateipaddress')
-
-  ssh "root@${address}"
 }
 
 ################################################################################
