@@ -88,6 +88,7 @@ _cdk_yargs_completions()
 }
 compdef _cdk_yargs_completions cdk
 compdef kubecolor=kubectl
+compdef -d git
 ###-end-cdk-completions-###
 source <(fzf --zsh)
 
