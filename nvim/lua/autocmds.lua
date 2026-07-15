@@ -1,5 +1,22 @@
 require "nvchad.autocmds"
 
+vim.api.nvim_create_autocmd("QuitPre", {
+  callback = function()
+    local wins = vim.api.nvim_list_wins()
+    local tree_wins, float_wins = 0, 0
+    for _, w in ipairs(wins) do
+      if vim.api.nvim_win_get_config(w).relative ~= "" then
+        float_wins = float_wins + 1
+      elseif vim.bo[vim.api.nvim_win_get_buf(w)].filetype == "NvimTree" then
+        tree_wins = tree_wins + 1
+      end
+    end
+    if #wins - float_wins - tree_wins == 1 then
+      vim.cmd "NvimTreeClose"
+    end
+  end,
+})
+
 vim.api.nvim_create_autocmd("VimEnter", {
   once = true,
   callback = function(data)
