@@ -1,3 +1,5 @@
+typeset -U path  # auto-deduplicate PATH entries
+
 source ${HOME}/.zplug/init.zsh
 
 zplug "mafredri/zsh-async", from:"github"
@@ -35,7 +37,7 @@ fi
 
 zplug load
 
-HOMEBREW_PREFIX="$(brew --prefix)"
+HOMEBREW_PREFIX=/opt/homebrew
 
 for file in ${HOME}/.zshrc.d/*.zshrc; do
   # shellcheck disable=SC1090
@@ -48,9 +50,9 @@ fpath=(${HOMEBREW_PREFIX}/share/zsh/site-functions $fpath)
 fpath=(${HOME}/.granted/zsh_autocomplete/assume/ $fpath)
 fpath=(${HOME}/.granted/zsh_autocomplete/granted/ $fpath)
 autoload -U bashcompinit && bashcompinit
-autoload -U compinit && compinit
+autoload -U compinit && compinit -C  # skip security audit — already run by zplug lib/compfix
 complete -C aws_completer aws
-complete -C $(which terragrunt) terragrunt
+complete -C "$(command -v terragrunt)" terragrunt
 source ${HOMEBREW_PREFIX}/Caskroom/gcloud-cli/latest/google-cloud-sdk/completion.zsh.inc
 source ${HOMEBREW_PREFIX}/opt/python-argcomplete/share/bash-completion/completions/python-argcomplete
 
@@ -66,9 +68,7 @@ setopt interactivecomments
 # Clobber files with I/O redirection
 set -o clobber
 
-# Dedup PATH
-export PATH=$(printf %s "$PATH" | awk -vRS=: '!a[$0]++' | paste -s -d: -)
-export PATH=${HOMEBREW_PREFIX}/bin:$PATH
+export PATH=${HOMEBREW_PREFIX}/bin:$PATH  # typeset -U path (top of file) handles dedup
 export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:$PATH
 
 export PATH="/usr/local/opt/openssl@3/bin:$PATH"
@@ -90,8 +90,6 @@ compdef _cdk_yargs_completions cdk
 compdef kubecolor=kubectl
 compdef -d git
 ###-end-cdk-completions-###
-source <(fzf --zsh)
-
 export PATH="$PATH:${HOME}/.local/bin"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
@@ -100,7 +98,22 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 # Generated for pdtm. Do not edit.
 export PATH=$PATH:/Users/max/.pdtm/go/bin
 
-eval "$(starship init zsh)"
-eval "$(atuin init zsh)"
-eval "$(zoxide init zsh)"
-eval "$(logcli --completion-script-zsh)"
+# Cache eval outputs — regenerates only when the binary itself changes.
+# Run `rm -rf ~/.cache/zsh` to force a full refresh.
+_zsh_eval_cache() {
+  local name=$1; shift
+  local cache="${HOME}/.cache/zsh/${name}.zsh"
+  local binary_path
+  binary_path=$(command -v "$1" 2>/dev/null)
+  if [[ ! -f "$cache" || ( -n "$binary_path" && "$binary_path" -nt "$cache" ) ]]; then
+    mkdir -p "${cache:h}"
+    "$@" > "$cache"
+  fi
+  [[ -f "$cache" ]] && source "$cache"
+}
+
+_zsh_eval_cache fzf     fzf --zsh
+_zsh_eval_cache starship starship init zsh
+_zsh_eval_cache atuin   atuin init zsh
+_zsh_eval_cache zoxide  zoxide init zsh
+_zsh_eval_cache logcli  logcli --completion-script-zsh
