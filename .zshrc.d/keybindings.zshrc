@@ -1,4 +1,4 @@
-#!/usr/local/bin/zsh
+#!/usr/bin/env zsh
 
 # Ctrl-X,e: Open the current command line in $EDITOR
 bindkey '^Xe' edit-command-line

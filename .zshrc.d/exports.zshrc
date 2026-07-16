@@ -1,43 +1,31 @@
-#!/usr/local/bin/zsh
+#!/usr/bin/env zsh
 
 export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
+export PATH="$PATH:${HOMEBREW_PREFIX}/bin"
+export PATH="$PATH:${HOMEBREW_PREFIX}/sbin"
 export PATH="$PATH:${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin"
 export PATH="$PATH:/bin"
-export PATH="$PATH:/opt/local/bin:/opt/local/sbin"
-export PATH="$PATH:/usr/local/sbin:/usr/local/bin"
-export PATH="$PATH:/usr/local/opt"
+export PATH="$PATH:/usr/local/bin"
 
-
-# export JAVA_HOME=$(/usr/libexec/java_home)
-export TERM="screen-256color"
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
+export AWS_PAGER=
 
 export EDITOR=nvim
-export GIT_EDITOR=nvim
 
 export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules --ignore venv --ignore .venv -g ""'
 
-export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
-export LESS=" -R "
+export GIT_EDITOR=nvim
 
-export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+LESSPIPE="$(command -v src-hilite-lesspipe.sh)"
+export LESSOPEN="| ${LESSPIPE} %s"
+export LESS=' -R -X -F '
+source ${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+export MANPATH="${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnuman:$MANPATH"
 
 export PIPX_PATH="${HOME}/.local/bin"
+
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/highlighters
 
 if hash gdircolors 2> /dev/null; then
   test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 fi
-
-# shellcheck source=/dev/null
-# [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
-
-export AWS_PAGER=
-
-
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/highlighters
-source ${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-LESSPIPE=`which src-hilite-lesspipe.sh`
-export LESSOPEN="| ${LESSPIPE} %s"
-export LESS=' -R -X -F '
