@@ -1,6 +1,7 @@
 tap "common-fate/granted"
 tap "fluxcd/tap"
 tap "guessi/tap"
+tap "home-operations/tap"
 tap "kdash-rs/kdash"
 tap "universal-ctags/universal-ctags"
 # C/C++ resolver library and DNS resolver utilities
@@ -89,6 +90,8 @@ brew "lzo"
 brew "pixman"
 # Vector graphics library with cross-device output support
 brew "cairo"
+# Manage your dotfiles across multiple diverse machines, securely
+brew "chezmoi"
 # Statistics utility to count lines of code
 brew "cloc"
 # Cross-platform make
@@ -545,12 +548,22 @@ brew "zoxide"
 brew "zsh"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
+# The easiest way to access your cloud.
+brew "common-fate/granted/granted", trusted: true
+# Flux CLI
+brew "fluxcd/tap/flux", trusted: true
+# Retrieve Amazon EKS AMI with filters
+brew "guessi/tap/eks-ami-finder", trusted: true
+# A fast and simple dashboard for Kubernetes written in Rust
+brew "kdash-rs/kdash/kdash", trusted: true
 # Command-line interface for 1Password
 cask "1password-cli"
 # Terminal-based AI coding assistant
 cask "claude-code"
 # Brings the power of Copilot coding agent directly to your terminal
 cask "copilot-cli"
+# Render and diff Flux GitOps repositories offline, without a cluster
+cask "home-operations/tap/flate", trusted: true
 cask "font-fira-code"
 cask "font-fira-code-nerd-font"
 cask "font-fira-mono"
