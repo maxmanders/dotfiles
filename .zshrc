@@ -48,6 +48,11 @@ zplug load
 # includes
 ###############################################################################
 HOMEBREW_PREFIX=/opt/homebrew
+
+if [[ "$(uname)" == "Linux" ]]; then
+  HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+fi
+
 for f in ${HOME}/.zshrc.d/*.zshrc; do
   # shellcheck disable=SC1090
   source "${f}"
