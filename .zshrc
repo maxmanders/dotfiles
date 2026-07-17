@@ -59,10 +59,15 @@ done
 # completions
 ###############################################################################
 fpath=(${HOME}/.zshrc.d/completions/ $fpath)
-fpath=(${HOME}/.granted/zsh_autocomplete/assume/ $fpath)
-fpath=(${HOME}/.granted/zsh_autocomplete/granted/ $fpath)
-
 fpath=(${HOMEBREW_PREFIX}/share/zsh/site-functions $fpath)
+
+if command -v assume >/dev/null 2>&1; then
+  fpath=(${HOME}/.granted/zsh_autocomplete/assume/ $fpath)
+fi
+
+if command -v granted >/dev/null 2>&1; then
+  fpath=(${HOME}/.granted/zsh_autocomplete/granted/ $fpath)
+fi
 
 source ${HOMEBREW_PREFIX}/Caskroom/gcloud-cli/latest/google-cloud-sdk/completion.zsh.inc
 source ${HOMEBREW_PREFIX}/opt/python-argcomplete/share/bash-completion/completions/python-argcomplete
@@ -71,7 +76,7 @@ autoload -U bashcompinit && bashcompinit
 autoload -U compinit && compinit -C  # skip security audit — already run by zplug lib/compfix
 
 complete -C aws_completer aws
-complete -C "$(command -v terragrunt)" terragrunt
+complete -C terragrunt terragrunt
 
 compdef kubecolor=kubectl
 compdef -d git
@@ -109,3 +114,4 @@ _zsh_eval_cache starship starship init zsh
 _zsh_eval_cache atuin   atuin init zsh
 _zsh_eval_cache zoxide  zoxide init zsh
 _zsh_eval_cache logcli  logcli --completion-script-zsh
+
