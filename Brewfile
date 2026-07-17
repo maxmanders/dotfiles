@@ -163,8 +163,6 @@ brew "harfbuzz"
 brew "icu4c@77"
 # TIFF library and utilities
 brew "libtiff"
-# Image format providing lossless and lossy compression for web images
-brew "webp"
 # Generic library support script
 brew "libtool"
 # Command-line outline and bitmap font editor/converter
