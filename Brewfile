@@ -3,6 +3,7 @@ tap "fluxcd/tap"
 tap "guessi/tap"
 tap "home-operations/tap"
 tap "kdash-rs/kdash"
+tap "terraform-linters/tap"
 tap "universal-ctags/universal-ctags"
 # C/C++ resolver library and DNS resolver utilities
 brew "adns"
@@ -44,8 +45,6 @@ brew "autoconf"
 brew "automake"
 # Official Amazon AWS command-line interface
 brew "awscli"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.13"
 # Microsoft Azure CLI 2.0
 brew "azure-cli"
 # C string library for manipulating Unicode strings
@@ -78,6 +77,8 @@ brew "c-ares"
 brew "libpng"
 # Software library to render fonts
 brew "freetype"
+# JSON parser for C
+brew "json-c"
 # XML-based font configuration API for X Windows
 brew "fontconfig"
 # Perl compatible regular expressions library with a new API
@@ -162,6 +163,8 @@ brew "harfbuzz"
 brew "icu4c@77"
 # TIFF library and utilities
 brew "libtiff"
+# Image format providing lossless and lossy compression for web images
+brew "webp"
 # Generic library support script
 brew "libtool"
 # Command-line outline and bitmap font editor/converter
@@ -176,8 +179,6 @@ brew "mpfr"
 brew "gawk"
 # Color management engine supporting ICC profiles
 brew "little-cms2"
-# Image format providing lossless and lossy compression for web images
-brew "webp"
 # Graphics library to dynamically manipulate images
 brew "gd"
 # GNU database manager
@@ -288,8 +289,6 @@ brew "jless"
 brew "jpeg"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
-# JSON parser for C
-brew "json-c"
 # Multi-platform support library with a focus on asynchronous I/O
 brew "libuv"
 # Portable Foreign Function Interface library
@@ -378,6 +377,8 @@ brew "media-info"
 brew "memcached"
 # CLI for Mermaid library
 brew "mermaid-cli"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.13"
 # Cross platform, open source .NET development framework
 brew "mono"
 # Protocol buffers (Google's data interchange format)
@@ -571,6 +572,8 @@ cask "font-fira-mono"
 cask "gcloud-cli"
 # Command-line shell and scripting language
 cask "powershell"
+# Pluggable Terraform linter
+cask "terraform-linters/tap/tflint", trusted: true
 krew "cert-manager"
 krew "cnpg"
 krew "explore"
