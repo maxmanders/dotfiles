@@ -1,41 +1,5 @@
 #!/usr/local/bin/zsh
 
-################################################################################
-# Check if a binary exists, and report an error if it can't be found
-# term.
-# Arguments:
-#   $1: a binary to check for
-# Returns:
-#   None
-################################################################################
-function check_bin() {
-  bin="${1}"
-
-  # shellcheck disable=SC2154
-  command -v "${bin}" >/dev/null 2>&1 || \
-    print -P "%{${FG[196]}%}'${bin}' not installed%{${reset_color}%}"
-}
-
-################################################################################
-# Check dependencies
-################################################################################
-check_bin rg
-check_bin aws
-check_bin bkt
-check_bin column
-check_bin curl
-check_bin dig
-check_bin git
-check_bin jq
-check_bin mktemp
-check_bin paste
-check_bin python
-check_bin sed
-check_bin tmux
-check_bin tree
-check_bin wget
-
-
 mkd() {
   mkdir -p "$@"
   cd "$@" || exit

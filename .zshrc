@@ -1,5 +1,10 @@
-typeset -U path  # auto-deduplicate PATH entries
+# Deduplicate PATH entries
+typeset -U path
 
+
+###############################################################################
+# zplug
+###############################################################################
 source ${HOME}/.zplug/init.zsh
 
 zplug "mafredri/zsh-async", from:"github"
@@ -17,6 +22,7 @@ zplug "plugins/pipenv", from:"oh-my-zsh"
 zplug "plugins/ssh-agent", from:"oh-my-zsh"
 zplug "plugins/terraform", from:"oh-my-zsh"
 zplug "plugins/vagrant", from:"oh-my-zsh"
+
 zplug "zsh-users/zsh-completions", from:"github"
 
 zplug "lib/clipboard", from:"oh-my-zsh"
@@ -34,27 +40,43 @@ if ! zplug check; then
         echo; zplug install
     fi
 fi
-
 zplug load
+###############################################################################
 
+
+###############################################################################
+# includes
+###############################################################################
 HOMEBREW_PREFIX=/opt/homebrew
-
-for file in ${HOME}/.zshrc.d/*.zshrc; do
+for f in ${HOME}/.zshrc.d/*.zshrc; do
   # shellcheck disable=SC1090
-  source "${file}"
+  source "${f}"
 done
+###############################################################################
 
-# shellcheck source=/dev/null
+
+###############################################################################
+# completions
+###############################################################################
 fpath=(${HOME}/.zshrc.d/completions/ $fpath)
-fpath=(${HOMEBREW_PREFIX}/share/zsh/site-functions $fpath)
 fpath=(${HOME}/.granted/zsh_autocomplete/assume/ $fpath)
 fpath=(${HOME}/.granted/zsh_autocomplete/granted/ $fpath)
-autoload -U bashcompinit && bashcompinit
-autoload -U compinit && compinit -C  # skip security audit — already run by zplug lib/compfix
-complete -C aws_completer aws
-complete -C "$(command -v terragrunt)" terragrunt
+
+fpath=(${HOMEBREW_PREFIX}/share/zsh/site-functions $fpath)
+
 source ${HOMEBREW_PREFIX}/Caskroom/gcloud-cli/latest/google-cloud-sdk/completion.zsh.inc
 source ${HOMEBREW_PREFIX}/opt/python-argcomplete/share/bash-completion/completions/python-argcomplete
+
+autoload -U bashcompinit && bashcompinit
+autoload -U compinit && compinit -C  # skip security audit — already run by zplug lib/compfix
+
+complete -C aws_completer aws
+complete -C "$(command -v terragrunt)" terragrunt
+
+compdef kubecolor=kubectl
+compdef -d git
+###############################################################################
+
 
 # Nicer directory navigation
 setopt autocd autopushd pushdignoredups
@@ -67,36 +89,6 @@ setopt interactivecomments
 
 # Clobber files with I/O redirection
 set -o clobber
-
-export PATH=${HOMEBREW_PREFIX}/bin:$PATH  # typeset -U path (top of file) handles dedup
-export PATH=${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:$PATH
-
-export PATH="/usr/local/opt/openssl@3/bin:$PATH"
-export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
-
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-
-###-begin-cdk-completions-###
-_cdk_yargs_completions()
-{
-  local reply
-  local si=$IFS
-  IFS=$'
-' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" cdk --get-yargs-completions "${words[@]}"))
-  IFS=$si
-  _describe 'values' reply
-}
-compdef _cdk_yargs_completions cdk
-compdef kubecolor=kubectl
-compdef -d git
-###-end-cdk-completions-###
-export PATH="$PATH:${HOME}/.local/bin"
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
-. "$HOME/.local/bin/env"
-
-# Generated for pdtm. Do not edit.
-export PATH=$PATH:/Users/max/.pdtm/go/bin
 
 # Cache eval outputs — regenerates only when the binary itself changes.
 # Run `rm -rf ~/.cache/zsh` to force a full refresh.
